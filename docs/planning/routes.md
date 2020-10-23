@@ -15,6 +15,8 @@
 
 ## Members profile page: '/members/:id'(react)
 
+Could do a modal for rendering
+
 - edit hcbc status
 - edit login credentials
 - edit firt name/last name

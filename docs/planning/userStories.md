@@ -1,15 +1,17 @@
 # User Stories / requirements
 
-As a member of the public, I am welcomed on a page with a redirection to the main VTRA website or login.
-
 ### APP FEATURES
 
-- Admin & rider authentication/authorization
+- Admin & rider authentication/authorization _stretch_
 - Schedule for viewing and booking rides/lessons
 - Weather integration
 - Chat integration
 - Payment integration
 - User management
+
+### AS A MEMBER OF THE PUBLIC
+
+- I am welcomed on a page with a redirection to the main VTRA website or login.
 
 ### AS A MEMBER OF THE EXERCISE RIDERS TEAM:
 
@@ -48,3 +50,27 @@ As a member of the public, I am welcomed on a page with a redirection to the mai
 ## PROJECT MILESTONES
 
 What are the project milestones: you need to create a list of the project milestones and specify what are the deadlines.
+
+- By end of first Monday: OCT 26
+
+  - wireframe/planning
+  - routes and base backend setup
+  - confirm api choice/use
+  - validating front end libraries/ framework?
+
+- BUILD THE APP: OCT 26
+
+  - step 1: ??
+  - step 2: ??
+  - step 3: finish
+
+- By end of second Monday: NOV 2
+
+  - wrap up coding
+  - testing
+  - css/bug fixes
+
+- DRYRUN PRESENTATION: WEDNESDAY NOV 4
+
+- DEMO DAY: NOV 5
+  - NO CODING ON DEMO DAY
