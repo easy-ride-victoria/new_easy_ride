@@ -15,7 +15,7 @@ Coding styles: consider establishing some coding guidelines to ensure consistenc
 
 - will be enforced by linters
   - eslint for JS code & rubocop for ruby
-  - prettier for formatting
+  - prettier for formatting & ?? for ruby
 
 #### TO DISCUSS
 
