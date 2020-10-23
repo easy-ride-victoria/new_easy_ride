@@ -44,3 +44,6 @@ As a member of the public, I am welcomed on a page with a redirection to the mai
 - I can process riders requests, including cancellations.
 - I can add/edit/remove horses from the list :’(
 - Mark a horse as unavailable if injured or other reasons??
+
+## PROJECT MILESTONES
+What are the project milestones: you need to create a list of the project milestones and specify what are the deadlines.
