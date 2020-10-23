@@ -11,7 +11,7 @@ As a member of the public, I am welcomed on a page with a redirection to the mai
 - Payment integration
 - User management
 
-## As a member of the Exercise Rider team:
+### AS A MEMBER OF THE EXERCISE RIDERS TEAM:
 
 - I can click on an invitation link I have received in order to sign up
 - When I sign up I will provide a name, address, password, HCBC number & confirm up to date. (Maybe more?).
@@ -29,10 +29,10 @@ As a member of the public, I am welcomed on a page with a redirection to the mai
 - If I want to cancel my lesson/ride, I send a notification to the admin who will process the cancellation.
 - I can confirm every year to having up to date insurance.
 
-### As an admin:
+### AS AN ADMIN:
 
 - I can log-in as an admin.
-- I can see the list of users (riders and admin).
+- I can see the list of users (riders and admin)
 - I can change the role of any user.
 - I can deactivate/reactivate any user.
 - I can send an invitation to a user to sign up using their email address and select which role(s) they would have.
@@ -44,3 +44,7 @@ As a member of the public, I am welcomed on a page with a redirection to the mai
 - I can process riders requests, including cancellations.
 - I can add/edit/remove horses from the list :’(
 - Mark a horse as unavailable if injured or other reasons??
+
+## PROJECT MILESTONES
+
+What are the project milestones: you need to create a list of the project milestones and specify what are the deadlines.
