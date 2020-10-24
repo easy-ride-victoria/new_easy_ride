@@ -2,6 +2,9 @@
 
 ## Project Workflow
 
+- Organize user stories from most important features to least important
+- Calendar -> 
+
 ### Git Workflow
 
 Git workflow: establish rules about how you’re going to manage your Git workflow. You can discuss it with a mentor if needed.
@@ -15,7 +18,7 @@ Coding styles: consider establishing some coding guidelines to ensure consistenc
 
 - will be enforced by linters
   - eslint for JS code & rubocop for ruby
-  - prettier for formatting & ?? for ruby
+  - prettier for formatting & rubocop for ruby
 
 #### TO DISCUSS
 

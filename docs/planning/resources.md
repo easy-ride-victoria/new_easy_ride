@@ -1,21 +1,14 @@
 # RESOURCES
 
-## USER AUTHORIZATION / PERMISSIONS
+## REACT COMPONENENT LIBRARY
 
-- https://github.com/CanCanCommunity/cancancan
-- https://github.com/heartcombo/devise
+### Material ui
 
-#### Using both Devise and cancancan:
-
-- https://hibbard.eu/authentication-with-devise-and-cancancan-in-rails/
+- https://material-ui.com/
 
 ## CALENDAR
 
 - https://www.npmjs.com/package/react-big-calendar
-
-## WEATHER
-
-- https://openweathermap.org/api
 
 ## PAYMENT
 
@@ -27,7 +20,26 @@
 
 - https://developer.squareup.com/blog/online-payments-form-react/
 
+## USER AUTHORIZATION / PERMISSIONS
+
+### _STRETCH_
+
+- https://github.com/CanCanCommunity/cancancan
+- https://github.com/heartcombo/devise
+
+#### Using both Devise and cancancan:
+
+- https://hibbard.eu/authentication-with-devise-and-cancancan-in-rails/
+
+## WEATHER
+
+### _STRETCH_
+
+- https://openweathermap.org/api
+
 ## CHAT
+
+### _STRETCH_
 
 ### Twilio
 

@@ -5,9 +5,14 @@
 - Admin & rider authentication/authorization _stretch_
 - Schedule for viewing and booking rides/lessons
 - Weather integration
-- Chat integration
+- Chat integration _stretch_
 - Payment integration
 - User management
+
+### Priority user stories
+
+- I am welcomed on a page with a redirection to the main VTRA website or login.
+-
 
 ### AS A MEMBER OF THE PUBLIC
 
@@ -57,6 +62,7 @@ What are the project milestones: you need to create a list of the project milest
   - routes and base backend setup
   - confirm api choice/use
   - validating front end libraries/ framework?
+  - reorder user stories
 
 - BUILD THE APP: OCT 26
 
