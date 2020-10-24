@@ -25,6 +25,8 @@ Could do a modal for rendering
 
 ## Admin page: '/admin' (React)
 
+### 'api/lessons' (rails)
+
 - calendar with edit, add, and delete functionality
 - create new lesson form
 - create new report form
