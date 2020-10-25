@@ -32,6 +32,7 @@ gem 'sassc-rails', '>= 2.1.0'
 gem "font-awesome-sass"
 gem "simple_form"
 gem "autoprefixer-rails"
+gem "mini_racer"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
