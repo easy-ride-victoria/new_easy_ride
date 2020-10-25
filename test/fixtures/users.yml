@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  password_digest: MyString
+  hcbc_number: MyString
+  hcbc_number_valid_until: 2020-10-25
+  is_admin: false
+  active: false
+
+two:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  password_digest: MyString
+  hcbc_number: MyString
+  hcbc_number_valid_until: 2020-10-25
+  is_admin: false
+  active: false
