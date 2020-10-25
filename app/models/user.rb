@@ -7,4 +7,6 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, length: { minimum: 8 }
   validates :is_admin, default: false
 
+  belongs_to :rides
+
 end

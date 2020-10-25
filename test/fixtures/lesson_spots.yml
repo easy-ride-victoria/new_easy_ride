@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lesson_payment_id: MyString
+  payment_type: MyString
+  price_CAD: 1.5
+  cancellation_requested_at: 2020-10-25 12:50:32
+
+two:
+  lesson_payment_id: MyString
+  payment_type: MyString
+  price_CAD: 1.5
+  cancellation_requested_at: 2020-10-25 12:50:32
