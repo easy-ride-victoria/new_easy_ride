@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_203924) do
+ActiveRecord::Schema.define(version: 2020_10_25_204526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_203924) do
     t.datetime "cancellation_requested_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "booking_id"
   end
 
   create_table "rides", force: :cascade do |t|
@@ -64,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_203924) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "lesson_spots", "bookings"
   add_foreign_key "rides", "bookings"
   add_foreign_key "rides", "horses"
   add_foreign_key "rides", "users"
