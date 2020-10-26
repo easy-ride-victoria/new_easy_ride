@@ -10,7 +10,7 @@ module Api
 
       def show
         booking = Booking.find_by(id: params[:id])
-        ender json: BookingSerializer.new(booking, options).serializable_hash.to_json
+        render json: BookingSerializer.new(booking, options).serializable_hash.to_json
       end
 
       def create
@@ -18,7 +18,7 @@ module Api
         if booking.save
           render json: BookingSerializer.new(booking).serializable_hash.to_json
         else
-          render json: {error: airline.errors.messages}, status: 422
+          render json: {error: booking.errors.messages}, status: 422
         end
       end
 
@@ -27,7 +27,7 @@ module Api
         if booking.update(booking_params)
           render json: BookingSerializer.new(booking, options).serializable_hash.to_json
         else
-          render json: {error: airline.errors.messages}, status: 422
+          render json: {error: booking.errors.messages}, status: 422
         end
       end
 
@@ -36,7 +36,7 @@ module Api
         if booking.destroy
           head :no_content
         else
-          render json: {error: airline.errors.messages}, status: 422
+          render json: {error: booking.errors.messages}, status: 422
         end
       end
 
