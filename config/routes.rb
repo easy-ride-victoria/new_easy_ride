@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   get '/calendar', to: "pages#calendar"
   root to: 'pages#home'
   get '/test', to: "pages#test"
+
+  namespace :api do
+    namespace :v1 do
+      resources :bookings
+      resources :rides
+    end
+  end
   
 
 end
