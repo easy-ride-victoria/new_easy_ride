@@ -1,7 +1,7 @@
 module Api
   module V1
     class RidesController < ApplicationController
-    
+      protect_from_forgery with: :null_session
       def index
         rides = Ride.all
 
