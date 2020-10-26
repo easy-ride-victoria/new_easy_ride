@@ -1,18 +1,18 @@
 Prefix Verb   URI Pattern                                                                              Controller#Action
-pages_calendar GET    /pages/calendar(:format)  pages#calendar
-calendar GET    /calendar(.:format)  pages#calendar
-root GET  / pages#home
-test GET    /test(.:format) pages#test
-new_users GET    /users/new(.:format)  users#new
-edit_users GET    /users/edit(.:format) users#edit
-users   GET    /users(.:format)           users#show
-        PATCH  /users(.:format)           users#update
-        PUT    /users(.:format)           users#update
-      DELETE /users(.:format)           users#destroy
-      POST   /users(.:format)           users#create
-horses GET /horses(.:format)                                                         horses#index
-   horse GET  :format)                                                     horses#show
-bookings GET:format)                                                       bookings#index
+pages_calendar  GET    /pages/calendar(:format)   pages#calendar
+calendar        GET    /calendar(.:format)        pages#calendar
+root            GET    /                          pages#home
+test            GET    /test(.:format)            pages#test
+new_users       GET    /users/new(.:format)       users#new
+edit_users      GET    /users/edit(.:format)      users#edit
+users           GET    /users(.:format)           users#show
+                PATCH  /users(.:format)           users#update
+                PUT    /users(.:format)           users#update
+                DELETE /users(.:format)           users#destroy
+                POST   /users(.:format)           users#create
+horses          GET    /horses(.:format)          horses#index
+horse           GET    /horses(.:format)          horses#show
+bookings GET:format)                              bookings#index
                                       POST   /bookings(.:format)                                                                      bookings#create
                           new_booking GET    /bookings/new(.:format)                                                                  bookings#new
                          edit_booking GET    /bookings/:id/edit(.:format)                                                             bookings#edit
