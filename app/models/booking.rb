@@ -1,4 +1,9 @@
 class Booking < ApplicationRecord
-  belongs_to :rides
-  has_many :lesson_spots
+  has_many :rides
+
+  # before_create :timefy
+  # def timefy
+  #   self.start_time = Time.parse(start_time)
+  # end
+
 end

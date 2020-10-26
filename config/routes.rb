@@ -6,10 +6,5 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get '/test', to: "pages#test"
   
-  resource :users
-  resources :horses, only: [:index, :show]
-  resources :bookings
-  resources :rides
-  resources :lesson_spots, only: [:index, :show]
 
 end
