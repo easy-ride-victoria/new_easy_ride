@@ -4,6 +4,7 @@ import { Router } from 'react-router-dom'
 import axios from "axios";
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
+import  MenuAppBar from '../Layout/NavBar'
 import "react-big-calendar/lib/css/react-big-calendar.css";
 // import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop"
 
@@ -46,6 +47,7 @@ const MyCalendar = () => {
 
     return (
       <div>
+        <MenuAppBar/>
         <Calendar
         // selectable
           localizer={localizer}
