@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from "react";
 import { Modal, TextField, makeStyles, Button } from '@material-ui/core';
-import Calendar from './Calendar';
 
 /* eslint-disable */ 
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +52,6 @@ const ModalBox = (props) => {
   )
   return (
     <div>
-      <Button className={styles.button} onClick={()=>openCloseModal()}>Open Modal</Button>
       <Modal
         open={modal}
         onClose={openCloseModal} >

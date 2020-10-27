@@ -1,14 +1,11 @@
 import React from 'react';
 import { useState , useEffect } from "react";
-import { Router } from 'react-router-dom';
 import axios from "axios";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import ModalBox from './Modal';
-// import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop"
 
-// const DnDCalendar = withDragAndDrop(Calendar);
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
@@ -24,29 +21,16 @@ const updatedEv = (appointments) => {
   }));
   return newArr;
 };
-
-
-// const handleSelectSlot = (response) => {
-//   console.log("called");
-//   console.log("called::", response.start);
-//   console.log("called::", response.end);
-//   const start = response.start;
-//   const end = response.end;
-//   return (
-//     <ModalBox/>
-//   );
-// };
     
 const MyCalendar = () => {
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
   
-  const openCloseModal = () => {
-    setModal(!modal);
-  };
-  const handleSelectSlot = ({start,end,resourceId}) => {
+  // const openCloseModal = () => {
+  //   setModal(!modal);
+  // };
+  const handleSelectSlot = ({start,end, resourceId}) => {
     // const title = window.prompt("new event");
-    // return ModalBox;
     console.log("called::", start);
     console.log("called::", end);
     setModal(true);
