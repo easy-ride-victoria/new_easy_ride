@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   # get '/calendar', to: "pages#calendar"
   root to: 'pages#index'
   # get '/test', to: "pages#test"
-  get '*path', to: 'pages#index', via: :all
-
+  
   namespace :api do
     namespace :v1 do
       resources :bookings
@@ -14,5 +13,6 @@ Rails.application.routes.draw do
     end
   end
   
+  get '*path', to: 'pages#index', via: :all
 
 end
