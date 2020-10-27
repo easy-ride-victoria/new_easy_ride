@@ -5,14 +5,16 @@ Rails.application.routes.draw do
   # get '/calendar', to: "pages#calendar"
   root to: 'pages#index'
   # get '/test', to: "pages#test"
-  get '*path', to: 'pages#index', via: :all
-
+  
   namespace :api do
     namespace :v1 do
       resources :bookings
       resources :rides
+      resources :users
     end
   end
-  
+  # get path needs to be below the api to only render the index page 
+  # when the route is not part of the api
+  get '*path', to: 'pages#index', via: :all
 
 end
