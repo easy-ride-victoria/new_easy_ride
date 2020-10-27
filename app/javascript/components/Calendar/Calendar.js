@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
+import axios from 'axios'
 import format from 'date-fns/format'
 import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek'
@@ -20,6 +21,9 @@ const localizer = dateFnsLocalizer({
   locales,
 })
 
+
+
+
 const myEventsList= [
   {
     'title': 'Event 1',
@@ -33,6 +37,21 @@ const myEventsList= [
   }];
 
 const MyCalendar = () => {
+  
+  // Adding logic to retrieve data from api
+  const [bookings, setBookings] = useState([])
+  useEffect( ()=>{
+    axios.get('http://localhost:3000/api/v1/bookings')
+    .then(response => {
+      console.log(response.data)
+      setBookings(response.data.data)
+    })
+    .catch(response => (console.log(response)))
+  },[bookings.length])
+  
+  
+
+
   return (
     <div>
       <Calendar
