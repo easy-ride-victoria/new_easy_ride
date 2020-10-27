@@ -48,6 +48,17 @@ const MyCalendar = () => {
     })
     .catch(response => (console.log(response)))
   },[bookings.length])
+
+  const getEvents =() => {
+    eventList = {}
+    for (e in eventList){
+      for (booking of bookings) {
+        e.title = booking[event_type]
+        e.startDate = booking[start_date]
+        e.endDate = booking[end_date]
+      }
+    return eventList
+  }
   
   
 
