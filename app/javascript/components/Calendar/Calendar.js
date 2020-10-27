@@ -39,7 +39,7 @@ const updatedEv = (appointments) => {
 }
 
 const MyCalendar = () => {
-  const [events, setEvents] = useState(myEventsList)
+  const [events, setEvents] = useState([])
   // console.log(events)
 
 useEffect(() => {
@@ -52,7 +52,7 @@ useEffect(() => {
     // let y = x.reduce((ac, cu) => (ac, cu))
     // console.log("yyyy:", y)
     setEvents(prev => ([...prev, ...x]))
-  })}, [myEventsList])
+  })}, [])
   console.log(events)
 
   return (
