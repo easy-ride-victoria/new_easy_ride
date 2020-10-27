@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-
   return (
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
