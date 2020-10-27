@@ -5,6 +5,7 @@ import axios from "axios";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import ModalBox from './Modal';
 // import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop"
 
 // const DnDCalendar = withDragAndDrop(Calendar);
@@ -27,6 +28,14 @@ const updatedEv = (appointments) => {
 // const handleSelectSlot = ({start,end,resourceId}) => {
 //   const title = window.prompt('New Event name')
 // }
+const handleSelectSlot = (response) => {
+  console.log("called");
+  console.log("called::", response.start);
+  console.log("called::", response.end);
+  const start = response.start;
+  const end = response.end;
+  <ModalBox/>;
+};
 
 const MyCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -46,8 +55,10 @@ const MyCalendar = () => {
 
   return (
     <div>
+      <ModalBox/>
+      
       <Calendar
-      // selectable
+        selectable
         localizer={localizer}
         events={events}
         startAccessor='start'
@@ -55,7 +66,7 @@ const MyCalendar = () => {
         defaultView='week'
         views={['week']}
         // style={{ height: 500 }}
-        // onSelectSlot={ handleSelectSlot }
+        onSelectSlot={ handleSelectSlot }
       />
     </div>
   );
