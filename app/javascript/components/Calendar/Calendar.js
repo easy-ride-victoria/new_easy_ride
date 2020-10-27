@@ -25,29 +25,41 @@ const updatedEv = (appointments) => {
   return newArr;
 };
 
-// const handleSelectSlot = ({start,end,resourceId}) => {
-//   const title = window.prompt('New Event name')
-// }
-const handleSelectSlot = (response) => {
-  console.log("called");
-  console.log("called::", response.start);
-  console.log("called::", response.end);
-  const start = response.start;
-  const end = response.end;
-  <ModalBox/>;
-};
 
+// const handleSelectSlot = (response) => {
+//   console.log("called");
+//   console.log("called::", response.start);
+//   console.log("called::", response.end);
+//   const start = response.start;
+//   const end = response.end;
+//   return (
+//     <ModalBox/>
+//   );
+// };
+    
 const MyCalendar = () => {
   const [events, setEvents] = useState([]);
+  const [modal, setModal] = useState(false);
+  
+  const openCloseModal = () => {
+    setModal(!modal);
+  };
+  const handleSelectSlot = ({start,end,resourceId}) => {
+    // const title = window.prompt("new event");
+    // return ModalBox;
+    console.log("called::", start);
+    console.log("called::", end);
+    setModal(true);
+  };
 
   useEffect(() => {
     const URLbookings = "http://localhost:3000/api/v1/bookings";
     axios.get(URLbookings)
       .then((response) => {
         let bookingAppointments = response.data.data;
-        console.log("bookingAppointments:", bookingAppointments);
+        // console.log("bookingAppointments:", bookingAppointments);
         let formattedBookings = updatedEv(bookingAppointments);
-        console.log("formattedBookings:", formattedBookings);
+        // console.log("formattedBookings:", formattedBookings);
         setEvents(prev => ([...prev, ...formattedBookings]));
       });
   }, []);
@@ -55,8 +67,11 @@ const MyCalendar = () => {
 
   return (
     <div>
-      <ModalBox/>
-      
+      <ModalBox
+        modal={modal}
+        setModal={setModal}
+      />
+
       <Calendar
         selectable
         localizer={localizer}

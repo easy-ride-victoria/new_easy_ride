@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const ModalBox = () => {
+const ModalBox = (props) => {
   const styles = useStyles();
-
-  const [modal, setModal] = useState(false);
+  const { modal, setModal } = props;
+  // const [modal, setModal] = useState(false);
 
   const openCloseModal = () => {
     setModal(!modal);
