@@ -45,21 +45,46 @@ horses = Horse.create ([
   },
 ])
 
+users = User.create ([
+  {
+    first_name: "Audrey",
+    last_name: "Cooper",
+    email: "1@1.ca",
+    hcbc_number: "12",
+    hcbc_number_valid_until: Date.new(2020, 12, 31),
+    is_admin: true,
+  },
+  {
+    first_name: "Iyris",
+    last_name: "Vigil",
+    email: "2@2.ca",
+    hcbc_number: "123",
+    hcbc_number_valid_until: Date.new(2020, 12, 31),
+  },  
+  {
+    first_name: "Nicole",
+    last_name: "Woodcock",
+    email: "3@3.ca",
+    hcbc_number: "1234",
+    hcbc_number_valid_until: Date.new(2020, 12, 31),
+  },
+])
+
 rides = Ride.create ([
   {
-    user: "Audrey",
+    user: users.first,
     horse: horses.first,
     location: "indoor",
     booking: bookings.first
   },
   {
-    user: "Iyris",
+    user: users[1],
     horse: horses[1],
     location: "indoor",
     booking: bookings[1]
   },
   {
-    user: "Nicole",
+    user: users.last,
     horse: horses.last,
     location: "indoor",
     booking: bookings.last
