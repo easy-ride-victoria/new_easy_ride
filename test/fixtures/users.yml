@@ -6,7 +6,7 @@ one:
   email: MyString
   password_digest: MyString
   hcbc_number: MyString
-  hcbc_number_valid_until: 2020-10-25
+  hcbc_number_valid_until: 2020-10-26
   is_admin: false
   active: false
 
@@ -16,6 +16,6 @@ two:
   email: MyString
   password_digest: MyString
   hcbc_number: MyString
-  hcbc_number_valid_until: 2020-10-25
+  hcbc_number_valid_until: 2020-10-26
   is_admin: false
   active: false
