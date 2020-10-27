@@ -3,13 +3,13 @@
 one:
   name: MyString
   breed: MyString
-  date_of_birth: 2020-10-25
-  profile_picture: MyString
+  date_of_brith: 2020-10-26
+  profile_picture: MyText
   active: false
 
 two:
   name: MyString
   breed: MyString
-  date_of_birth: 2020-10-25
-  profile_picture: MyString
+  date_of_brith: 2020-10-26
+  profile_picture: MyText
   active: false
