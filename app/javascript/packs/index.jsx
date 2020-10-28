@@ -50,7 +50,15 @@ const theme = createMuiTheme({
     button: {
       fontSize: "1.5rem"
     }
-  }
+  },
+  overrides: {
+    MuiSvgIcon: {
+      root: {
+          width: "3em",
+          height: "3em",
+      },
+  },
+  },
 });
 
 document.addEventListener('DOMContentLoaded', () => {
