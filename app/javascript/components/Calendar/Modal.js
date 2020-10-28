@@ -1,7 +1,10 @@
 import React from 'react';
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Modal, TextField, makeStyles, Button, Select, FormControl, MenuItem, InputLabel } from '@material-ui/core';
 import { StyleSharp } from '@material-ui/icons';
+import { parseJSON } from 'date-fns';
+import axios from 'axios';
 
 /* eslint-disable */ 
 const useStyles = makeStyles((theme) => ({
@@ -50,11 +53,24 @@ const ModalBox = (props) => {
   // on send button click
   const handleSubmit = () => {
     openCloseModal();
-    console.log(horse)
-    console.log(bookingType)
-    console.log(email)
     
+
+    props.doBooking(horse, email, bookingType)
+    
+    
+    
+    
+    
+    // console.log(horse)
+    // console.log(bookingType)
+    // console.log(email)
+    const info = {horse, email, eventType: bookingType}
+    console.log(JSON.stringify(info))
+    axios.post('http://localhost:3000/api/v1/rides', info)
+    .then (response => console.log(response))
+    .catch(error => console.log(error))
   };
+
 
   // selecting the horse
   const handleChangeHorse = (event) => {

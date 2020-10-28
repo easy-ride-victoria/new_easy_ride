@@ -28,6 +28,7 @@ const MyCalendar = (props) => {
   const { currentUser, setCurrentUser } = props;
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
+  const [stupid, setStupid] = useState(1)
 
   // const openCloseModal = () => {
   //   setModal(!modal);
@@ -48,13 +49,33 @@ const MyCalendar = (props) => {
       // console.log("formattedBookings:", formattedBookings);
       setEvents((prev) => [...prev, ...formattedBookings]);
     });
-  }, []);
+  }, [stupid]);
   console.log("events rendered:", events);
+
+  const addEvetntoEvents= () => {
+
+  }
+
+  const doBooking = (horse, email, bookingType) => {
+    const info = {horse, email, eventType: bookingType}
+    console.log(JSON.stringify(info))
+    axios.post('http://localhost:3000/api/v1/rides', info)
+    .then (response => {
+      setStupid (stupid + 1);
+      console.log(response)
+    })
+    .catch(error => console.log(error))
+  };
+
+ 
+  
+
+
 
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <ModalBox modal={modal} setModal={setModal} />
+      <ModalBox  modal={modal} setModal={setModal} doBooking={doBooking} />
       <Calendar
         selectable
         localizer={localizer}
