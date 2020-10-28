@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -30,8 +30,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const classes = useStyles();
+
+  const handleSubmit = function (event) {
+    event.preventDefault();
+    if (email === "1@1.ca") {
+      props.setCurrentUser({
+        id: "1",
+        type: "user",
+        attributes: {
+          first_name: "Audrey",
+          last_name: "Cooper",
+          hcbc_number: "12",
+          hcbc_number_valid_until: "2020-12-31",
+          is_admin: true,
+          active: true,
+          email: "1@1.ca",
+        },
+        relationships: { rides: { data: [{ id: "1", type: "ride" }] } },
+      });
+    } else {
+      props.setCurrentUser({
+        id: "2",
+        type: "user",
+        attributes: {
+          first_name: "Iyris",
+          last_name: "Vigil",
+          hcbc_number: "123",
+          hcbc_number_valid_until: "2020-12-31",
+          is_admin: false,
+          active: true,
+          email: "2@2.ca",
+        },
+        relationships: { rides: { data: [{ id: "2", type: "ride" }] } },
+      });
+    }
+  };
+
   return (
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
@@ -40,8 +78,12 @@ export default function SignIn() {
       <Typography component="h2" variant="h5">
         Sign in
       </Typography>
-      <form className={classes.form} noValidate>
+      <form className={classes.form} onSubmit={handleSubmit} noValidate>
         <TextField
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
           variant="outlined"
           margin="normal"
           required
@@ -53,6 +95,10 @@ export default function SignIn() {
           autoFocus
         />
         <TextField
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
           variant="outlined"
           margin="normal"
           required
