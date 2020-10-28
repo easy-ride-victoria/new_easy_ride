@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function Home(props) {
   const classes = useStyles();
   return (
     <Grid container component="main" className={classes.root}>
@@ -39,7 +39,7 @@ export default function Home() {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <SignIn />
+          <SignIn setCurrentUser={props.setCurrentUser} />
           <Box mt={5}>
             <Typography color="textSecondary" align="center">
               This Website is for the exclusive use of VTRA member. For more
