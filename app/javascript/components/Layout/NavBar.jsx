@@ -1,16 +1,16 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,16 +22,17 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-    textAlign:"right",
+    textAlign: "right",
     marginRight: "50px",
   },
   toolbar: {
     height: "100px",
     justifyContent: "center",
-  }
+  },
 }));
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props) {
+  const { currentUser, setCurrentUser } = props;
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -51,12 +52,14 @@ export default function MenuAppBar() {
 
   return (
     <div className={classes.root}>
-      
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <img src="https://photos.smugmug.com/photos/i-89Rgs5V/0/2d5e195f/O/i-89Rgs5V.png" height="75px"/>
+          <img
+            src="https://photos.smugmug.com/photos/i-89Rgs5V/0/2d5e195f/O/i-89Rgs5V.png"
+            height="75px"
+          />
           <Typography variant="h2" className={classes.title}>
-            Welcome
+            Welcome {currentUser && currentUser.attributes.first_name}
           </Typography>
           {auth && (
             <div>
@@ -73,19 +76,20 @@ export default function MenuAppBar() {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={open}
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={() => setCurrentUser(null)}>Logout</MenuItem>
               </Menu>
             </div>
           )}

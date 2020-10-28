@@ -4,7 +4,6 @@ module Api
       protect_from_forgery with: :null_session
       def index
         rides = Ride.all
-
         render json: RideSerializer.new(rides).serializable_hash.to_json
       end
 
@@ -40,13 +39,11 @@ module Api
         end
       end
 
-
       private
 
       def ride_params
         params.require(:ride).permit(:user, :horse, :location, :booking_id)
       end
-
 
     end
   end
