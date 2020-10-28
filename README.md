@@ -10,6 +10,25 @@ A scheduling app for horse riders to book riding times (both indoor and outdoor)
 - testing: circleCI
 - deployment: Heroku
 
+## Getting Started:
+1. Clone the repository into a new local one
+
+2. Install the database (postgresql must be installed)
+  - create the Rails database: ``` $ rails db:create ```
+  - Create the databse tables: ```$ rails db:migrate```
+  - Seed the database if needed: ```$ rails db:seed```
+3. Install Rails dependancies:
+  - Install Bundler: ```$ gem install bundler```
+  - Install all dependencies: ```$ bundle install```
+4. Install Javascript dependencies:
+  - Using yarn, ```$ yarn install```
+  - Using npm, ```$ npm install```
+5. Start rails server: ```$ rails s```
+
+6. Head to http://localhost:3000 in your favourite browser
+
+
+
 ## [User Stories & Milestones](docs/planning/userStories.md)
 
 ## [Routes](docs/planning/routes.md)
