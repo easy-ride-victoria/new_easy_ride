@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
-import CalendarPage from "./Calendar/CalendarPage";
+import MyCalendar from "./Calendar/Calendar";
 import Home from "./Home/Home";
 import AdminRoute from "./Auth/AdminRoute";
 import GuestRoute from "./Auth/GuestRoute";
