@@ -7,11 +7,21 @@ import GuestRoute from "./Auth/GuestRoute";
 import RiderRoute from "./Auth/RiderRoute";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem("currentUser"))
+  );
+  const setCurrentUserInStorage = function (user) {
+    if (user) {
+      sessionStorage.setItem("currentUser", JSON.stringify(user));
+    } else {
+      sessionStorage.removeItem("currentUser");
+    }
+    setCurrentUser(user);
+  };
   return (
     <Switch>
       <GuestRoute currentUser={currentUser} exact path="/">
-        <Home setCurrentUser={setCurrentUser} />
+        <Home setCurrentUser={setCurrentUserInStorage} />
       </GuestRoute>
       <RiderRoute currentUser={currentUser} exact path="/calendar">
         <MyCalendar />
