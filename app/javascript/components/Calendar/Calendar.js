@@ -9,7 +9,6 @@ import MenuAppBar from "../Layout/NavBar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import ModalBox from "./Modal";
 
-
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
@@ -26,7 +25,8 @@ const updatedEv = (appointments) => {
   return newArr;
 };
 
-const MyCalendar = () => {
+const MyCalendar = (props) => {
+  const { currentUser, setCurrentUser } = props;
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
 
@@ -54,7 +54,7 @@ const MyCalendar = () => {
 
   return (
     <div>
-      <MenuAppBar />
+      <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <ModalBox modal={modal} setModal={setModal} />
       <Calendar
         selectable

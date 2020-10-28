@@ -6,8 +6,6 @@ import AdminRoute from "./Auth/AdminRoute";
 import GuestRoute from "./Auth/GuestRoute";
 import RiderRoute from "./Auth/RiderRoute";
 
-
-
 const App = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("currentUser"))
@@ -21,13 +19,12 @@ const App = () => {
     setCurrentUser(user);
   };
   return (
-
     <Switch>
       <GuestRoute currentUser={currentUser} exact path="/">
         <Home setCurrentUser={setCurrentUserInStorage} />
       </GuestRoute>
       <RiderRoute currentUser={currentUser} exact path="/calendar">
-        <MyCalendar />
+        <MyCalendar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </RiderRoute>
       <AdminRoute currentUser={currentUser} exact path="/admin">
         {"adminroute"}
