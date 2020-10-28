@@ -57,7 +57,7 @@ const theme = createMuiTheme({
           width: "3em",
           height: "3em",
       },
-  },
+    },
   },
 });
 

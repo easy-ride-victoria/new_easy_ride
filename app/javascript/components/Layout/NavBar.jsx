@@ -15,14 +15,20 @@ import Menu from '@material-ui/core/Menu';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    height: "50vh",
+    height: "150px",
   },
   menuButton: {
     marginRight: theme.spacing(4),
   },
   title: {
     flexGrow: 1,
+    textAlign:"right",
+    marginRight: "50px",
   },
+  toolbar: {
+    height: "100px",
+    justifyContent: "center",
+  }
 }));
 
 export default function MenuAppBar() {
@@ -47,10 +53,7 @@ export default function MenuAppBar() {
     <div className={classes.root}>
       
       <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar className={classes.toolbar}>
           <Typography variant="h2" className={classes.title}>
             Welcome
           </Typography>
@@ -63,7 +66,7 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
+                <MenuIcon />
               </IconButton>
               <Menu
                 id="menu-appbar"
