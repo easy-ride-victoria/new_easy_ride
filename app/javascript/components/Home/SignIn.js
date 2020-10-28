@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn(props) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const classes = useStyles();
 
   const handleSubmit = function (event) {
