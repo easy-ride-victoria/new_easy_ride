@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :bookings
       resources :rides
       resources :users
+      resources :horses
     end
   end
   # get path needs to be below the api to only render the index page 
