@@ -42,13 +42,18 @@ const ModalBox = (props) => {
   // Adding state for the dropdown pickers
   const [horse, setHorse] = useState('');
   const [bookingType, setBookingType] = useState('');
+  const [email, setEmail] = useState('')
 
   const openCloseModal = () => {
     setModal(!modal);
   }
   // on send button click
   const handleSubmit = () => {
-    setOpen(false);
+    openCloseModal();
+    console.log(horse)
+    console.log(bookingType)
+    console.log(email)
+    
   };
 
   // selecting the horse
@@ -56,9 +61,13 @@ const ModalBox = (props) => {
     setHorse(event.target.value);
   };
 
-   // selecting the horse
+   // selecting the event type
    const handleChangeType = (event) => {
     setBookingType(event.target.value);
+  };
+
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
   };
 
   const body = (
@@ -83,7 +92,9 @@ const ModalBox = (props) => {
       <br />
       <TextField label="Last Name" className={styles.textfield}/>
       <br />
-      <TextField label="Email" className={styles.textfield}/>
+      <FormControl className={styles.formControl}>
+      <TextField label="Email" className={styles.textfield} onChange={handleChangeEmail}/>
+      </FormControl>
       <FormControl className={styles.formControl}>
         <InputLabel id="demo-simple-select-label">Horse</InputLabel>
         <Select

@@ -1,13 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import MenuAppBar from "../Layout/NavBar";
-
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import ModalBox from "./Modal";
+import MenuAppBar from "../Layout/NavBar";
+
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
