@@ -13,11 +13,23 @@ module Api
       end
 
       def create
-        ride = Ride.new(ride_params)
-        if ride.save
-          render json: RideSerializer.new(ride).serializable_hash.to_json
+        user = User.find_by(email: params[:email])
+        puts user
+        horse = Horse.find_by(name: params[:horse])
+        puts horse
+        start_time = "2020-10-29T15:15:00.000Z"
+        end_time = "2020-10-29T16:15:00.000Z"
+        booking = Booking.new({start_time: start_time, end_time: end_time, event_type: "lesson"})
+        if booking.save
+          ride = Ride.new({user: user, horse: horse , booking: booking})
+          if ride.save
+            render json: RideSerializer.new(ride).serializable_hash.to_json
+          else
+            # TODO: should we delete the booking here?
+            render json: {error: ride.errors.messages}, status: 422
+          end
         else
-          render json: {error: ride.errors.messages}, status: 422
+          render json: {error: booking.errors.messages}, status: 422
         end
       end
 
@@ -42,6 +54,7 @@ module Api
       private
 
       def ride_params
+        puts params
         params.require(:ride).permit(:user, :horse, :location, :booking_id)
       end
 

@@ -1,7 +1,10 @@
 import React from 'react';
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Modal, TextField, makeStyles, Button, Select, FormControl, MenuItem, InputLabel } from '@material-ui/core';
 import { StyleSharp } from '@material-ui/icons';
+import { parseJSON } from 'date-fns';
+import axios from 'axios';
 
 /* eslint-disable */ 
 const useStyles = makeStyles((theme) => ({
@@ -42,23 +45,45 @@ const ModalBox = (props) => {
   // Adding state for the dropdown pickers
   const [horse, setHorse] = useState('');
   const [bookingType, setBookingType] = useState('');
+  const [email, setEmail] = useState('')
 
   const openCloseModal = () => {
     setModal(!modal);
   }
   // on send button click
   const handleSubmit = () => {
-    setOpen(false);
+    openCloseModal();
+    
+
+    props.doBooking(horse, email, bookingType)
+    
+    
+    
+    
+    
+    // console.log(horse)
+    // console.log(bookingType)
+    // console.log(email)
+    const info = {horse, email, eventType: bookingType}
+    console.log(JSON.stringify(info))
+    axios.post('http://localhost:3000/api/v1/rides', info)
+    .then (response => console.log(response))
+    .catch(error => console.log(error))
   };
+
 
   // selecting the horse
   const handleChangeHorse = (event) => {
     setHorse(event.target.value);
   };
 
-   // selecting the horse
+   // selecting the event type
    const handleChangeType = (event) => {
     setBookingType(event.target.value);
+  };
+
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
   };
 
   const body = (
@@ -83,7 +108,9 @@ const ModalBox = (props) => {
       <br />
       <TextField label="Last Name" className={styles.textfield}/>
       <br />
-      <TextField label="Email" className={styles.textfield}/>
+      <FormControl className={styles.formControl}>
+      <TextField label="Email" className={styles.textfield} onChange={handleChangeEmail}/>
+      </FormControl>
       <FormControl className={styles.formControl}>
         <InputLabel id="demo-simple-select-label">Horse</InputLabel>
         <Select

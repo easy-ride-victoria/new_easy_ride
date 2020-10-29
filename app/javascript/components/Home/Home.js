@@ -50,7 +50,7 @@ export default function Home(props) {
                 rel="noreferrer"
                 href="https://vtra.ca"
               >
-                here. <LaunchIcon fontSize="inherit" />
+                here.
               </Link>
             </Typography>
           </Box>
