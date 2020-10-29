@@ -60,7 +60,6 @@ export default function HorsesTable() {
         <TableBody>
           {horses.map((horse) => {
             const {
-              id,
               name,
               breed,
               date_of_birth,
@@ -68,7 +67,7 @@ export default function HorsesTable() {
               profile_picture,
             } = horse.attributes;
             return (
-              <StyledTableRow key={id}>
+              <StyledTableRow key={horse.id}>
                 <StyledTableCell align="right">
                   <img src={profile_picture} />
                 </StyledTableCell>

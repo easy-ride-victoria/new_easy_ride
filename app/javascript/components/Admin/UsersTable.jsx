@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,7 +7,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Axios from "axios";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -33,16 +32,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UsersTable() {
+export default function UsersTable(props) {
+  
   const classes = useStyles();
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    Axios.get("/api/v1/users").then((response) => {
-      console.log(response);
-      setUsers(response.data.data);
-    });
-  }, []);
+  
   // console.log("users: ", users);
   return (
     <TableContainer component={Paper}>
@@ -59,9 +52,8 @@ export default function UsersTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map((user) => {
+          {props.users.map((user) => {
             const {
-              id,
               first_name,
               last_name,
               email,
@@ -71,7 +63,7 @@ export default function UsersTable() {
               active,
             } = user.attributes;
             return (
-              <StyledTableRow key={id}>
+              <StyledTableRow key={user.id}>
                 <StyledTableCell component="th" scope="row">
                   {`${first_name} ${last_name}`}
                 </StyledTableCell>
