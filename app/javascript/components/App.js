@@ -28,7 +28,7 @@ const App = () => {
         <MyCalendar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </RiderRoute>
       <AdminRoute currentUser={currentUser} exact path="/admin">
-        {"adminroute"}
+        <MyCalendar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </AdminRoute>
       <RiderRoute currentUser={currentUser} exact path="/profile">
         <ProfilePage currentUser={currentUser} setCurrentUser={setCurrentUser} />
