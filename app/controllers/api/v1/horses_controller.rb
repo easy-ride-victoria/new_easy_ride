@@ -44,7 +44,7 @@ module Api
       private
 
       def horse_params
-        params.require(:horse).permit(:profile_picture, :name, :breed, :date_of_birth)
+        params.require(:horse).permit(:profile_picture, :name, :breed, :date_of_birth, :active)
       end
 
     end

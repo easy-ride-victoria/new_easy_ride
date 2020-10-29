@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Axios from "axios";
+import EditHorseForm from "./EditHorseForm";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -33,17 +33,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function HorsesTable() {
+export default function HorsesTable(props) {
   const classes = useStyles();
-  const [horses, setHorses] = useState([]);
+  const { horses, onChange } = props;
 
-  useEffect(() => {
-    Axios.get("/api/v1/horses").then((response) => {
-      console.log(response);
-      setHorses(response.data.data);
-    });
-  }, []);
-  console.log("horses: ", horses);
+  // console.log("horses: ", horses);
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
@@ -54,7 +48,7 @@ export default function HorsesTable() {
             <StyledTableCell align="right">Breed</StyledTableCell>
             <StyledTableCell align="right">Date of Birth</StyledTableCell>
             <StyledTableCell align="right">Active</StyledTableCell>
-            <StyledTableCell align="right"></StyledTableCell>
+            <StyledTableCell align="right"> </StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -76,7 +70,15 @@ export default function HorsesTable() {
                 </StyledTableCell>
                 <StyledTableCell align="right">{breed}</StyledTableCell>
                 <StyledTableCell align="right">{date_of_birth}</StyledTableCell>
-                <StyledTableCell align="right">{active}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {active ? "Yes" : "No"}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  <EditHorseForm
+                    horse={horse}
+                    onSubmit={onChange}
+                  ></EditHorseForm>
+                </StyledTableCell>
               </StyledTableRow>
             );
           })}
