@@ -42,7 +42,7 @@ const MyCalendar = (props) => {
   const { currentUser, setCurrentUser } = props;
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
-  const [stupid, setStupid] = useState(1)
+  const [stupid, setStupid] = useState(1);
 
   // const openCloseModal = () => {
   //   setModal(!modal);
@@ -68,14 +68,14 @@ const MyCalendar = (props) => {
 
   
   const doBooking = (horse, email, bookingType) => {
-    const info = {horse, email, eventType: bookingType}
-    console.log(JSON.stringify(info))
+    const info = {horse, email, eventType: bookingType};
+    console.log(JSON.stringify(info));
     axios.post('http://localhost:3000/api/v1/rides', info)
-    .then (response => {
-      setStupid (stupid + 1);
-      console.log(response)
-    })
-    .catch(error => console.log(error))
+      .then(response => {
+        setStupid(stupid + 1);
+        console.log(response);
+      })
+      .catch(error => console.log(error));
   };
 
   // Setting start time and end time props for weeks days
@@ -92,6 +92,8 @@ const MyCalendar = (props) => {
       <Calendar 
         className={styles.calendar}
         selectable
+        min={new Date(0, 0, 0, 6, 0, 0)}
+        max={new Date(0, 0, 0, 19, 0, 0)}
         localizer={localizer}
         events={events}
         startAccessor="start"
