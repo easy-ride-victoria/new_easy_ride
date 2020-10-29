@@ -55,10 +55,12 @@ export default function MenuAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <img
-            src="https://photos.smugmug.com/photos/i-89Rgs5V/0/2d5e195f/O/i-89Rgs5V.png"
-            height="75px"
-          />
+          <Link to={"/"}>
+            <img
+              src="https://photos.smugmug.com/photos/i-89Rgs5V/0/2d5e195f/O/i-89Rgs5V.png"
+              height="75px"
+            />
+          </Link>
           <Typography variant="h2" className={classes.title}>
             Welcome {currentUser && currentUser.attributes.first_name}
           </Typography>
