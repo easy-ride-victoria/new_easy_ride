@@ -3,9 +3,9 @@ module Api
     class HorsesController < ApplicationController
       protect_from_forgery with: :null_session
       def index
-        horses = Horses.all
+        horses = Horse.all
 
-        render json: HorsesSerializer.new(horses,options).serializable_hash.to_json
+        render json: HorseSerializer.new(horses).serializable_hash.to_json
       end
 
       def show
@@ -44,7 +44,7 @@ module Api
       private
 
       def horse_params
-        params.require(:horse).permit(:event_type, :start_time, :end_time)
+        params.require(:horse).permit(:profile_picture, :name, :breed, :date_of_birth, :active)
       end
 
     end

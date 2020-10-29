@@ -17,7 +17,7 @@ module Api
       def create
         user = User.new(user_params)
         if user.save
-          render json: userSerializer.new(user).serializable_hash.to_json
+          render json: UserSerializer.new(user).serializable_hash.to_json
         else
           render json: {error: user.errors.messages}, status: 422
         end
