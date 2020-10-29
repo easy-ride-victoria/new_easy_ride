@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
+import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
 import MenuAppBar from '../Layout/NavBar';
 import Link from "@material-ui/core/Link";
-import axios from 'axios';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,92 +33,41 @@ const useStyles = makeStyles((theme) => ({
 const ProfileRoute = (props) => {
   const classes = useStyles();
   const { currentUser, setCurrentUser } = props;
-  // const { id, first_name, last_name, email, password, hcbc_number, hcbc_active } = props.currentUser.attributes;
 
   const [values, setValues] = useState({
-    // first_name: first_name,
-    // last_name: last_name,
-    // email: email,
-    // hcbc_number: hcbc_number,
-    // hcbc_active: hcbc_active
+    first_name: "",
+    last_name: "",
+    email: "",
+    hcbc_number: "",
+    hcbc_active: false
   });
-  const [user, setUser] = useState({});
-
-  const handleSubmit = () => {
-    // event.preventDefault();
-    // console.log("currentUser", currentUser);
-    // console.log("calling values inside update profile:", values);
-    // const updatedUser = {
-    //   ...currentUser, attributes: {...values}};
-    // const updatedUser = values;
-    // console.log(updatedUser);
-    // console.log(updatedUser);
-    // console.log("setUser", user);
-    
-    // cosnt jValues = JSON.stringify(values);
-    // return axios.put("http://localhost:3000/api/v1/users", { values })
-    //   .then(response => {
-    // console.log("response",response);
-    // console.log(updatedUser);
-    // console.log(currentUser);
-    const data = {
-      first_name: values.first_name,
-      last_name: values.last_name,
-      email: values.email,
-      hcbc_number: values.hcbc_number,
-      hcbc_active: values.hcbc_active
-    };
-    return axios.put(`http://localhost:3000/api/v1/users/${currentUser.id}`, { data })
-      .then(response => console.log(data),
-        // setValues(prev => ({...prev,
-        //   first_name: values.first_name,
-        //   last_name: values.last_name,
-        //   email: values.email,
-        //   hcbc_number: values.hcbc_number,
-        //   hcbc_active: values.hcbc_active
-        // })),
-        console.log(currentUser),
-        console.log("userInsidePutdata", data),
-        setValues(data)
-      );
-  };
-
-  // useEffect((values) => {
-  //   console.log("useffectvalues", values);
-  //   console.log("UFusercur", currentUser);
-  //   axios.post("http://localhost:3000/api/v1/users", { values })
-  //     .then(response => console.log(response)
-  //     );
-  // }, [values]);
-  // .catch(error => console.log(error, "error"));
-  // };
-  // useEffect(() => {
-  //   console.log(values);
-  //   const fetchData = async() => {
-  //     await axios.post("http://localhost:3000/api/v1/users", { values });
-  //   };
-  //   fetchData();
-  // }, [values]);
-
+  
   useEffect(() => {
     axios.get("http://localhost:3000/api/v1/users")
       .then((response) => {
-        //       console.log("with id", response.data.data);
-        //       console.log("response:", response);
-        //       console.log("curre:", currentUser);
+        // console.log("response:", response);
         const listOfUsersDb = response.data.data;
         const userId = listOfUsersDb.find(i => i.id === currentUser.id);
         const userAttributes = userId.attributes;
         setValues(userAttributes);
-        // setValues(userAttributes);
-        //       // console.log("user", user);
-        console.log("userAtr", userAttributes);
-        //       console.log("values", values);
-        //     });
+        // console.log("userAtr", userAttributes);
       });
-  },
-  []);
+  },[]);
 
+  const handleSubmit = () => {
+    // console.log(currentUser);
+    // event.preventDefault();
+
+    const id = currentUser.id;
+  
+    // console.log("Passing:", values);
+    axios.put(`http://localhost:3000/api/v1/users/${id}`, values)
+      .then(response => {
+        setValues(prev => ({...prev, values}));
+      })
+      .catch(error => console.log(error));
+  };
+  
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -151,8 +100,8 @@ const ProfileRoute = (props) => {
           <br></br><br></br>
           <FormControlLabel
             control={
-              <Checkbox
-                value={values.hcbc_active}
+              <Switch
+                checked={values.hcbc_active}
                 onChange={(e) => {
                   setValues({...values, hcbc_active: (!values.hcbc_active)});
                 }}
