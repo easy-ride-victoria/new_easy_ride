@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 });
 
 
-
 const convertDate = (date) => {
   return moment.utc(date).toDate();
 };
@@ -54,17 +53,21 @@ const MyCalendar = (props) => {
     setModal(true);
   };
 
-  useEffect(() => {
+  
+  
+  const updateAllBookings =() => {
     const URLbookings = "http://localhost:3000/api/v1/bookings";
     axios.get(URLbookings).then((response) => {
       let bookingAppointments = response.data.data;
       // console.log("bookingAppointments:", bookingAppointments);
       let formattedBookings = updatedEv(bookingAppointments);
       // console.log("formattedBookings:", formattedBookings);
-      setEvents((prev) => [...prev, ...formattedBookings]);
+      setEvents(() => formattedBookings);
     });
-  }, [stupid]);
+  }
   console.log("events rendered:", events);
+  
+  useEffect(updateAllBookings, [])
 
   
   const doBooking = (horse, email, bookingType) => {
@@ -72,7 +75,7 @@ const MyCalendar = (props) => {
     console.log(JSON.stringify(info));
     axios.post('http://localhost:3000/api/v1/rides', info)
       .then(response => {
-        setStupid(stupid + 1);
+        updateAllBookings();
         console.log(response);
       })
       .catch(error => console.log(error));

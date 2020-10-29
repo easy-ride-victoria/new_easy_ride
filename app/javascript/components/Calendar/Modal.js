@@ -64,11 +64,11 @@ const ModalBox = (props) => {
     // console.log(horse)
     // console.log(bookingType)
     // console.log(email)
-    const info = {horse, email, eventType: bookingType}
-    console.log(JSON.stringify(info))
-    axios.post('http://localhost:3000/api/v1/rides', info)
-    .then (response => console.log(response))
-    .catch(error => console.log(error))
+    // const info = {horse, email, eventType: bookingType}
+    // console.log(JSON.stringify(info))
+    // axios.post('http://localhost:3000/api/v1/rides', info)
+    // .then (response => console.log(response))
+    // .catch(error => console.log(error))
   };
 
 
