@@ -103,7 +103,7 @@ const ProfileRoute = (props) => {
               <Switch
                 checked={values.hcbc_active}
                 onChange={(e) => {
-                  setValues({...values, hcbc_active: (!values.hcbc_active)});
+                  setValues({ ...values, hcbc_active: !values.hcbc_active });
                 }}
                 name="active"
                 color="primary"
@@ -119,7 +119,7 @@ const ProfileRoute = (props) => {
             className={classes.submit}
             onClick={handleSubmit}
           >
-          Save
+            Save
           </Button>
         </form>
       </div>
