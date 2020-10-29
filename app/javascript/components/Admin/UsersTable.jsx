@@ -7,6 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import EditUserForm from "./EditUserForm";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -33,9 +34,8 @@ const useStyles = makeStyles({
 });
 
 export default function UsersTable(props) {
-  
   const classes = useStyles();
-  
+
   // console.log("users: ", users);
   return (
     <TableContainer component={Paper}>
@@ -77,6 +77,9 @@ export default function UsersTable(props) {
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   {active ? "Yes" : "No"}
+                </StyledTableCell>
+                <StyledTableCell>
+                  <EditUserForm user={user} onSubmit={props.onChange} />
                 </StyledTableCell>
               </StyledTableRow>
             );

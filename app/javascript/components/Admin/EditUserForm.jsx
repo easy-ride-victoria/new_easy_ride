@@ -9,21 +9,12 @@ import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Axios from "axios";
 
-const defaultState = {
-  first_name: "",
-  last_name: "",
-  email: "",
-  // password: "",
-  hcbc_number: "",
-  is_admin: false,
-};
-
-export default function AddUserForm(props) {
+export default function EditUserForm(props) {
   const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState(defaultState);
+  const [state, setState] = React.useState(props.user.attributes);
 
   const handleSubmit = () => {
-    Axios.post("/api/v1/users", state).then(() => {
+    Axios.put(`/api/v1/users/${props.user.id}`, state).then(() => {
       handleClose();
       if (props.onSubmit) {
         props.onSubmit();
@@ -41,20 +32,20 @@ export default function AddUserForm(props) {
 
   const handleClose = () => {
     setOpen(false);
-    setState(defaultState);
+    setState(props.user.attributes);
   };
 
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Add New User
+        Edit User
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add New User</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit User</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -103,6 +94,34 @@ export default function AddUserForm(props) {
           <FormControlLabel
             control={
               <Switch
+                checked={state.active}
+                onChange={(event) => {
+                  setState({ ...state, active: event.target.checked });
+                }}
+                name="active"
+                color="primary"
+              />
+            }
+            label="Active Rider"
+          />
+          <br></br>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={state.hcbc_active}
+                onChange={(event) => {
+                  setState({ ...state, hcbc_active: event.target.checked });
+                }}
+                name="hcbc_active"
+                color="primary"
+              />
+            }
+            label="HCBC is up to date"
+          />
+          <br></br>
+          <FormControlLabel
+            control={
+              <Switch
                 checked={state.is_admin}
                 onChange={(event) => {
                   setState({ ...state, is_admin: event.target.checked });
@@ -119,7 +138,7 @@ export default function AddUserForm(props) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Add
+            Save
           </Button>
         </DialogActions>
       </Dialog>

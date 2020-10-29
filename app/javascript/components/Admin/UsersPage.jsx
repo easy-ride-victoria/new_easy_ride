@@ -18,7 +18,7 @@ export default function UsersPage(props) {
   return (
     <>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <UsersTable users={users} />
+      <UsersTable users={users} onChange={loadUsers} />
       <AddUserForm onSubmit={loadUsers} />
     </>
   );
