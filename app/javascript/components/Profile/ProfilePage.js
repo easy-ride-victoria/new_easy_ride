@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
 import MenuAppBar from '../Layout/NavBar';
 import Link from "@material-ui/core/Link";
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,25 +33,91 @@ const useStyles = makeStyles((theme) => ({
 const ProfileRoute = (props) => {
   const classes = useStyles();
   const { currentUser, setCurrentUser } = props;
-  const { first_name, last_name, email, password, hcbc_number, hcbc_active } = props.currentUser.attributes;
+  // const { id, first_name, last_name, email, password, hcbc_number, hcbc_active } = props.currentUser.attributes;
 
   const [values, setValues] = useState({
-    first_name: first_name,
-    last_name: last_name,
-    email: email,
-    hcbc_number: hcbc_number,
-    hcbc_active: hcbc_active
+    // first_name: first_name,
+    // last_name: last_name,
+    // email: email,
+    // hcbc_number: hcbc_number,
+    // hcbc_active: hcbc_active
   });
-  
+  const [user, setUser] = useState({});
 
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log("values", values);
-    console.log(event);
-    console.log("setValues", setValues);
-    console.log("values", values);
+  const handleSubmit = () => {
+    // event.preventDefault();
+    // console.log("currentUser", currentUser);
+    // console.log("calling values inside update profile:", values);
+    // const updatedUser = {
+    //   ...currentUser, attributes: {...values}};
+    // const updatedUser = values;
+    // console.log(updatedUser);
+    // console.log(updatedUser);
+    // console.log("setUser", user);
+    
+    // cosnt jValues = JSON.stringify(values);
+    // return axios.put("http://localhost:3000/api/v1/users", { values })
+    //   .then(response => {
+    // console.log("response",response);
+    // console.log(updatedUser);
+    // console.log(currentUser);
+    const data = {
+      first_name: values.first_name,
+      last_name: values.last_name,
+      email: values.email,
+      hcbc_number: values.hcbc_number,
+      hcbc_active: values.hcbc_active
+    };
+    return axios.put(`http://localhost:3000/api/v1/users/${currentUser.id}`, { data })
+      .then(response => console.log(data),
+        // setValues(prev => ({...prev,
+        //   first_name: values.first_name,
+        //   last_name: values.last_name,
+        //   email: values.email,
+        //   hcbc_number: values.hcbc_number,
+        //   hcbc_active: values.hcbc_active
+        // })),
+        console.log(currentUser),
+        console.log("userInsidePutdata", data),
+        setValues(data)
+      );
   };
+
+  // useEffect((values) => {
+  //   console.log("useffectvalues", values);
+  //   console.log("UFusercur", currentUser);
+  //   axios.post("http://localhost:3000/api/v1/users", { values })
+  //     .then(response => console.log(response)
+  //     );
+  // }, [values]);
+  // .catch(error => console.log(error, "error"));
+  // };
+  // useEffect(() => {
+  //   console.log(values);
+  //   const fetchData = async() => {
+  //     await axios.post("http://localhost:3000/api/v1/users", { values });
+  //   };
+  //   fetchData();
+  // }, [values]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/v1/users")
+      .then((response) => {
+        //       console.log("with id", response.data.data);
+        //       console.log("response:", response);
+        //       console.log("curre:", currentUser);
+        const listOfUsersDb = response.data.data;
+        const userId = listOfUsersDb.find(i => i.id === currentUser.id);
+        const userAttributes = userId.attributes;
+        setValues(userAttributes);
+        // setValues(userAttributes);
+        //       // console.log("user", user);
+        console.log("userAtr", userAttributes);
+        //       console.log("values", values);
+        //     });
+      });
+  },
+  []);
 
   return (
     <div>
@@ -85,7 +152,7 @@ const ProfileRoute = (props) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={values.hcbc_active}
+                value={values.hcbc_active}
                 onChange={(e) => {
                   setValues({...values, hcbc_active: (!values.hcbc_active)});
                 }}
