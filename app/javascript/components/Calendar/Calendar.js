@@ -6,10 +6,23 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import ModalBox from "./Modal";
 import MenuAppBar from "../Layout/NavBar";
+import { makeStyles } from '@material-ui/core/styles'; 
 
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
+
+const useStyles = makeStyles({
+  calendar: {
+    fontFamily: 'Roboto',
+    border: 0,
+    borderRadius: 3,
+    padding: '0 30px',
+    color: '#004578'
+  },
+});
+
+
 
 const convertDate = (date) => {
   return moment.utc(date).toDate();
@@ -25,6 +38,7 @@ const updatedEv = (appointments) => {
 };
 
 const MyCalendar = (props) => {
+  const styles = useStyles();
   const { currentUser, setCurrentUser } = props;
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
@@ -52,10 +66,7 @@ const MyCalendar = (props) => {
   }, [stupid]);
   console.log("events rendered:", events);
 
-  const addEvetntoEvents= () => {
-
-  }
-
+  
   const doBooking = (horse, email, bookingType) => {
     const info = {horse, email, eventType: bookingType}
     console.log(JSON.stringify(info))
@@ -67,23 +78,28 @@ const MyCalendar = (props) => {
     .catch(error => console.log(error))
   };
 
- 
-  
-
+  // Setting start time and end time props for weeks days
+  const minTime = new Date();
+  minTime.setHours(8,30,0);
+  const maxTime = new Date();
+  maxTime.setHours(20,30,0);
 
 
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <ModalBox  modal={modal} setModal={setModal} doBooking={doBooking} />
-      <Calendar
+      <Calendar 
+        className={styles.calendar}
         selectable
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
         defaultView="week"
-        views={["week"]}
+        views={["week","day"]}
+        min = {minTime}
+        max = {maxTime}
         // style={{ height: 500 }}
         onSelectSlot={handleSelectSlot}
       />

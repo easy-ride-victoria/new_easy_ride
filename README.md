@@ -11,7 +11,7 @@ A scheduling app for horse riders to book riding times (both indoor and outdoor)
 - deployment: Heroku
 
 ## Getting Started:
-1. Clone the repository into a new local one
+1. Clone the repository into a new local one, and cd into this local folder
 
 2. Install the database (postgresql must be installed)
   - create the Rails database: ``` $ rails db:create ```
