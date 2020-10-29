@@ -6,10 +6,22 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import ModalBox from "./Modal";
 import MenuAppBar from "../Layout/NavBar";
+import { makeStyles } from '@material-ui/core/styles'; 
 
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
+
+const useStyles = makeStyles({
+  calendar: {
+    fontFamily: 'Roboto',
+    border: 0,
+    borderRadius: 3,
+    padding: '0 30px',
+    color: '#004578'
+  },
+});
+
 
 const convertDate = (date) => {
   return moment.utc(date).toDate();
@@ -25,6 +37,7 @@ const updatedEv = (appointments) => {
 };
 
 const MyCalendar = (props) => {
+  const styles = useStyles();
   const { currentUser, setCurrentUser } = props;
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
@@ -40,43 +53,47 @@ const MyCalendar = (props) => {
     setModal(true);
   };
 
-  useEffect(() => {
+  
+  
+  const updateAllBookings =() => {
     const URLbookings = "http://localhost:3000/api/v1/bookings";
     axios.get(URLbookings).then((response) => {
       let bookingAppointments = response.data.data;
       // console.log("bookingAppointments:", bookingAppointments);
       let formattedBookings = updatedEv(bookingAppointments);
       // console.log("formattedBookings:", formattedBookings);
-      setEvents((prev) => [...prev, ...formattedBookings]);
+      setEvents(() => formattedBookings);
     });
-  }, [stupid]);
+  }
   console.log("events rendered:", events);
+  
+  useEffect(updateAllBookings, [])
 
-  const addEvetntoEvents = () => {
-
-  };
-
+  
   const doBooking = (horse, email, bookingType) => {
     const info = {horse, email, eventType: bookingType};
     console.log(JSON.stringify(info));
     axios.post('http://localhost:3000/api/v1/rides', info)
       .then(response => {
-        setStupid(stupid + 1);
+        updateAllBookings();
         console.log(response);
       })
       .catch(error => console.log(error));
   };
 
- 
-  
-
+  // Setting start time and end time props for weeks days
+  const minTime = new Date();
+  minTime.setHours(8,30,0);
+  const maxTime = new Date();
+  maxTime.setHours(20,30,0);
 
 
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <ModalBox  modal={modal} setModal={setModal} doBooking={doBooking} />
-      <Calendar
+      <Calendar 
+        className={styles.calendar}
         selectable
         min={new Date(0, 0, 0, 6, 0, 0)}
         max={new Date(0, 0, 0, 19, 0, 0)}
@@ -85,7 +102,9 @@ const MyCalendar = (props) => {
         startAccessor="start"
         endAccessor="end"
         defaultView="week"
-        views={["week"]}
+        views={["week","day"]}
+        min = {minTime}
+        max = {maxTime}
         // style={{ height: 500 }}
         onSelectSlot={handleSelectSlot}
       />
