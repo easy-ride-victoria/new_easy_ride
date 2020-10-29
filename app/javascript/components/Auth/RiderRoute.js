@@ -6,7 +6,7 @@ export default function RiderRoute({ currentUser, children, ...rest }) {
     <Route
       {...rest}
       render={({ location }) =>
-        currentUser && !currentUser.attributes.is_admin ? (
+        currentUser ? (
           children
         ) : (
           <Redirect

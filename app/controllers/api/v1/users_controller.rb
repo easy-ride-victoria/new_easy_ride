@@ -44,7 +44,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:first_name, :last_name, :hcbc_number, :hcbc_number_valid_until, :is_admin, :active, :email)
+        params.require(:user).permit(:first_name, :last_name, :hcbc_number, :hcbc_active, :is_admin, :active, :email)
       end
 
     end
