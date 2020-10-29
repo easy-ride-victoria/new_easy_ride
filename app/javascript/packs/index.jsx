@@ -2,12 +2,12 @@
 // like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
 // of the page.
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import App from '../components/App'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import App from '../components/App';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
@@ -17,13 +17,13 @@ const theme = createMuiTheme({
     secondary: {
       main: '#a47638',
     },
-      // Used by `getContrastText()` to maximize the contrast between
-      // the background and the text.
-      contrastThreshold: 3,
-      // Used by the functions below to shift a color's luminance by approximately
-      // two indexes within its tonal palette.
-      // E.g., shift from Red 500 to Red 300 or Red 700.
-      tonalOffset: 0.2,
+    // Used by `getContrastText()` to maximize the contrast between
+    // the background and the text.
+    contrastThreshold: 3,
+    // Used by the functions below to shift a color's luminance by approximately
+    // two indexes within its tonal palette.
+    // E.g., shift from Red 500 to Red 300 or Red 700.
+    tonalOffset: 0.2,
   },
   typography: {
     body1: {
@@ -54,8 +54,8 @@ const theme = createMuiTheme({
   overrides: {
     MuiSvgIcon: {
       root: {
-          width: "3em",
-          height: "3em",
+        width: "3em",
+        height: "3em",
       },
     },
   },
@@ -64,10 +64,10 @@ const theme = createMuiTheme({
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <ThemeProvider theme={theme}>
-      <Router>  
+      <Router>
         <Route path='/' component={App}/>
       </Router>,
     </ThemeProvider>,
     document.body.appendChild(document.createElement('div')),
-  )
-})
+  );
+});

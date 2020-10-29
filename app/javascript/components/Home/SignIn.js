@@ -37,7 +37,7 @@ export default function SignIn(props) {
   const [password, setPassword] = useState("");
   const classes = useStyles();
 
-  const handleSubmit = function (event) {
+  const handleSubmit = function(event) {
     event.preventDefault();
     if (email === "1@1.ca") {
       props.setCurrentUser({
@@ -47,7 +47,7 @@ export default function SignIn(props) {
           first_name: "Audrey",
           last_name: "Cooper",
           hcbc_number: "12",
-          hcbc_number_valid_until: "2020-12-31",
+          hcbc_active: false,
           is_admin: true,
           active: true,
           email: "1@1.ca",
@@ -62,7 +62,7 @@ export default function SignIn(props) {
           first_name: "Iyris",
           last_name: "Vigil",
           hcbc_number: "123",
-          hcbc_number_valid_until: "2020-12-31",
+          hcbc_active: false,
           is_admin: false,
           active: true,
           email: "2@2.ca",

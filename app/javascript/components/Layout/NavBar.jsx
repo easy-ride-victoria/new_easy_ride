@@ -11,6 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,9 +94,13 @@ export default function MenuAppBar(props) {
                     <MenuItem onClick={handleClose}>Edit Horses</MenuItem>
                   </>
                 )}
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <Link to={"/profile"}>
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                </Link>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={() => setCurrentUser(null)}>Logout</MenuItem>
+                <Link to={"/"}>
+                  <MenuItem onClick={() => setCurrentUser(null)}>Logout</MenuItem>
+                </Link>
               </Menu>
             </div>
           )}

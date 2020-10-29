@@ -5,12 +5,13 @@ import Home from "./Home/Home";
 import AdminRoute from "./Auth/AdminRoute";
 import GuestRoute from "./Auth/GuestRoute";
 import RiderRoute from "./Auth/RiderRoute";
+import ProfilePage from "./Profile/ProfilePage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("currentUser"))
   );
-  const setCurrentUserInStorage = function (user) {
+  const setCurrentUserInStorage = function(user) {
     if (user) {
       sessionStorage.setItem("currentUser", JSON.stringify(user));
     } else {
@@ -29,6 +30,9 @@ const App = () => {
       <AdminRoute currentUser={currentUser} exact path="/admin">
         <MyCalendar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </AdminRoute>
+      <RiderRoute currentUser={currentUser} exact path="/profile">
+        <ProfilePage currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      </RiderRoute>
     </Switch>
   );
 };
