@@ -3,9 +3,9 @@ module Api
     class HorsesController < ApplicationController
       protect_from_forgery with: :null_session
       def index
-        horses = Horses.all
+        horses = Horse.all
 
-        render json: HorsesSerializer.new(horses,options).serializable_hash.to_json
+        render json: HorseSerializer.new(horses).serializable_hash.to_json
       end
 
       def show
