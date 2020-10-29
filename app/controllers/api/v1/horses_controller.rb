@@ -44,7 +44,7 @@ module Api
       private
 
       def horse_params
-        params.require(:horse).permit(:event_type, :start_time, :end_time)
+        params.require(:horse).permit(:profile_picture, :name, :breed, :date_of_birth)
       end
 
     end

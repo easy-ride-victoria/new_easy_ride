@@ -9,7 +9,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Axios from "axios";
 
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -50,7 +49,7 @@ export default function HorsesTable() {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="right">Profile Picture</StyledTableCell>
+            <StyledTableCell>Profile Picture</StyledTableCell>
             <StyledTableCell align="right">Name</StyledTableCell>
             <StyledTableCell align="right">Breed</StyledTableCell>
             <StyledTableCell align="right">Date of Birth</StyledTableCell>
@@ -69,7 +68,7 @@ export default function HorsesTable() {
             } = horse.attributes;
             return (
               <StyledTableRow key={horse.id}>
-                <StyledTableCell align="right">
+                <StyledTableCell>
                   <img src={profile_picture} />
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">

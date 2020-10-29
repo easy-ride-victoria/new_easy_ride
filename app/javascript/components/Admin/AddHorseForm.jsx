@@ -30,6 +30,18 @@ export default function AddHorseForm(props) {
     });
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (readerEvent) => {
+        setState({ ...state, profile_picture: readerEvent.target.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
@@ -55,6 +67,14 @@ export default function AddHorseForm(props) {
       >
         <DialogTitle id="form-dialog-title">Add New Horse</DialogTitle>
         <DialogContent>
+          <TextField
+            margin="dense"
+            name="profile_picture"
+            label="Profile picture"
+            type="file"
+            onChange={handleImageChange}
+            fullWidth
+          />
           <TextField
             autoFocus
             margin="dense"
