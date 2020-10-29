@@ -5,7 +5,7 @@ import Home from "./Home/Home";
 import AdminRoute from "./Auth/AdminRoute";
 import GuestRoute from "./Auth/GuestRoute";
 import RiderRoute from "./Auth/RiderRoute";
-import ProfileRoute from "./Profile/ProfileRoute";
+import ProfilePage from "./Profile/ProfilePage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(
@@ -30,9 +30,9 @@ const App = () => {
       <AdminRoute currentUser={currentUser} exact path="/admin">
         {"adminroute"}
       </AdminRoute>
-      <ProfileRoute currentUser={currentUser} exact path="/profile">
-        {"profileroute"}
-      </ProfileRoute>
+      <RiderRoute currentUser={currentUser} exact path="/profile">
+        <ProfilePage currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      </RiderRoute>
     </Switch>
   );
 };

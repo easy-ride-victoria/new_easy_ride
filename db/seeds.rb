@@ -51,7 +51,7 @@ users = User.create ([
     last_name: "Cooper",
     email: "1@1.ca",
     hcbc_number: "12",
-    hcbc_number_valid_until: Date.new(2020, 12, 31),
+    hcbc_active: false,
     is_admin: true,
   },
   {
@@ -59,14 +59,14 @@ users = User.create ([
     last_name: "Vigil",
     email: "2@2.ca",
     hcbc_number: "123",
-    hcbc_number_valid_until: Date.new(2020, 12, 31),
+    hcbc_active: false,
   },  
   {
     first_name: "Nicole",
     last_name: "Woodcock",
     email: "3@3.ca",
     hcbc_number: "1234",
-    hcbc_number_valid_until: Date.new(2020, 12, 31),
+    hcbc_active: false,
   },
 ])
 
