@@ -8,6 +8,7 @@ import RiderRoute from "./Auth/RiderRoute";
 import ProfilePage from "./Profile/ProfilePage";
 import HorsesPage from "./Admin/HorsesPage";
 import UsersPage from "./Admin/UsersPage";
+import ReportPage from "./Report/ReportPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(
@@ -35,8 +36,9 @@ const App = () => {
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
         />
+        </RiderRoute>
         <RiderRoute currentUser={currentUser} exact path="/report">
-        <ProfilePage
+        <ReportPage
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
         />
