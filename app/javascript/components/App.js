@@ -35,7 +35,12 @@ const App = () => {
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
         />
-      </RiderRoute>
+        <RiderRoute currentUser={currentUser} exact path="/report">
+        <ProfilePage
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
+        </RiderRoute>
       {/* Admin Routes */}
       <AdminRoute currentUser={currentUser} exact path="/admin">
         <MyCalendar currentUser={currentUser} setCurrentUser={setCurrentUser} />
