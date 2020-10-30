@@ -20,17 +20,17 @@ import Axios from "axios";
 
 /* eslint-disable */
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    position: "absolute",
-    width: 600,
-    backgroundColor: "white",
+  form: {
+    // position: "absolute",
+    // width: 600,
+    // backgroundColor: "white",
     border: "2px solid #000",
-    boxSadow: "10px 5px 5px black",
-    padding: "16px 32px 24px",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    color: "#004578",
+    boxShadow: "10px 5px 5px black",
+    // padding: "16px 32px 24px",
+    // top: "50%",
+    // left: "50%",
+    // transform: "translate(-50%, -50%)",
+    color: theme.palette.primary.main,
   },
   textfield: {
     width: "100%",
@@ -44,9 +44,18 @@ const useStyles = makeStyles((theme) => ({
   title: {
     textAlign: "center",
     width: "100%",
+    fontSize: theme.typography.h4.fontSize,
   },
   formControl: {
     width: "100%",
+    margin: theme.spacing(1, 0, 2),
+  },
+  dateTimePickerContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  dateTimePicker: {
+    margin: theme.spacing(2, 1, 2),
   },
 }));
 
@@ -118,8 +127,14 @@ const BookingForm = (props) => {
   };
 
   return (
-    <>
-      <DialogTitle id="form-dialog-title">Booking</DialogTitle>
+    <div className={styles.form}>
+      <DialogTitle
+        id="form-dialog-title"
+        className={styles.title}
+        disableTypography
+      >
+        Booking
+      </DialogTitle>
       <DialogContent>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <FormControl className={styles.formControl}>
@@ -135,24 +150,28 @@ const BookingForm = (props) => {
               <MenuItem value={"other_arena"}>Other Arena Booking</MenuItem>
             </Select>
           </FormControl>
-          <DateTimePicker
-            label="Start Time"
-            name="start_time"
-            inputVariant="outlined"
-            autoOk
-            openTo="hours"
-            value={bookingData.start_time}
-            onChange={handleStartTimeChange}
-          />
-          <DateTimePicker
-            label="End Time"
-            name="end_time"
-            inputVariant="outlined"
-            autoOk
-            openTo="hours"
-            value={bookingData.end_time}
-            onChange={handleEndTimeChange}
-          />
+          <div className={styles.dateTimePickerContainer}>
+            <DateTimePicker
+              label="Start Time"
+              name="start_time"
+              inputVariant="outlined"
+              className={styles.dateTimePicker}
+              autoOk
+              openTo="hours"
+              value={bookingData.start_time}
+              onChange={handleStartTimeChange}
+            />
+            <DateTimePicker
+              label="End Time"
+              name="end_time"
+              inputVariant="outlined"
+              className={styles.dateTimePicker}
+              autoOk
+              openTo="hours"
+              value={bookingData.end_time}
+              onChange={handleEndTimeChange}
+            />
+          </div>
           {bookingData.event_type === "ride" && (
             <>
               <FormControl className={styles.formControl}>
@@ -195,30 +214,6 @@ const BookingForm = (props) => {
               </FormControl>
             </>
           )}
-          {/* <TextField label="First Name" className={styles.textfield} />
-      <br />
-      <TextField label="Last Name" className={styles.textfield} />
-      <br />
-      <FormControl className={styles.formControl}>
-        <TextField
-          label="Email"
-          className={styles.textfield}
-          onChange={handleChangeEmail}
-        />
-      </FormControl>
-      <FormControl className={styles.formControl}>
-        <InputLabel id="demo-simple-select-label">Horse</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={horse}
-          onChange={handleChangeHorse}
-        >
-          <MenuItem value={"Cisco"}>Cisco</MenuItem>
-          <MenuItem value={"Danny"}>Danny</MenuItem>
-          <MenuItem value={"Trigger"}>Trigger</MenuItem>
-        </Select>
-      </FormControl> */}
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
@@ -229,7 +224,7 @@ const BookingForm = (props) => {
           Save
         </Button>
       </DialogActions>
-    </>
+    </div>
   );
 };
 

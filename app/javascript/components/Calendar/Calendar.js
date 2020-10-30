@@ -10,6 +10,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import Alert from "@material-ui/lab/Alert";
 
+// TODO: location is missing from the ride part of the form ** Change location from ride to booking table
+// TODO: display validation errors for all of the fields
+// TODO: create form for rider to create a ride ** no choice of user **
+// TODO: add lesson migration attributes from ERD to rides & booking tables
+// TODO: create popout from lessons/rides to add more riders
+
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
