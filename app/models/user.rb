@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :rides
+  has_many :reports
   
   before_validation :strip_whitespace
   

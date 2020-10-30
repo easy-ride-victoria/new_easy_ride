@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_28_233142) do
+ActiveRecord::Schema.define(version: 2020_10_30_181925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,19 @@ ActiveRecord::Schema.define(version: 2020_10_28_233142) do
     t.boolean "active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "horse_id", null: false
+    t.string "activity_date"
+    t.boolean "answer1"
+    t.string "answer2"
+    t.string "answer3"
+    t.text "answer4"
+    t.text "answer5"
+    t.index ["horse_id"], name: "index_reports_on_horse_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
   create_table "rides", force: :cascade do |t|
@@ -56,6 +69,8 @@ ActiveRecord::Schema.define(version: 2020_10_28_233142) do
     t.boolean "hcbc_active"
   end
 
+  add_foreign_key "reports", "horses"
+  add_foreign_key "reports", "users"
   add_foreign_key "rides", "bookings"
   add_foreign_key "rides", "horses"
   add_foreign_key "rides", "users"
