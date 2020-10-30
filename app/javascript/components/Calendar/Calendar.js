@@ -6,9 +6,11 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import BookingForm from "./AdminBooking";
 import RiderBookingForm from "./RiderBooking";
+import EditForm from "./EditForm";
 import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
+import { InputLabel, Button } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 // TODO: location is missing from the ride part of the form ** Change location from ride to booking table
@@ -35,7 +37,9 @@ const convertDate = (date) => {
 };
 
 const updatedEv = (appointments) => {
+  console.log(appointments);
   const newArr = appointments.map((item) => ({
+    id: `${item.id}`,
     title: `${item.attributes.event_type}`,
     start: convertDate(item.attributes.start_time),
     end: convertDate(item.attributes.end_time),
@@ -50,6 +54,7 @@ const MyCalendar = (props) => {
   const [modal, setModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState({});
   const [errors, setErrors] = useState(null);
+  const [edit, setEdit] = useState(false);
 
   const handleSelectSlot = ({ start, end, resourceId }) => {
     setSelectedSlot({ start: moment(start), end: moment(end) });
@@ -79,7 +84,7 @@ const MyCalendar = (props) => {
         .then((response) => {
           updateAllBookings();
           setModal(false);
-          // console.log(response);
+          console.log(response);
           setErrors(null);
         })
         .catch((error) => {
@@ -91,7 +96,9 @@ const MyCalendar = (props) => {
         .then((response) => {
           updateAllBookings();
           setModal(false);
-          console.log(response);
+          console.log(response.data.data.id);
+          bookingData = {...bookingData, id: response.data.data.id};
+
         })
         .catch((error) => console.log(error));
     }
@@ -102,6 +109,17 @@ const MyCalendar = (props) => {
   minTime.setHours(8, 30, 0);
   const maxTime = new Date();
   maxTime.setHours(20, 30, 0);
+
+  const [slotInfo, setSlotInfo ] = useState(0);
+  // Opens edit form
+  const handleSelectEvent = (e) => {
+    setEdit(true);
+    setSlotInfo(e);
+  };
+
+  const handleClickOpen = () => {
+    setEdit(true);
+  };
 
   return (
     <div>
@@ -140,6 +158,16 @@ const MyCalendar = (props) => {
           />
         )}
       </Dialog>
+      <Dialog
+        open={edit}
+        onClose={()=>{
+          setEdit(false);
+        }}
+      >
+        <EditForm currentUser={currentUser} slotInfo={slotInfo} onClose={()=>{
+          setEdit(false);
+        }}></EditForm>
+      </Dialog>
       <Calendar
         className={styles.calendar}
         selectable
@@ -155,6 +183,7 @@ const MyCalendar = (props) => {
         max={maxTime}
         // style={{ height: 500 }}
         onSelectSlot={handleSelectSlot}
+        onSelectEvent={(e) => handleSelectEvent(e)}
       />
     </div>
   );
