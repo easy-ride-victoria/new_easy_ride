@@ -4,7 +4,8 @@ import axios from "axios";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import BookingForm from "./Modal";
+import BookingForm from "./AdminBooking";
+import RiderBookingForm from "./RiderBooking";
 import EditForm from "./EditForm";
 import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -75,7 +76,7 @@ const MyCalendar = (props) => {
   console.log("events rendered:", events);
 
   useEffect(updateAllBookings, []);
-
+  //
   const doBooking = ({ bookingData, rideData }) => {
     if (bookingData.event_type === "ride") {
       axios
@@ -132,16 +133,30 @@ const MyCalendar = (props) => {
         {errors && (
           <Alert severity="error">Ruh-roh! Something went wrong.</Alert>
         )}
-        <BookingForm
-          start_time={selectedSlot.start}
-          end_time={selectedSlot.end}
-          onSubmit={doBooking}
-          currentUser={currentUser}
-          errors={errors}
-          onCancel={() => {
-            setModal(false);
-          }}
-        />
+        {currentUser.attributes.is_admin && (
+          <BookingForm
+            start_time={selectedSlot.start}
+            end_time={selectedSlot.end}
+            onSubmit={doBooking}
+            currentUser={currentUser}
+            errors={errors}
+            onCancel={() => {
+              setModal(false);
+            }}
+          />
+        )}
+        {currentUser.attributes.is_admin === false && (
+          <RiderBookingForm
+            start_time={selectedSlot.start}
+            end_time={selectedSlot.end}
+            onSubmit={doBooking}
+            currentUser={currentUser}
+            errors={errors}
+            onCancel={() => {
+              setModal(false);
+            }}
+          />
+        )}
       </Dialog>
       <Dialog
         open={edit}

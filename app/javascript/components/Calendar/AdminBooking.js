@@ -68,6 +68,7 @@ const BookingForm = (props) => {
     event_type = "lesson",
     errors,
   } = props;
+
   const [bookingData, setBookingData] = useState({
     start_time,
     end_time,
