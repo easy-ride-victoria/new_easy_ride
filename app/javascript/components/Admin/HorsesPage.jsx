@@ -18,8 +18,8 @@ export default function HorsesPage(props) {
   return (
     <>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <HorsesTable horses={horses} onChange={loadHorses} />
       <AddHorseForm onSubmit={loadHorses} />
+      <HorsesTable horses={horses} onChange={loadHorses} />
     </>
   );
 }

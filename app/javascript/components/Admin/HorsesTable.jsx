@@ -9,28 +9,31 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import EditHorseForm from "./EditHorseForm";
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
-
+// Material ui customization
 const useStyles = makeStyles({
+  
   table: {
-    minWidth: 700,
+    width: "90%",
+    margin: "auto",
   },
+  tableHead: {
+    backgroundColor: "#004578",
+    
+  },
+  tableCellHead: {
+    color: "white",
+    fontSize: "1.5rem",
+    fontFamily: "Roboto",
+    lineHeight: "3rem",
+  },
+  tableCellHeader: {
+    fontSize: "1.5rem",
+    fontFamily: "Roboto",
+  },
+  tableCellBody: {
+    fontSize: "1.5rem",
+    fontFamily: "Roboto",
+  }
 });
 
 export default function HorsesTable(props) {
@@ -41,14 +44,15 @@ export default function HorsesTable(props) {
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Profile Picture</StyledTableCell>
-            <StyledTableCell align="right">Name</StyledTableCell>
-            <StyledTableCell align="right">Breed</StyledTableCell>
-            <StyledTableCell align="right">Date of Birth</StyledTableCell>
-            <StyledTableCell align="right">Active</StyledTableCell>
-            <StyledTableCell align="right"> </StyledTableCell>
+      
+        <TableHead >
+          <TableRow className={classes.tableHead}> 
+            <TableCell className={classes.tableCellHead}>Profile Picture</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">Name</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">Breed</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">Date of Birth</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">Active</TableCell>
+            <TableCell className={classes.tableCellHead} align="right"> </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,28 +65,29 @@ export default function HorsesTable(props) {
               profile_picture,
             } = horse.attributes;
             return (
-              <StyledTableRow key={horse.id}>
-                <StyledTableCell>
+              <TableRow key={horse.id}>
+                <TableCell>
                   <img src={profile_picture} />
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
+                </TableCell>
+                <TableCell className={classes.tableCellBody} align="right" component="th" scope="row">
                   {name}
-                </StyledTableCell>
-                <StyledTableCell align="right">{breed}</StyledTableCell>
-                <StyledTableCell align="right">{date_of_birth}</StyledTableCell>
-                <StyledTableCell align="right">
+                </TableCell>
+                <TableCell className={classes.tableCellBody} align="right">{breed}</TableCell>
+                <TableCell className={classes.tableCellBody} align="right">{date_of_birth}</TableCell>
+                <TableCell className={classes.tableCellBody} align="right">
                   {active ? "Yes" : "No"}
-                </StyledTableCell>
-                <StyledTableCell align="right">
+                </TableCell>
+                <TableCell align="right">
                   <EditHorseForm
                     horse={horse}
                     onSubmit={onChange}
                   ></EditHorseForm>
-                </StyledTableCell>
-              </StyledTableRow>
+                </TableCell>
+              </TableRow>
             );
           })}
         </TableBody>
+       
       </Table>
     </TableContainer>
   );

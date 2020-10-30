@@ -41,7 +41,7 @@ const MyCalendar = (props) => {
   const { currentUser, setCurrentUser } = props;
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
-  const [stupid, setStupid] = useState(1);
+  
 
   // const openCloseModal = () => {
   //   setModal(!modal);
