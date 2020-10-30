@@ -1,4 +1,4 @@
 class ReportSerializer
   include JSONAPI::Serializer
-  attributes :user, :horse, :q1, :q2, :q3, :q4, :q5, :a1, :a2, :a3, :a4, :a5
+  attributes :user, :horse, :activity:date, :answer1, :answer2, :answer3, :answer4
 end
