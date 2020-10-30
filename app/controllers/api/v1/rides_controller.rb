@@ -11,7 +11,7 @@ module Api
         ride = Ride.find_by(id: params[:id])
         render json: RideSerializer.new(ride).serializable_hash.to_json
       end
-
+# user_id, horse_id, location, booking obj {start_time, end_time, event_type}
       def create
         user = User.find_by(email: params[:email])
         puts user
@@ -54,8 +54,8 @@ module Api
       private
 
       def ride_params
-        puts params
-        params.require(:ride).permit(:user, :horse, :location, :booking_id)
+        # puts params
+        params.require(:ride).permit(:user_id, :horse_id, :location, :booking_id, :booking)
       end
 
     end

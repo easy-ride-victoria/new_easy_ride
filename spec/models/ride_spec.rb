@@ -12,11 +12,11 @@ RSpec.describe Ride, type: :model do
     expect(@ride.id).to be_present
   end
 
-  # it "should fail if horse is already scheduled for a ride on the same day" do
-  #   Ride.create!(location: "outdoors", booking: @booking, user: @user, horse: @horse)
-  #   @booking = Booking.create!(event_type: "other", start_time: DateTime.new(2020, 10, 27, 11), end_time: DateTime.new(2020, 10, 27, 12))
-  #   @ride = Ride.new(location: "outdoors", booking: @booking, user: @user, horse: @horse)
-  #   expect{@ride.save!}.to raise_error(ActiveRecord::RecordInvalid)
-  # end
+  it "should fail if horse is already scheduled for a ride on the same day" do
+    Ride.create!(location: "outdoors", booking: @booking, user: @user, horse: @horse)
+    @booking = Booking.create!(event_type: "other", start_time: DateTime.new(2020, 10, 27, 11), end_time: DateTime.new(2020, 10, 27, 12))
+    @ride = Ride.new(location: "outdoors", booking: @booking, user: @user, horse: @horse)
+    expect{@ride.save!}.to raise_error(ActiveRecord::RecordInvalid)
+  end
 
 end
