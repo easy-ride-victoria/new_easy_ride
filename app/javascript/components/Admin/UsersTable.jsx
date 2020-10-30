@@ -9,28 +9,31 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import EditUserForm from "./EditUserForm";
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
-
+// Material ui customization
 const useStyles = makeStyles({
+  
   table: {
-    minWidth: 700,
+    width: "90%",
+    margin: "auto",
   },
+  tableHead: {
+    backgroundColor: "#004578",
+    
+  },
+  tableCellHead: {
+    color: "white",
+    fontSize: "1.5rem",
+    fontFamily: "Roboto",
+    lineHeight: "3rem",
+  },
+  tableCellHeader: {
+    fontSize: "1.5rem",
+    fontFamily: "Roboto",
+  },
+  tableCellBody: {
+    fontSize: "1.5rem",
+    fontFamily: "Roboto",
+  }
 });
 
 export default function UsersTable(props) {
@@ -41,14 +44,14 @@ export default function UsersTable(props) {
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
-          <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right">Email</StyledTableCell>
-            <StyledTableCell align="right">HCBC Number</StyledTableCell>
-            <StyledTableCell align="right">HCBC Status</StyledTableCell>
-            <StyledTableCell align="right">Admin</StyledTableCell>
-            <StyledTableCell align="right">Active Rider</StyledTableCell>
-            <StyledTableCell align="right"></StyledTableCell>
+          <TableRow className={classes.tableHead}>
+            <TableCell className={classes.tableCellHead} >Name</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">Email</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">HCBC Number</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">HCBC Status</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">Admin</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">Active Rider</TableCell>
+            <TableCell className={classes.tableCellHead} align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -63,25 +66,25 @@ export default function UsersTable(props) {
               active,
             } = user.attributes;
             return (
-              <StyledTableRow key={user.id}>
-                <StyledTableCell component="th" scope="row">
+              <TableRow key={user.id}>
+                <TableCell className={classes.tableCellBody} component="th" scope="row">
                   {`${first_name} ${last_name}`}
-                </StyledTableCell>
-                <StyledTableCell align="right">{email}</StyledTableCell>
-                <StyledTableCell align="right">{hcbc_number}</StyledTableCell>
-                <StyledTableCell align="right">
+                </TableCell>
+                <TableCell className={classes.tableCellBody} align="right">{email}</TableCell>
+                <TableCell className={classes.tableCellBody} align="right">{hcbc_number}</TableCell>
+                <TableCell className={classes.tableCellBody} align="right">
                   {hcbc_active ? "Up to date" : "Needs confirmation"}
-                </StyledTableCell>
-                <StyledTableCell align="right">
+                </TableCell>
+                <TableCell className={classes.tableCellBody} align="right">
                   {is_admin ? "Admin" : "Rider"}
-                </StyledTableCell>
-                <StyledTableCell align="right">
+                </TableCell>
+                <TableCell className={classes.tableCellBody} align="right">
                   {active ? "Yes" : "No"}
-                </StyledTableCell>
-                <StyledTableCell>
+                </TableCell>
+                <TableCell className={classes.tableCellBody} align="right">
                   <EditUserForm user={user} onSubmit={props.onChange} />
-                </StyledTableCell>
-              </StyledTableRow>
+                </TableCell>
+              </TableRow>
             );
           })}
         </TableBody>

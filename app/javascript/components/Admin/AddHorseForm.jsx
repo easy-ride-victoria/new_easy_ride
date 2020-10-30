@@ -7,7 +7,18 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Axios from "axios";
+
+
+// Material ui customization
+const useStyles = makeStyles({
+  addButton: {
+    marginBottom: "40px",
+    marginLeft: "63px",
+    alignContent: "centre"
+  }
+});
 
 const defaultState = {
   name: "",
@@ -18,6 +29,7 @@ const defaultState = {
 };
 
 export default function AddHorseForm(props) {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState(defaultState);
 
@@ -57,7 +69,7 @@ export default function AddHorseForm(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button className={classes.addButton} color="primary" onClick={handleClickOpen}>
         Add New Horse
       </Button>
       <Dialog
