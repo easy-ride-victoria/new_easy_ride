@@ -8,6 +8,7 @@ import BookingForm from "./Modal";
 import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
+import Alert from "@material-ui/lab/Alert";
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
@@ -41,6 +42,7 @@ const MyCalendar = (props) => {
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState({});
+  const [errors, setErrors] = useState(null);
 
   const handleSelectSlot = ({ start, end, resourceId }) => {
     setSelectedSlot({ start: moment(start), end: moment(end) });
@@ -66,13 +68,16 @@ const MyCalendar = (props) => {
   const doBooking = ({ bookingData, rideData }) => {
     if (bookingData.event_type === "ride") {
       axios
-        .post("/api/v1/rides", {...rideData, booking:bookingData})
+        .post("/api/v1/rides", { ...rideData, booking: bookingData })
         .then((response) => {
           updateAllBookings();
           setModal(false);
-          console.log(response);
+          // console.log(response);
+          setErrors(null);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          setErrors(error.response.data.error);
+        });
     } else {
       axios
         .post("/api/v1/bookings", bookingData)
@@ -100,11 +105,15 @@ const MyCalendar = (props) => {
           setModal(false);
         }}
       >
+        {errors && (
+          <Alert severity="error">Ruh-roh! Something went wrong.</Alert>
+        )}
         <BookingForm
           start_time={selectedSlot.start}
           end_time={selectedSlot.end}
           onSubmit={doBooking}
           currentUser={currentUser}
+          errors={errors}
           onCancel={() => {
             setModal(false);
           }}

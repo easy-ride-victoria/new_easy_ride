@@ -5,6 +5,7 @@ import {
   Button,
   Select,
   FormControl,
+  FormHelperText,
   MenuItem,
   InputLabel,
 } from "@material-ui/core";
@@ -51,7 +52,13 @@ const useStyles = makeStyles((theme) => ({
 
 const BookingForm = (props) => {
   const styles = useStyles();
-  const { currentUser, start_time, end_time, event_type = "lesson" } = props;
+  const {
+    currentUser,
+    start_time,
+    end_time,
+    event_type = "lesson",
+    errors,
+  } = props;
   const [bookingData, setBookingData] = useState({
     start_time,
     end_time,
@@ -165,7 +172,10 @@ const BookingForm = (props) => {
                   })}
                 </Select>
               </FormControl>
-              <FormControl className={styles.formControl}>
+              <FormControl
+                className={styles.formControl}
+                error={errors && errors.horse ? true : false}
+              >
                 <InputLabel id="horse-select-label">Horse</InputLabel>
                 <Select
                   labelId="horse-select-label"
@@ -181,6 +191,7 @@ const BookingForm = (props) => {
                     );
                   })}
                 </Select>
+                <FormHelperText>{errors && errors.horse}</FormHelperText>
               </FormControl>
             </>
           )}
