@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   makeStyles,
@@ -16,7 +15,7 @@ import MomentUtils from "@date-io/moment";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import axios from "axios";
+import Axios from "axios";
 
 /* eslint-disable */
 const useStyles = makeStyles((theme) => ({
@@ -52,43 +51,44 @@ const useStyles = makeStyles((theme) => ({
 
 const BookingForm = (props) => {
   const styles = useStyles();
-  const {
-    modal,
-    setModal,
-    currentUser,
-    start_time,
-    end_time,
-    event_type = "lesson",
-  } = props;
+  const { currentUser, start_time, end_time, event_type = "lesson" } = props;
   const [bookingData, setBookingData] = useState({
     start_time,
     end_time,
     event_type,
   });
+  const [rideData, setRideData] = useState({
+    user_id: Number(currentUser.id),
+    horse_id: 1,
+    location: "outdoor",
+  });
 
-  // Adding state for the dropdown pickers
-  const [horse, setHorse] = useState("");
-  const [email, setEmail] = useState("");
+  const [users, setUsers] = useState([]);
+  const loadUsers = () => {
+    Axios.get("/api/v1/users").then((response) => {
+      // console.log(response);
+      setUsers(response.data.data);
+    });
+  };
+  useEffect(loadUsers, []);
+
+  const [horses, setHorses] = useState([]);
+  const loadHorses = () => {
+    Axios.get("/api/v1/horses").then((response) => {
+      // console.log(response);
+      setHorses(response.data.data);
+    });
+  };
+  useEffect(loadHorses, []);
 
   // on send button click
   const handleSubmit = () => {
-    props.onSubmit({ bookingData });
-
-    // doBooking({ bookingData });
-
-    // console.log(horse)
-    // console.log(bookingType)
-    // console.log(email)
-    // const info = {horse, email, eventType: bookingType}
-    // console.log(JSON.stringify(info))
-    // axios.post('http://localhost:3000/api/v1/rides', info)
-    // .then (response => console.log(response))
-    // .catch(error => console.log(error))
+    props.onSubmit({ bookingData, rideData });
   };
 
   // selecting the horse
-  const handleChangeHorse = (event) => {
-    setHorse(event.target.value);
+  const handleHorseChange = (event) => {
+    setRideData({ ...rideData, horse_id: event.target.value });
   };
 
   // selecting the event type
@@ -106,8 +106,8 @@ const BookingForm = (props) => {
     setBookingData({ ...bookingData, end_time });
   };
 
-  const handleChangeEmail = (event) => {
-    setEmail(event.target.value);
+  const handleRiderChange = (event) => {
+    setRideData({ ...rideData, user_id: event.target.value });
   };
 
   return (
@@ -146,6 +146,44 @@ const BookingForm = (props) => {
             value={bookingData.end_time}
             onChange={handleEndTimeChange}
           />
+          {bookingData.event_type === "ride" && (
+            <>
+              <FormControl className={styles.formControl}>
+                <InputLabel id="rider-select-label">Rider</InputLabel>
+                <Select
+                  labelId="rider-select-label"
+                  id="rider-select"
+                  value={rideData.user_id}
+                  onChange={handleRiderChange}
+                >
+                  {users.map((user) => {
+                    return (
+                      <MenuItem value={user.id}>
+                        {user.attributes.first_name} {user.attributes.last_name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+              <FormControl className={styles.formControl}>
+                <InputLabel id="horse-select-label">Horse</InputLabel>
+                <Select
+                  labelId="horse-select-label"
+                  id="horse-select"
+                  value={rideData.horse_id}
+                  onChange={handleHorseChange}
+                >
+                  {horses.map((horse) => {
+                    return (
+                      <MenuItem value={horse.id}>
+                        {horse.attributes.name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </>
+          )}
           {/* <TextField label="First Name" className={styles.textfield} />
       <br />
       <TextField label="Last Name" className={styles.textfield} />

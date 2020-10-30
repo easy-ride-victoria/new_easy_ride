@@ -63,17 +63,26 @@ const MyCalendar = (props) => {
 
   useEffect(updateAllBookings, []);
 
-  const doBooking = (horse, email, bookingType) => {
-    const info = { horse, email, eventType: bookingType };
-    console.log(JSON.stringify(info));
-    axios
-      .post("/api/v1/rides", info)
-      .then((response) => {
-        updateAllBookings();
-        setModal(false);
-        console.log(response);
-      })
-      .catch((error) => console.log(error));
+  const doBooking = ({ bookingData, rideData }) => {
+    if (bookingData.event_type === "ride") {
+      axios
+        .post("/api/v1/rides", {...rideData, booking:bookingData})
+        .then((response) => {
+          updateAllBookings();
+          setModal(false);
+          console.log(response);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      axios
+        .post("/api/v1/bookings", bookingData)
+        .then((response) => {
+          updateAllBookings();
+          setModal(false);
+          console.log(response);
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   // Setting start time and end time props for weeks days
@@ -95,6 +104,7 @@ const MyCalendar = (props) => {
           start_time={selectedSlot.start}
           end_time={selectedSlot.end}
           onSubmit={doBooking}
+          currentUser={currentUser}
           onCancel={() => {
             setModal(false);
           }}
