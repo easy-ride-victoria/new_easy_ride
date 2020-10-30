@@ -3,18 +3,12 @@ class CreateReports < ActiveRecord::Migration[6.0]
     create_table :reports do |t|
       t.references :user, null: false, foreign_key: true
       t.references :horse, null: false, foreign_key: true
-      t.string :q1
-      t.string :q2
-      t.string :q3
-      t.string :q4
-      t.string :q5
-      t.string :a1
-      t.string :a2
-      t.string :a3
-      t.string :a4
-      t.text :a5
-
-      t.timestamps
+      t.string :activity_date
+      t.boolean :answer1
+      t.string :answer2
+      t.string :answer3
+      t.text :answer4
+      t.text :answer5
     end
   end
 end
