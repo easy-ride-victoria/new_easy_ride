@@ -59,35 +59,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BookingForm = (props) => {
+const RiderBookingForm = (props) => {
   const styles = useStyles();
-  const {
-    currentUser,
-    start_time,
-    end_time,
-    event_type = "lesson",
-    errors,
-  } = props;
+  const { currentUser, start_time, end_time, errors } = props;
   const [bookingData, setBookingData] = useState({
     start_time,
     end_time,
-    event_type,
+    event_type: "ride",
   });
   const [rideData, setRideData] = useState({
     user_id: Number(currentUser.id),
     horse_id: 1,
-    location: "outdoor",
+    location: "outdoors",
   });
 
-  const [users, setUsers] = useState([]);
-  const loadUsers = () => {
-    Axios.get("/api/v1/users").then((response) => {
-      // console.log(response);
-      setUsers(response.data.data);
-    });
-  };
-  useEffect(loadUsers, []);
-
+  // Axios call to get available horse list
   const [horses, setHorses] = useState([]);
   const loadHorses = () => {
     Axios.get("/api/v1/horses").then((response) => {
@@ -107,11 +93,6 @@ const BookingForm = (props) => {
     setRideData({ ...rideData, horse_id: event.target.value });
   };
 
-  // selecting the event type
-  const handleBookingChange = (event) => {
-    setBookingData({ ...bookingData, [event.target.name]: event.target.value });
-  };
-
   // changing the start time
   const handleStartTimeChange = (start_time) => {
     setBookingData({ ...bookingData, start_time });
@@ -121,9 +102,9 @@ const BookingForm = (props) => {
   const handleEndTimeChange = (end_time) => {
     setBookingData({ ...bookingData, end_time });
   };
-
-  const handleRiderChange = (event) => {
-    setRideData({ ...rideData, user_id: event.target.value });
+  // selecting the location
+  const handleLocationChange = (event) => {
+    setRideData({ ...rideData, location: event.target.value });
   };
 
   return (
@@ -138,16 +119,15 @@ const BookingForm = (props) => {
       <DialogContent>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <FormControl className={styles.formControl}>
-            <InputLabel id="booking-type-label">Booking Type</InputLabel>
+            <InputLabel id="booking-type-label">Location</InputLabel>
             <Select
-              labelId="booking-type-label"
-              name="event_type"
-              value={bookingData.event_type}
-              onChange={handleBookingChange}
+              labelId="location-label"
+              name="location"
+              value={rideData.location}
+              onChange={handleLocationChange}
             >
-              <MenuItem value={"lesson"}>Lesson</MenuItem>
-              <MenuItem value={"ride"}>Ride</MenuItem>
-              <MenuItem value={"other_arena"}>Other Arena Booking</MenuItem>
+              <MenuItem value="outdoors">Outdoors</MenuItem>
+              <MenuItem value="indoors">Indoors: Arena</MenuItem>
             </Select>
           </FormControl>
           <div className={styles.dateTimePickerContainer}>
@@ -172,48 +152,29 @@ const BookingForm = (props) => {
               onChange={handleEndTimeChange}
             />
           </div>
-          {bookingData.event_type === "ride" && (
-            <>
-              <FormControl className={styles.formControl}>
-                <InputLabel id="rider-select-label">Rider</InputLabel>
-                <Select
-                  labelId="rider-select-label"
-                  id="rider-select"
-                  value={rideData.user_id}
-                  onChange={handleRiderChange}
-                >
-                  {users.map((user) => {
-                    return (
-                      <MenuItem value={user.id}>
-                        {user.attributes.first_name} {user.attributes.last_name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-              <FormControl
-                className={styles.formControl}
-                error={errors && errors.horse ? true : false}
+          <>
+            <FormControl
+              className={styles.formControl}
+              error={errors && errors.horse ? true : false}
+            >
+              <InputLabel id="horse-select-label">Horse</InputLabel>
+              <Select
+                labelId="horse-select-label"
+                id="horse-select"
+                value={rideData.horse_id}
+                onChange={handleHorseChange}
               >
-                <InputLabel id="horse-select-label">Horse</InputLabel>
-                <Select
-                  labelId="horse-select-label"
-                  id="horse-select"
-                  value={rideData.horse_id}
-                  onChange={handleHorseChange}
-                >
-                  {horses.map((horse) => {
-                    return (
-                      <MenuItem value={horse.id}>
-                        {horse.attributes.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-                <FormHelperText>{errors && errors.horse}</FormHelperText>
-              </FormControl>
-            </>
-          )}
+                {horses.map((horse) => {
+                  return (
+                    <MenuItem value={horse.id}>
+                      {horse.attributes.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+              <FormHelperText>{errors && errors.horse}</FormHelperText>
+            </FormControl>
+          </>
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
@@ -228,4 +189,4 @@ const BookingForm = (props) => {
   );
 };
 
-export default BookingForm;
+export default RiderBookingForm;
