@@ -44,7 +44,8 @@ module Api
       private
 
       def booking_params
-        params.require(:booking).permit(:event_type, :start_time, :end_time)
+        params.require(:booking).permit(:event_type, :start_time, :end_time,
+          :lesson_price_cad, :lesson_total_spots)
       end
 
       def options
