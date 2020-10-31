@@ -2998,6 +2998,11 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
+dotenv@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
+  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
+
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/duplexify/-/duplexify-3.7.1.tgz#2a4df5317f6ccfd91f86d6fd25d8d8a103b88309"
@@ -6912,6 +6917,11 @@ react-router@5.2.0:
     react-is "^16.6.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-square-payment-form@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/react-square-payment-form/-/react-square-payment-form-0.7.2.tgz#b64e9165b67554fad258dcde3d8d64f9327a5533"
+  integrity sha512-y40LOnwi24vVy2ygMJMHP4OnfnynQOMMDOo0bKpLZRPi0z6UzB+HI4eqF+n1a/627ztS/ZapTvjGXy2fq8z4yA==
 
 react-transition-group@^4.0.0, react-transition-group@^4.4.0:
   version "4.4.1"

@@ -13,6 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import { InputLabel, Button, DialogContent, DialogActions, DialogTitle, DialogContentText } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+import LessonPaymentForm from "./LessonPaymentForm";
 import { endOfDay } from "date-fns";
 
 // TODO: location is missing from the ride part of the form ** Change location from ride to booking table
@@ -99,8 +100,7 @@ const MyCalendar = (props) => {
           updateAllBookings();
           setModal(false);
           console.log(response.data.data.id);
-          bookingData = {...bookingData, id: response.data.data.id};
-
+          bookingData = { ...bookingData, id: response.data.data.id };
         })
         .catch((error) => console.log(error));
     }
@@ -112,7 +112,7 @@ const MyCalendar = (props) => {
   const maxTime = new Date();
   maxTime.setHours(20, 30, 0);
 
-  const [slotInfo, setSlotInfo ] = useState(0);
+  const [slotInfo, setSlotInfo] = useState(0);
   // Opens edit form
   const handleSelectEvent = (e) => {
     setEdit(true);
@@ -256,6 +256,7 @@ const MyCalendar = (props) => {
         onSelectSlot={handleSelectSlot}
         onSelectEvent={(e) => handleSelectEvent(e)}
       />
+      <LessonPaymentForm />
     </div>
   );
 };
