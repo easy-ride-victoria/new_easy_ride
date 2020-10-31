@@ -5,7 +5,9 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
+Dotenv::Railtie.load
+SQUARE_SANDBOX_LOCATION_ID = ENV['SQUARE_SANDBOX_LOCATION_ID']
+SQUARE_SANDBOX_ACCESS_TOKEN = ENV['SQUARE_SANDBOX_ACCESS_TOKEN']
 module EasyRide
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

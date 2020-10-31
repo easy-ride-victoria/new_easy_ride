@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       resources :users
       resources :horses
       resources :reports
-      post "/payments", to "payments#create"
+      post "/payments", to: "payments#create"
     end
   end
   # get path needs to be below the api to only render the index page 
