@@ -6,10 +6,14 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import BookingForm from "./AdminBooking";
 import RiderBookingForm from "./RiderBooking";
+import EditForm from "./EditForm";
+import DeleteAlert from "./DeleteAlert";
 import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
+import { InputLabel, Button, DialogContent, DialogActions, DialogTitle, DialogContentText } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+import { endOfDay } from "date-fns";
 
 // TODO: location is missing from the ride part of the form ** Change location from ride to booking table
 // TODO: display validation errors for all of the fields
@@ -35,10 +39,12 @@ const convertDate = (date) => {
 };
 
 const updatedEv = (appointments) => {
+  console.log(appointments);
   const newArr = appointments.map((item) => ({
-    title: `${item.attributes.event_type}`,
-    start: convertDate(item.attributes.start_time),
-    end: convertDate(item.attributes.end_time),
+    id: `${item.id}`,
+    event_type: `${item.attributes.event_type}`,
+    start_time: convertDate(item.attributes.start_time),
+    end_time: convertDate(item.attributes.end_time),
   }));
   return newArr;
 };
@@ -50,11 +56,12 @@ const MyCalendar = (props) => {
   const [modal, setModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState({});
   const [errors, setErrors] = useState(null);
+  const [edit, setEdit] = useState(false);
 
   const handleSelectSlot = ({ start, end, resourceId }) => {
-    setSelectedSlot({ start: moment(start), end: moment(end) });
-    console.log("called::", start);
-    console.log("called::", end);
+    setSelectedSlot({ start_time: moment(start), end_time: moment(end) });
+    // console.log("called::", start_time);
+    // console.log("called::", end_time);
     setModal(true);
   };
 
@@ -64,8 +71,8 @@ const MyCalendar = (props) => {
       let bookingAppointments = response.data.data;
       // console.log("bookingAppointments:", bookingAppointments);
       let formattedBookings = updatedEv(bookingAppointments);
-      // console.log("formattedBookings:", formattedBookings);
-      setEvents(() => formattedBookings);
+      console.log("formattedBookings:", formattedBookings);
+      setEvents(formattedBookings);
     });
   };
   console.log("events rendered:", events);
@@ -79,7 +86,7 @@ const MyCalendar = (props) => {
         .then((response) => {
           updateAllBookings();
           setModal(false);
-          // console.log(response);
+          console.log(response);
           setErrors(null);
         })
         .catch((error) => {
@@ -91,7 +98,9 @@ const MyCalendar = (props) => {
         .then((response) => {
           updateAllBookings();
           setModal(false);
-          console.log(response);
+          console.log(response.data.data.id);
+          bookingData = {...bookingData, id: response.data.data.id};
+
         })
         .catch((error) => console.log(error));
     }
@@ -102,6 +111,73 @@ const MyCalendar = (props) => {
   minTime.setHours(8, 30, 0);
   const maxTime = new Date();
   maxTime.setHours(20, 30, 0);
+
+  const [slotInfo, setSlotInfo ] = useState(0);
+  // Opens edit form
+  const handleSelectEvent = (e) => {
+    setEdit(true);
+    setSlotInfo(e);
+    console.log(e);
+  };
+  
+  const handleClickOpen = () => {
+    setEdit(true);
+  };
+
+  const save = ({ horse, user, rideData }) => {
+    console.log(horse);
+    console.log(user);
+    const ID = slotInfo.id;
+    const updateSlot = {
+      horse_id: horse.id,
+      user_id: user.id,
+      booking_id: slotInfo.id
+    };
+    console.log(updateSlot);
+    if (slotInfo.event_type === "ride") {
+      axios.put(`/api/v1/rides/${ID}`, updateSlot)
+        .then(() => {
+          console.log("passing here...");
+          updateAllBookings();
+          setEdit(false);
+          rideData(prev => ({...prev, updateSlot}));
+        });
+    } else {
+      axios.put(`/api/v1/bookings/${ID}`, slotInfo)
+        .then(response => {
+          updateAllBookings();
+          setEdit(false);
+          setSlotInfo(prev => ({...prev, slotInfo}));
+        })
+        .catch(error => console.log("OOPS", error));
+    }
+  };
+
+  const [ destroy, setDestroy ] = useState(false);
+  const handleDestroy = () => {
+    setDestroy(true);
+  };
+
+  const handleDestroyFromAlert = () => {
+    const ID = slotInfo.id;
+    console.log("here");
+    setDestroy(false);
+    console.log(slotInfo);
+    axios.delete(`/api/v1/bookings/${ID}`, slotInfo)
+      .then(response => {
+        console.log(response);
+        console.log("DELETING");
+        updateAllBookings();
+        setEdit(false);
+        setSlotInfo(prev => ({...prev, slotInfo}));
+      });
+  };
+
+  // const destroyBooking = ({ bookingData, rideData }) => {
+
+  const handleClose = () => {
+    setDestroy(false);
+  };
 
   return (
     <div>
@@ -117,8 +193,8 @@ const MyCalendar = (props) => {
         )}
         {currentUser.attributes.is_admin && (
           <BookingForm
-            start_time={selectedSlot.start}
-            end_time={selectedSlot.end}
+            start_time={selectedSlot.start_time}
+            end_time={selectedSlot.end_time}
             onSubmit={doBooking}
             currentUser={currentUser}
             errors={errors}
@@ -129,7 +205,7 @@ const MyCalendar = (props) => {
         )}
         {currentUser.attributes.is_admin === false && (
           <RiderBookingForm
-            start_time={selectedSlot.start}
+            start_time={selectedSlot.start_time}
             end_time={selectedSlot.end}
             onSubmit={doBooking}
             currentUser={currentUser}
@@ -140,6 +216,29 @@ const MyCalendar = (props) => {
           />
         )}
       </Dialog>
+      {currentUser.attributes.is_admin && (
+        <Dialog
+          open={edit}
+          onClose={()=>{
+            setEdit(false);
+          }}
+        >
+          <Dialog
+            open={destroy}
+            onClose={()=>{
+              setDestroy(false);
+            }}
+          >
+            <DeleteAlert onDelete={handleDestroyFromAlert} onClose={()=>{
+              setDestroy(false);
+            }}>
+            </DeleteAlert>
+          </Dialog>
+          <EditForm currentUser={currentUser} slotInfo={slotInfo} setSlotInfo={setSlotInfo} onSubmit={save} onDelete={handleDestroy} onClose={()=>{
+            setEdit(false);
+          }}></EditForm>
+        </Dialog>
+      )}
       <Calendar
         className={styles.calendar}
         selectable
@@ -147,14 +246,15 @@ const MyCalendar = (props) => {
         max={new Date(0, 0, 0, 19, 0, 0)}
         localizer={localizer}
         events={events}
-        startAccessor="start"
-        endAccessor="end"
+        startAccessor="start_time"
+        endAccessor="end_time"
         defaultView="week"
         views={["week", "day"]}
         min={minTime}
         max={maxTime}
         // style={{ height: 500 }}
         onSelectSlot={handleSelectSlot}
+        onSelectEvent={(e) => handleSelectEvent(e)}
       />
     </div>
   );

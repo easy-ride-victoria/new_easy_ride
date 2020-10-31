@@ -1,5 +1,5 @@
 class Booking < ApplicationRecord
-  has_many :rides
+  has_many :rides, dependent: :delete_all
 
   # validate needs to run a function in order to validate
   validate :valid_dates

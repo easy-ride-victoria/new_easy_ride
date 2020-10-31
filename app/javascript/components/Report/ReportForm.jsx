@@ -62,6 +62,7 @@ export default function AddReportForm(props) {
   };
 
   return (
+
     <div className={classes.root}>
       <h3>Fill in this form and press save to send your report</h3>
       <FormControl className="formControl">
