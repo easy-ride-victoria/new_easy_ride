@@ -163,13 +163,13 @@ const MyCalendar = (props) => {
     console.log("here");
     setDestroy(false);
     console.log(slotInfo);
-    axios.delete(`/api/v1/bookings/${ID}`)
+    axios.delete(`/api/v1/bookings/${ID}`, slotInfo)
       .then(response => {
         console.log(response);
         console.log("DELETING");
         updateAllBookings();
         setEdit(false);
-        // setSlotInfo(prev => ({...prev, slotInfo}));
+        setSlotInfo(prev => ({...prev, slotInfo}));
       });
   };
 
@@ -216,28 +216,29 @@ const MyCalendar = (props) => {
           />
         )}
       </Dialog>
-      <Dialog
-        open={edit}
-        onClose={()=>{
-          setEdit(false);
-        }}
-      >
+      {currentUser.attributes.is_admin && (
         <Dialog
-          open={destroy}
+          open={edit}
           onClose={()=>{
-            setDestroy(false);
+            setEdit(false);
           }}
         >
-          <DeleteAlert onDelete={handleDestroyFromAlert} onClose={()=>{
-            setDestroy(false);
-          }}>
-          </DeleteAlert>
+          <Dialog
+            open={destroy}
+            onClose={()=>{
+              setDestroy(false);
+            }}
+          >
+            <DeleteAlert onDelete={handleDestroyFromAlert} onClose={()=>{
+              setDestroy(false);
+            }}>
+            </DeleteAlert>
+          </Dialog>
+          <EditForm currentUser={currentUser} slotInfo={slotInfo} setSlotInfo={setSlotInfo} onSubmit={save} onDelete={handleDestroy} onClose={()=>{
+            setEdit(false);
+          }}></EditForm>
         </Dialog>
-        <EditForm currentUser={currentUser} slotInfo={slotInfo} setSlotInfo={setSlotInfo} onSubmit={save} onDelete={handleDestroy} onClose={()=>{
-          setEdit(false);
-        }}></EditForm>
-      </Dialog>
-
+      )}
       <Calendar
         className={styles.calendar}
         selectable
