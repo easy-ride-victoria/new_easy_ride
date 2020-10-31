@@ -24,6 +24,7 @@ bookings = Booking.create ([
   }
 ])
 
+
 horses = Horse.create ([
   {
     name: "Cisco",
@@ -88,5 +89,26 @@ rides = Ride.create ([
     horse: horses.last,
     location: "indoor",
     booking: bookings.last
+  }
+])
+
+reports = Report.create ([
+  {
+    user: users.first,
+    horse: horses.first,
+    activity_date: "October 26, 2020",
+    answer1: true,
+    answer2: "lunge",
+    answer3: "we worked on transitions, up and down",
+    answer4: "Cisco was in a great mood today!",
+  },
+  {
+    user: users[2],
+    horse: horses.last,
+    activity_date: "October 27, 2020",
+    answer1: true,
+    answer2: "ring-ride",
+    answer3: "figure 8 in walk and trot. Canter at the end",
+    answer4: "Trigger felt very stiff on his left hind",
   }
 ])
