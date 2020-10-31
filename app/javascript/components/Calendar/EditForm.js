@@ -253,11 +253,14 @@ const EditForm = (props) => {
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleEdit} color="primary">
-Edit
+        <Button onClick={handleDelete} color="secondary">
+          Delete
         </Button>
-        <Button onClick={handleDelete} color="primary">
-Delete
+        <Button onClick={handleEdit} color="primary">
+          Edit
+        </Button>
+        <Button onClick={props.onCancel} color="primary">
+          Cancel
         </Button>
       </DialogActions>
     </div>
