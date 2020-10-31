@@ -7,10 +7,11 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import BookingForm from "./AdminBooking";
 import RiderBookingForm from "./RiderBooking";
 import EditForm from "./EditForm";
+import DeleteAlert from "./DeleteAlert";
 import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
-import { InputLabel, Button } from "@material-ui/core";
+import { InputLabel, Button, DialogContent, DialogActions, DialogTitle, DialogContentText } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { endOfDay } from "date-fns";
 
@@ -151,6 +152,33 @@ const MyCalendar = (props) => {
         .catch(error => console.log("OOPS", error));
     }
   };
+
+  const [ destroy, setDestroy ] = useState(false);
+  const handleDestroy = () => {
+    setDestroy(true);
+  };
+
+  const handleDestroyFromAlert = () => {
+    const ID = slotInfo.id;
+    console.log("here");
+    setDestroy(false);
+    console.log(slotInfo);
+    axios.delete(`/api/v1/bookings/${ID}`)
+      .then(response => {
+        console.log(response);
+        console.log("DELETING");
+        updateAllBookings();
+        setEdit(false);
+        // setSlotInfo(prev => ({...prev, slotInfo}));
+      });
+  };
+
+  // const destroyBooking = ({ bookingData, rideData }) => {
+
+  const handleClose = () => {
+    setDestroy(false);
+  };
+
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -194,10 +222,22 @@ const MyCalendar = (props) => {
           setEdit(false);
         }}
       >
-        <EditForm currentUser={currentUser} slotInfo={slotInfo} setSlotInfo={setSlotInfo} onSubmit={save} onClose={()=>{
+        <Dialog
+          open={destroy}
+          onClose={()=>{
+            setDestroy(false);
+          }}
+        >
+          <DeleteAlert onDelete={handleDestroyFromAlert} onClose={()=>{
+            setDestroy(false);
+          }}>
+          </DeleteAlert>
+        </Dialog>
+        <EditForm currentUser={currentUser} slotInfo={slotInfo} setSlotInfo={setSlotInfo} onSubmit={save} onDelete={handleDestroy} onClose={()=>{
           setEdit(false);
         }}></EditForm>
       </Dialog>
+
       <Calendar
         className={styles.calendar}
         selectable

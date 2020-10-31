@@ -153,9 +153,9 @@ const EditForm = (props) => {
     props.onSubmit({slotInfo, horse, user, rideData });
   };
 
-  // const handleDelete = (e) => {
-  //   props.onSubmit({slotInfo, horse, user, rideData });
-  // };
+  const handleDelete = (e) => {
+    props.onDelete({slotInfo, horse, user, rideData });
+  };
 
   
   // props.onChange(e);
@@ -254,14 +254,14 @@ const EditForm = (props) => {
       </DialogContent>
       <DialogActions>
         <Button
-        // onClick={handleDelete}
+          onClick={handleDelete}
           color="secondary">
           Delete
         </Button>
         <Button onClick={handleEdit} color="primary">
           Edit
         </Button>
-        <Button onClick={props.onCancel} color="primary">
+        <Button onClick={props.onClose} color="primary">
           Cancel
         </Button>
       </DialogActions>
