@@ -181,7 +181,7 @@ const EditForm = (props) => {
             >
               <MenuItem value={"lesson"}>Lesson</MenuItem>
               <MenuItem value={"ride"}>Ride</MenuItem>
-              <MenuItem value={"other_arena"}>Other Arena Booking</MenuItem>
+              <MenuItem value={"other"}>Other Arena Booking</MenuItem>
             </Select>
           </FormControl>
           <div className={styles.dateTimePickerContainer}>
