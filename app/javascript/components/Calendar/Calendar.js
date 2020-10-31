@@ -124,32 +124,40 @@ const MyCalendar = (props) => {
   };
 
   const save = ({ horse, user, rideData }) => {
+    const ID = slotInfo.id;
     console.log(horse);
     console.log(user);
-    const ID = slotInfo.id;
-    const updateSlot = {
-      horse_id: horse.id,
-      user_id: user.id,
-      booking_id: slotInfo.id
-    };
-    console.log(updateSlot);
+    console.log(typeof ID);
+    console.log(typeof horse.id);
+    // const updateSlot = {
+    //   horse_id: Number(horse.id),
+    //   user_id: Number(user.id),
+    //   booking_id: Number(slotInfo.id)
+    // };
+    // console.log(updateSlot);
+    console.log(slotInfo);
     if (slotInfo.event_type === "ride") {
-      axios.put(`/api/v1/rides/${ID}`, updateSlot)
+      axios.put(`/api/v1/rides/${ID}`, slotInfo, horse, user)
         .then(() => {
           console.log("passing here...");
           updateAllBookings();
           setEdit(false);
-          rideData(prev => ({...prev, updateSlot}));
+          setSlotInfo(prev => ({...prev, slotInfo}));
+          // rideData(prev => ({...prev,
+          //   user_id: user.id,
+          //   horse_id: horse.id
+          // }));
         });
     } else {
-    // event.preventDefault();
+      const ID = slotInfo.id;
+      // event.preventDefault();
       axios.put(`/api/v1/bookings/${ID}`, slotInfo)
         .then(response => {
           updateAllBookings();
           setEdit(false);
           setSlotInfo(prev => ({...prev, slotInfo}));
         })
-        .catch(error => console.log("OOPS", error));
+        .catch(error => console.log("OOPS! Error", error));
     }
   };
 

@@ -83,6 +83,7 @@ const EditForm = (props) => {
     id: 0
   });
 
+  // get user id and horse id according to slot selected
   useEffect(() => {
     axios.get("/api/v1/rides")
       .then(response => {
@@ -122,22 +123,12 @@ const EditForm = (props) => {
   
   console.log(slotInfo, "<<< slot info");
   
-  const handleDelete = () => {
-    event.preventDefault();
-
-    console.log("delete", "slot=", slotInfo, "user=", user, "horse=",horse);
-  };
-
   const [rideData, setRideData] = useState({
     user_id: Number(currentUser.id),
     horse_id: 1,
     location: "outdoors",
   });
   
-  const handleEdit = (e) => {
-    props.onSubmit({slotInfo, horse, user, rideData });
-  };
-
   // selecting the event type
   const handleBookingChange = (e) => {
     console.log("changeeee event:,", e);
@@ -156,8 +147,17 @@ const EditForm = (props) => {
     // console.log(end_time[Moment]);
     setSlotInfo(prev => ({...prev, end_time}));
   };
+  
+  const handleEdit = (e) => {
+    console.log(slotInfo, horse, user, rideData);
+    props.onSubmit({slotInfo, horse, user, rideData });
+  };
 
+  // const handleDelete = (e) => {
+  //   props.onSubmit({slotInfo, horse, user, rideData });
+  // };
 
+  
   // props.onChange(e);
   return (
  
@@ -253,7 +253,9 @@ const EditForm = (props) => {
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleDelete} color="secondary">
+        <Button
+        // onClick={handleDelete}
+          color="secondary">
           Delete
         </Button>
         <Button onClick={handleEdit} color="primary">
