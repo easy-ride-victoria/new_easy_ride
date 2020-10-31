@@ -7,6 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import BookingForm from "./AdminBooking";
 import RiderBookingForm from "./RiderBooking";
 import EditForm from "./EditForm";
+import RiderEditForm from "./RiderEditForm";
 import DeleteAlert from "./DeleteAlert";
 import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -252,6 +253,29 @@ const MyCalendar = (props) => {
               setEdit(false);
             }}
           ></EditForm>
+        </Dialog>
+      )}
+      {currentUser.attributes.is_admin === false && (
+        <Dialog
+          open={edit}
+          onClose={()=>{
+            setEdit(false);
+          }}
+        >
+          <Dialog
+            open={destroy}
+            onClose={()=>{
+              setDestroy(false);
+            }}
+          >
+            <DeleteAlert onDelete={handleDestroyFromAlert} onClose={()=>{
+              setDestroy(false);
+            }}>
+            </DeleteAlert>
+          </Dialog>
+          <RiderEditForm currentUser={currentUser} slotInfo={slotInfo} setSlotInfo={setSlotInfo} onSubmit={save} onClose={()=>{
+            setEdit(false);
+          }}></RiderEditForm>
         </Dialog>
       )}
       <Calendar

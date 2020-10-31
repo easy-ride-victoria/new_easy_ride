@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserEditForm = (props) => {
+const RiderEditForm = (props) => {
   const styles = useStyles();
   const { currentUser, setCurrentUser, errors } = props;
   const { slotInfo, setSlotInfo } = props;
@@ -75,6 +75,12 @@ const UserEditForm = (props) => {
   const [ horse, setHorse ] = useState({
     name: "",
     id: 0
+  });
+  
+  const [rideData, setRideData] = useState({
+    user_id: Number(currentUser.id),
+    horse_id: 1,
+    location: "outdoors",
   });
 
   // get user id and horse id according to slot selected
@@ -117,18 +123,23 @@ const UserEditForm = (props) => {
   
   console.log(slotInfo, "<<< slot info");
   
-  const [rideData, setRideData] = useState({
-    user_id: Number(currentUser.id),
-    horse_id: 1,
-    location: "outdoors",
-  });
-  
+
+  // get user id and horse id according to slot selected
+  useEffect(() => {
+    const ID = slotInfo.id;
+    axios.get(`/api/v1/rides/${ID}`)
+      .then(response => {
+        console.log(response);
+        console.log(slotInfo);
+        const rideInfo = response.data.data.attributes;
+        console.log(rideInfo);
+        setRideData(rideInfo);
+      });
+  }, []);
+
   // selecting the event type
-  const handleBookingChange = (e) => {
-    console.log("changeeee event:,", e);
-    console.log("changeeee event:,", e.target.value);
-    console.log("changeeee event:,", slotInfo);
-    setSlotInfo(prev => ({...prev,[e.target.name]: e.target.value }));
+  const handleLocationChange = (event) => {
+    setRideData({ ...rideData, location: event.target.value });
   };
   
   // changing the start time
@@ -147,12 +158,7 @@ const UserEditForm = (props) => {
     props.onSubmit({slotInfo, horse, user, rideData });
   };
 
-  const handleDelete = (e) => {
-    props.onDelete({slotInfo, horse, user, rideData });
-  };
-
-  
-  // props.onChange(e);
+  console.log("RIDE DATA LOCATION", rideData.location);
   return (
  
     <div className={styles.form}>
@@ -166,16 +172,15 @@ const UserEditForm = (props) => {
       <DialogContent>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <FormControl className={styles.formControl}>
-            <InputLabel id="booking-type-label">Booking Type</InputLabel>
+            <InputLabel id="booking-type-label">Location</InputLabel>
             <Select
-              labelId="booking-type-label"
-              name="event_type"
-              value={slotInfo.event_type}
-              onChange={handleBookingChange}
+              labelId="location-label"
+              name="location"
+              value={rideData.location}
+              onChange={handleLocationChange}
             >
-              <MenuItem value={"lesson"}>Lesson</MenuItem>
-              <MenuItem value={"ride"}>Ride</MenuItem>
-              <MenuItem value={"other"}>Other Arena Booking</MenuItem>
+              <MenuItem value={"outdoors"}>Outdoors</MenuItem>
+              <MenuItem value={"indoors"}>Indoors: Arena</MenuItem>
             </Select>
           </FormControl>
           <div className={styles.dateTimePickerContainer}>
@@ -210,7 +215,7 @@ const UserEditForm = (props) => {
                 labelId="horse-select-label"
                 id="horse-select"
                 value={horse.id}
-                onChange={(e) => setHorse({...horse, id: e.target.value })}
+                onChange={(e) => setRideData({ ...rideData, horse_id: e.target.value })}
               >
                 {horses.map((horse) => {
                   return (
@@ -227,11 +232,6 @@ const UserEditForm = (props) => {
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
-        <Button
-          onClick={handleDelete}
-          color="secondary">
-          Delete
-        </Button>
         <Button onClick={handleEdit} color="primary">
           Edit
         </Button>
@@ -243,4 +243,4 @@ const UserEditForm = (props) => {
   );
 };
 
-export default UserEditForm;
+export default RiderEditForm;
