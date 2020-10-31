@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -32,23 +32,29 @@ const useStyles = makeStyles({
     marginBottom: "40px",
     marginLeft: "63px",
     alignContent: "centre"
+  },
+  wholeForm: {
+    width: "90%",
+    margin: "auto",
   }
 });
 
-const defaultState = {
-  name: "",
-  horse: "",
-  date: "",
-  question1: "true",
-  question2: "",
-  question3: "",
-  question4: ""
-};
 
-export default function AddHorseForm(props) {
+export default function AddReportForm(props) {
+  
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState(defaultState);
+  const { currentUser, setCurrentUser } = props;
+  const [values, setValues]= useState({
+    first_name: "",
+    last_name: "",
+    horse: "",
+    date: "",
+    activity_type: "",
+    question1: true,
+    question2: "",
+    question3: "",
+    question4: ""
+  });
 
   // const handleSubmit = () => {
   //   Axios.post("/api/v1/horses", state).then(() => {
@@ -59,111 +65,124 @@ export default function AddHorseForm(props) {
   //   });
   // };
 
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    setOpen(false);
     setState(defaultState);
+    <Link to={"/"} /> 
   };
 
   return (
-    <div>
-      {/* <Button className={classes.addButton} color="primary" onClick={handleClickOpen}>
-      Fill New Report
-      </Button> */}
-      {/* <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      > */}
-        <DialogTitle id="form-dialog-title">Create New Report</DialogTitle>
-        <DialogContent>
+    <div >
+      <FormControl >
+        
           <TextField
             autoFocus
-            margin="dense"
-            name="name"
-            label="Name"
+            margin="normal"
+            name="first_name"
+            label="First Name"
             type="text"
-            onChange={handleChange}
-            value={state.name}
-            fullWidth
+            value={values.first_name}
+            onChange={(e) => {
+              setValues({ ...values, first_name: e.target.value})
+            }}
+          />
+
+          <TextField
+            margin="normal"
+            name="last_name"
+            label="Last Name"
+            type="text"
+            value={values.last_name}
+            onChange={(e) => {
+              setValues({ ...values, last_name: e.target.value})
+            }}
           />
           <TextField
-            margin="dense"
+            margin="normal"
             name="horse"
             label="Horse you worked with"
             type="text"
-            onChange={state.horse}
-            fullWidth
+            value={values.horse}
+            onChange= {(e) => {
+              setValues({ ...values, horse: e.target.value})
+            }}
           />
           <TextField
-            margin="dense"
+            margin="normal"
             name="activity_date"
             label="Date of the activity"
             type="text"
-            onChange={handleChange}
-            value={state.date}
-            fullWidth
+            value={values.date}
+            onChange= {(e) => {
+              setValues({ ...values, date: e.target.value})
+            }}
           />
           <FormControlLabel
-            control={<Checkbox checked={state.question1} onChange={handleChange} name="question1" />}
+            control={
+              <Checkbox 
+                checked={values.question1} 
+                 
+                onChange={() => {
+                  setValues({ ...values, question1: !values.question1 });
+                }}
+              />}
             label="Did you warm-up with a 10 minutes walk on a loose rein?"
           />
+
           <FormControl className={classes.formControl}>
             <InputLabel id="demo-simple-select-label">Select what type of activity you did:</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value=""
-              onChange={handleChange}
-            >
-              <MenuItem value={"lunge"}>Lunge</MenuItem>
-              <MenuItem value={"free-lunge"}>Free Lunge</MenuItem>
-              <MenuItem value={"trail-ride"}>Trail Ride</MenuItem>
-              <MenuItem value={"ring-ride"}>Ride in the Ring</MenuItem>
-              <MenuItem value={"play"}>Structured Play</MenuItem>
-              <MenuItem value={"hand-walk"}>Hand Walk</MenuItem>
-            </Select>
-            </FormControl>
-          <TextareaAutosize
-            margin="dense"
+              <Select
+                name="activity"
+                variant="outlined"
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={values.question2}
+                onChange= {(e) => {setValues({...values, question2: e.target.value})
+                }}
+              >
+                <MenuItem value={"lunge"}>Lunge</MenuItem>
+                <MenuItem value={"free-lunge"}>Free Lunge</MenuItem>
+                <MenuItem value={"trail-ride"}>Trail Ride</MenuItem>
+                <MenuItem value={"ring-ride"}>Ride in the Ring</MenuItem>
+                <MenuItem value={"play"}>Structured Play</MenuItem>
+                <MenuItem value={"hand-walk"}>Hand Walk</MenuItem>
+              </Select>
+          </FormControl>
+
+          <TextField
+            margin="normal"
             name="exercises"
-            aria-label="minimum height"
-            label="Details of exercises"
-            type="text"
-            rowsMin={3}
-            onChange={handleChange}
-            value={state.question3}
-            fullWidth
+            label="Please detail the exercises you worked on:"
+            multiline
+            rows={10}
+            variant="outlined"
+            value={values.question3}
+            onChange= {(e) => {
+              setValues({ ...values, question3: e.target.value})
+            }}
           />
-          <TextareaAutosize
-            margin="dense"
+          
+          <TextField
+            margin="normal"
             name="comments"
-            aria-label="minimum height"
-            label="Any other relevant comments"
-            type="text"
-            rowsMin={3}
-            onChange={handleChange}
-            value={state.question4}
-            fullWidth
+            label="Any other comment you feel are relevant?"
+            multiline
+            rows={10}
+            variant="outlined"
+            value={values.question4}
+            onChange= {(e) => {
+              setValues({ ...values, question4: e.target.value})
+            }}
           />
-        </DialogContent>
-        <DialogActions>
+        
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button onClick={handleClose} color="primary">
             Add
           </Button>
-        </DialogActions>
-      </Dialog>
+      
+        </FormControl>
+      
     </div>
   );
 }
