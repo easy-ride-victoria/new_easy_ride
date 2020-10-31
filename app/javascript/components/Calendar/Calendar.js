@@ -141,14 +141,16 @@ const MyCalendar = (props) => {
       user_id: user.id,
       booking_id: slotInfo.id,
     };
-    console.log(updateSlot);
+    //console.log(updateSlot);
     if (slotInfo.event_type === "ride") {
-      axios.put(`/api/v1/rides/${ID}`, updateSlot).then(() => {
-        console.log("passing here...");
-        updateAllBookings();
-        setEdit(false);
-        rideData((prev) => ({ ...prev, updateSlot }));
-      });
+      console.log("right id? => ",ID);
+      axios.put(`/api/v1/rides/${ID}`, updateSlot)
+        .then(() => {
+          console.log("passing here...");
+          updateAllBookings();
+          setEdit(false);
+          rideData(prev => ({...prev, updateSlot}));
+        });
     } else {
       axios
         .put(`/api/v1/bookings/${ID}`, slotInfo)

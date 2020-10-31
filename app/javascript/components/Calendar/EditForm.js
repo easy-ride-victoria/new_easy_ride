@@ -91,7 +91,8 @@ const EditForm = (props) => {
         console.log(userDataRidesTable);
         setHorse(userDataRidesTable.attributes.horse);
         setUser(userDataRidesTable.attributes.user);
-        console.log(userDataRidesTable.attributes.horse);
+        console.log(userDataRidesTable.attributes.ride);
+        setRideData(userDataRidesTable.attributes.ride);
         // setUser(userDataRidesTable.attributes.user_id);
       });
   }, []);
