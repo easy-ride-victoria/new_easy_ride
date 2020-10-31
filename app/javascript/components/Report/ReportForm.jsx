@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Switch from "@material-ui/core/Switch";
+import Grid from '@material-ui/core/Grid';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,30 +9,25 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-
 import { makeStyles } from "@material-ui/core/styles";
 import Axios from "axios";
-import { TextareaAutosize } from "@material-ui/core";
+
 
 
 // Material ui customization
 const useStyles = makeStyles({
-  formControl: {
-    // margin: theme.spacing(1),
-    minWidth: 120,
+  root: {
+    flexGrow: 1,
+    width: "65%",
+    margin: "auto",
   },
-  // selectEmpty: {
-  //   marginTop: theme.spacing(2),
-  // },
+  
   saveButton: {
     marginBottom: "40px",
     marginLeft: "63px",
-    alignContent: "centre"
+    display: "inline",
   },
-  wholeForm: {
-    width: "90%",
-    margin: "auto",
-  }
+
 });
 
 
@@ -71,10 +62,13 @@ export default function AddReportForm(props) {
   };
 
   return (
-    <div >
-      <FormControl >
-        
+    <div className={classes.root}>
+      <h3>Fill in this form and press save to send your report</h3>
+      <FormControl className="formControl">
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
           <TextField
+          
             autoFocus
             margin="normal"
             name="first_name"
@@ -85,8 +79,10 @@ export default function AddReportForm(props) {
               setValues({ ...values, first_name: e.target.value})
             }}
           />
-
+        </Grid>
+        <Grid item xs={6}>
           <TextField
+          
             margin="normal"
             name="last_name"
             label="Last Name"
@@ -96,6 +92,7 @@ export default function AddReportForm(props) {
               setValues({ ...values, last_name: e.target.value})
             }}
           />
+          </Grid></Grid>
           <TextField
             margin="normal"
             name="horse"
@@ -174,11 +171,11 @@ export default function AddReportForm(props) {
             }}
           />
         
-          <Button onClick={handleClose} color="primary">
+          <Button className="saveButton" onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
-            Add
+          <Button className="saveButton" onClick={handleClose} color="primary">
+            Send
           </Button>
       
         </FormControl>
