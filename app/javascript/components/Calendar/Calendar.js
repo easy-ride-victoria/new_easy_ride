@@ -123,34 +123,35 @@ const MyCalendar = (props) => {
     setEdit(true);
   };
 
-  const save = ({ horse, user }) => {
-    console.log("slot info from calendar heey", slotInfo);
-    console.log("horse info from calendar heey", horse);
-    // event.preventDefault();
+  const save = ({ horse, user, rideData }) => {
+    console.log(horse);
+    console.log(user);
     const ID = slotInfo.id;
-    console.log(ID);
-    console.log(slotInfo);
-    axios.put(`/api/v1/bookings/${ID}`, slotInfo)
-      .then(response => {
-        setSlotInfo(prev => ({...prev, slotInfo}));
-      })
-      .catch(error => console.log("OOPS", error));
+    const updateSlot = {
+      horse_id: horse.id,
+      user_id: user.id,
+      booking_id: slotInfo.id
+    };
+    console.log(updateSlot);
+    if (slotInfo.event_type === "ride") {
+      axios.put(`/api/v1/rides/${ID}`, updateSlot)
+        .then(() => {
+          console.log("passing here...");
+          updateAllBookings();
+          setEdit(false);
+          rideData(prev => ({...prev, updateSlot}));
+        });
+    } else {
+    // event.preventDefault();
+      axios.put(`/api/v1/bookings/${ID}`, slotInfo)
+        .then(response => {
+          updateAllBookings();
+          setEdit(false);
+          setSlotInfo(prev => ({...prev, slotInfo}));
+        })
+        .catch(error => console.log("OOPS", error));
+    }
   };
-
-  // const editChanges = (e) => {
-  //   const ID = slotInfo.id;
-  //   console.log(start_time);
-  //   setSlotInfo({...slotInfo, [e.target.name]: e.target.value});
-  //   setSlotInfo({...slotInfo, start_time: e.target.value});
-  //   axios.put(`/api/v1/bookings/${ID}`, slotInfo)
-  //     .then(response => {
-  //       setSlotInfo(prev => ({...prev, slotInfo}));
-  //     })
-  //     .catch(error => console.log("OOPS", error));
-  // };
-
-
-
 
   return (
     <div>

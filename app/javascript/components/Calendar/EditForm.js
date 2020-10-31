@@ -82,7 +82,7 @@ const EditForm = (props) => {
     name: "",
     id: 0
   });
-  
+
   useEffect(() => {
     axios.get("/api/v1/rides")
       .then(response => {
@@ -128,8 +128,14 @@ const EditForm = (props) => {
     console.log("delete", "slot=", slotInfo, "user=", user, "horse=",horse);
   };
 
+  const [rideData, setRideData] = useState({
+    user_id: Number(currentUser.id),
+    horse_id: 1,
+    location: "outdoors",
+  });
+  
   const handleEdit = (e) => {
-    props.onSubmit({slotInfo, horse, user });
+    props.onSubmit({slotInfo, horse, user, rideData });
   };
 
   // selecting the event type
@@ -230,7 +236,7 @@ const EditForm = (props) => {
                   labelId="horse-select-label"
                   id="horse-select"
                   value={horse.id}
-                  onChange={(e) => setHorse({...horse, name: e.target.value })}
+                  onChange={(e) => setHorse({...horse, id: e.target.value })}
                 >
                   {horses.map((horse) => {
                     return (
