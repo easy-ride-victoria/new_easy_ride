@@ -66,7 +66,7 @@ const EditForm = (props) => {
   const [ user, setUser ] = useState({
     first_name: " ",
     last_name: "",
-    id: 0
+    id: "0"
   });
 
   const [users, setUsers] = useState([]);
@@ -82,6 +82,7 @@ const EditForm = (props) => {
     name: "",
     id: 0
   });
+  
   useEffect(() => {
     axios.get("/api/v1/rides")
       .then(response => {
@@ -116,23 +117,25 @@ const EditForm = (props) => {
   useEffect(loadBookings, []);
   
   console.log(slotInfo, "<<< slot info");
-
-  const handleEdit = (e) => {
-    props.onSubmit({ slotInfo, user, horse });
-  };
-
-  const save = () => {
-    event.preventDefault();
-    const ID = slotInfo.id;
-    console.log(ID);
-    // axios.put ("/api/v1/rides"), { ...}
-  };
   
   const handleDelete = () => {
     event.preventDefault();
 
-    console.log("delete", slotInfo, user, horse);
+    console.log("delete", "slot=", slotInfo, "user=", user, "horse=",horse);
   };
+
+  const handleEdit = (e) => {
+    props.onSubmit({slotInfo, horse, user });
+  };
+
+  // selecting the event type
+  const handleBookingChange = (e) => {
+    console.log("changeeee event:,", e.target.name);
+    console.log("changeeee event:,", e.target.value);
+    console.log("changeeee event:,", slotInfo);
+    props.onChange(e);
+  };
+
 
   return (
  
@@ -151,8 +154,8 @@ const EditForm = (props) => {
             <Select
               labelId="booking-type-label"
               name="event_type"
-              value={slotInfo.title}
-              onChange={(e) => setSlotInfo({...slotInfo, title: e.target.value})}
+              value={slotInfo.event_type}
+              onChange={handleBookingChange}
             >
               <MenuItem value={"lesson"}>Lesson</MenuItem>
               <MenuItem value={"ride"}>Ride</MenuItem>
@@ -167,8 +170,8 @@ const EditForm = (props) => {
               className={styles.dateTimePicker}
               autoOk
               openTo="hours"
-              value={slotInfo.start}
-              onChange={(e) => setSlotInfo({...slotInfo, start: e.target.value})}
+              value={slotInfo.start_time}
+              onChange={(start_time) => setSlotInfo({...slotInfo, start_time: e.target.value})}
             />
             <DateTimePicker
               label="End Time"
@@ -177,11 +180,11 @@ const EditForm = (props) => {
               className={styles.dateTimePicker}
               autoOk
               openTo="hours"
-              value={slotInfo.end}
-              onChange={(e) => setSlotInfo({...slotInfo, end: e.target.value})}
+              value={slotInfo.end_time}
+              onChange={(end_time) => setSlotInfo({...slotInfo, end_time: e.target.value})}
             />
           </div>
-          {slotInfo.title === "ride" && (
+          {slotInfo.event_type === "ride" && (
 
 
             <>
@@ -191,11 +194,11 @@ const EditForm = (props) => {
                   labelId="rider-select-label"
                   id="rider-select"
                   value={user.id}
-                  onChange={(e) => setUser({...user, id: e.target.id })}
+                  onChange={(e) => setUser({...user, id: e.target.value })}
                 >
                   {users.map((user) => {
                     return (
-                      <MenuItem value={user.id}>
+                      <MenuItem value={user.id} key={user.id}>
                         {user.attributes.first_name} {user.attributes.value}
                       </MenuItem>
                     );
@@ -215,7 +218,7 @@ const EditForm = (props) => {
                 >
                   {horses.map((horse) => {
                     return (
-                      <MenuItem value={horse.id}>
+                      <MenuItem value={horse.id} key={horse.id}>
                         {horse.attributes.name}
                       </MenuItem>
                     );
@@ -228,7 +231,7 @@ const EditForm = (props) => {
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
-        <Button onClick={save} color="primary">
+        <Button onClick={handleEdit} color="primary">
 Edit
         </Button>
         <Button onClick={handleDelete} color="primary">
