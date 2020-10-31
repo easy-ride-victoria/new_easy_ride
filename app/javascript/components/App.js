@@ -9,6 +9,7 @@ import ProfilePage from "./Profile/ProfilePage";
 import HorsesPage from "./Admin/HorsesPage";
 import UsersPage from "./Admin/UsersPage";
 import ReportPage from "./Report/ReportPage";
+import ReportsPage from "./Admin/ReportsPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(
@@ -52,6 +53,9 @@ const App = () => {
       </AdminRoute>
       <AdminRoute currentUser={currentUser} exact path="/admin/users">
         <UsersPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      </AdminRoute>
+      <AdminRoute currentUser={currentUser} exact path="/admin/reports">
+        <ReportsPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </AdminRoute>
     </Switch>
   );
