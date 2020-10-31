@@ -48,7 +48,7 @@ export default function AddReportForm(props) {
   });
 
   // const handleSubmit = () => {
-  //   Axios.post("/api/v1/horses", state).then(() => {
+  //   Axios.post("/api/v1/reports", state).then(() => {
   //     handleClose();
   //     if (props.onSubmit) {
   //       props.onSubmit();
