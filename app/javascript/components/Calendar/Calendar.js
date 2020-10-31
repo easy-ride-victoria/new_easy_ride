@@ -115,8 +115,9 @@ const MyCalendar = (props) => {
   const handleSelectEvent = (e) => {
     setEdit(true);
     setSlotInfo(e);
+    console.log(e);
   };
-
+  
   const handleClickOpen = () => {
     setEdit(true);
   };
