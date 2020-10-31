@@ -124,43 +124,33 @@ const MyCalendar = (props) => {
   };
 
   const save = ({ horse, user, rideData }) => {
-    const ID = slotInfo.id;
     console.log(horse);
     console.log(user);
-    console.log(typeof ID);
-    console.log(typeof horse.id);
-    // const updateSlot = {
-    //   horse_id: Number(horse.id),
-    //   user_id: Number(user.id),
-    //   booking_id: Number(slotInfo.id)
-    // };
-    // console.log(updateSlot);
-    console.log(slotInfo);
+    const ID = slotInfo.id;
+    const updateSlot = {
+      horse_id: horse.id,
+      user_id: user.id,
+      booking_id: slotInfo.id
+    };
+    console.log(updateSlot);
     if (slotInfo.event_type === "ride") {
-      axios.put(`/api/v1/rides/${ID}`, slotInfo, horse, user)
+      axios.put(`/api/v1/rides/${ID}`, updateSlot)
         .then(() => {
           console.log("passing here...");
           updateAllBookings();
           setEdit(false);
-          setSlotInfo(prev => ({...prev, slotInfo}));
-          // rideData(prev => ({...prev,
-          //   user_id: user.id,
-          //   horse_id: horse.id
-          // }));
+          rideData(prev => ({...prev, updateSlot}));
         });
     } else {
-      const ID = slotInfo.id;
-      // event.preventDefault();
       axios.put(`/api/v1/bookings/${ID}`, slotInfo)
         .then(response => {
           updateAllBookings();
           setEdit(false);
           setSlotInfo(prev => ({...prev, slotInfo}));
         })
-        .catch(error => console.log("OOPS! Error", error));
+        .catch(error => console.log("OOPS", error));
     }
   };
-
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
