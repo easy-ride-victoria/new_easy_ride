@@ -48,7 +48,8 @@ const style = {
 
 export default function ReportsTable(props) {
   const classes = useStyles();
-  const reports = props;
+  const {reports} = props;
+
 
   console.log("reports: ", reports);
   return (
