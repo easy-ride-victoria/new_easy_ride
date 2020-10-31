@@ -100,11 +100,19 @@ export default function MenuAppBar(props) {
                     <MenuItem onClick={handleClose}>Edit Horses</MenuItem>
                   </Link>
                 )}
+                {currentUser.attributes.is_admin && (
+                  <Link to={"/admin/reports"}>
+                    <MenuItem onClick={handleClose}>Reports</MenuItem>
+                  </Link>
+                )}
                 <Link to={"/profile"}>
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                 </Link>
                 <Link to={"/report"}>
                   <MenuItem onClick={handleClose}>Report</MenuItem>
+
+                </Link>
+
                   <MenuItem onClick={() => setCurrentUser(null)}>
                   Logout
                   </MenuItem>
