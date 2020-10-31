@@ -67,12 +67,16 @@ const BookingForm = (props) => {
     end_time,
     event_type = "lesson",
     errors,
+    lesson_price_cad = 32,
+    lesson_total_spots = 4,
   } = props;
 
   const [bookingData, setBookingData] = useState({
     start_time,
     end_time,
     event_type,
+    lesson_price_cad,
+    lesson_total_spots,
   });
   const [rideData, setRideData] = useState({
     user_id: Number(currentUser.id),
@@ -101,7 +105,6 @@ const BookingForm = (props) => {
   // on send button click
   const handleSubmit = (e) => {
     props.onSubmit({ bookingData, rideData });
-
   };
 
   // selecting the horse
@@ -174,6 +177,28 @@ const BookingForm = (props) => {
               onChange={handleEndTimeChange}
             />
           </div>
+          {bookingData.event_type === "lesson" && (
+            <>
+              <TextField
+                margin="dense"
+                name="lesson_price_cad"
+                label="Lesson Price"
+                type="number"
+                onChange={handleBookingChange}
+                value={bookingData.lesson_price_cad}
+                fullWidth
+              />
+              <TextField
+                margin="dense"
+                name="lesson_total_spots"
+                label="Lesson Spots"
+                type="number"
+                onChange={handleBookingChange}
+                value={bookingData.lesson_total_spots}
+                fullWidth
+              />
+            </>
+          )}
           {bookingData.event_type === "ride" && (
             <>
               <FormControl className={styles.formControl}>

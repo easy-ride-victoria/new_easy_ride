@@ -10,8 +10,8 @@ module Api
           "autocomplete": true,
           "location_id": SQUARE_SANDBOX_LOCATION_ID,
           "amount_money": { # amount_money = $100.00
-            "amount": 10000,
-            "currency": 'CAD'
+            "amount": params[:amount] * 100,
+            "currency": params[:currency]
           },
           "idempotency_key": SecureRandom.uuid
         }

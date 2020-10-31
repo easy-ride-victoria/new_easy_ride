@@ -12,7 +12,7 @@ import Axios from "axios";
 
 const LessonPaymentForm = (props) => {
   const [errorMessages, setErrorMessages] = useState([]);
-
+  const { amount, currency } = props;
   const cardNonceResponseReceived = (
     errors,
     nonce,
@@ -33,14 +33,16 @@ const LessonPaymentForm = (props) => {
     );
     Axios.post("/api/v1/payments", {
       nonce: nonce,
+      amount,
+      currency,
       token: buyerVerificationToken,
     });
   };
 
   const createVerificationDetails = () => {
     return {
-      amount: "100.00",
-      currencyCode: "CAD",
+      amount: amount.toString(),
+      currencyCode: currency,
       intent: "CHARGE",
       billingContact: {
         familyName: "Smith",
@@ -80,7 +82,7 @@ const LessonPaymentForm = (props) => {
           </div>
         </fieldset>
 
-        <CreditCardSubmitButton>Pay $1.00</CreditCardSubmitButton>
+        <CreditCardSubmitButton>Pay ${amount}</CreditCardSubmitButton>
       </SquarePaymentForm>
       <div className="sq-error-message">
         {errorMessages.map((errorMessage) => (

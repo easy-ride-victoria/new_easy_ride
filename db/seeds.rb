@@ -10,7 +10,9 @@ bookings = Booking.create ([
   {
     event_type: "lesson",
     start_time: DateTime.strptime("11/05/2020 10:10", "%m/%d/%Y %H:%M"),
-    end_time: DateTime.strptime("11/05/2020 11:10", "%m/%d/%Y %H:%M")
+    end_time: DateTime.strptime("11/05/2020 11:10", "%m/%d/%Y %H:%M"),
+    lesson_price_cad: 32,
+    lesson_total_spots: 4
   },
   {
     event_type: "ride",
