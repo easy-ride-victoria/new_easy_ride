@@ -86,10 +86,14 @@ const EditForm = (props) => {
   useEffect(() => {
     axios.get("/api/v1/rides")
       .then(response => {
+        console.log(response);
+        console.log(slotInfo);
         const listOfRides = response.data.data;
+        console.log(listOfRides);
         const userDataRidesTable = listOfRides.find(i => i.attributes.booking_id == slotInfo.id);
+        const userDataRidesTable2 = listOfRides.map(i => i.attributes.booking_id);
+        // console.log(userDataRidesTable2);
         console.log(userDataRidesTable);
-        console.log(typeof userDataRidesTable.attributes.horse);
         setHorse(userDataRidesTable.attributes.horse);
         setUser(userDataRidesTable.attributes.user);
         console.log(userDataRidesTable.attributes.horse);
@@ -130,13 +134,25 @@ const EditForm = (props) => {
 
   // selecting the event type
   const handleBookingChange = (e) => {
-    console.log("changeeee event:,", e.target.name);
+    console.log("changeeee event:,", e);
     console.log("changeeee event:,", e.target.value);
     console.log("changeeee event:,", slotInfo);
-    props.onChange(e);
+    setSlotInfo(prev => ({...prev,[e.target.name]: e.target.value }));
+  };
+  
+  // changing the start time
+  const handleStartTimeChange = (start_time) => {
+    setSlotInfo(prev => ({...prev, start_time }));
+  };
+
+  // changing the end time
+  const handleEndTimeChange = (end_time) => {
+    // console.log(end_time[Moment]);
+    setSlotInfo(prev => ({...prev, end_time}));
   };
 
 
+  // props.onChange(e);
   return (
  
     <div className={styles.form}>
@@ -171,7 +187,7 @@ const EditForm = (props) => {
               autoOk
               openTo="hours"
               value={slotInfo.start_time}
-              onChange={(start_time) => setSlotInfo({...slotInfo, start_time: e.target.value})}
+              onChange={handleStartTimeChange}
             />
             <DateTimePicker
               label="End Time"
@@ -181,7 +197,7 @@ const EditForm = (props) => {
               autoOk
               openTo="hours"
               value={slotInfo.end_time}
-              onChange={(end_time) => setSlotInfo({...slotInfo, end_time: e.target.value})}
+              onChange={handleEndTimeChange}
             />
           </div>
           {slotInfo.event_type === "ride" && (

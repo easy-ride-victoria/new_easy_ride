@@ -123,37 +123,35 @@ const MyCalendar = (props) => {
     setEdit(true);
   };
 
-  const save = ({ horse }) => {
+  const save = ({ horse, user }) => {
     console.log("slot info from calendar heey", slotInfo);
     console.log("horse info from calendar heey", horse);
-    event.preventDefault();
+    // event.preventDefault();
     const ID = slotInfo.id;
     console.log(ID);
     console.log(slotInfo);
     axios.put(`/api/v1/bookings/${ID}`, slotInfo)
-    // axios.put(`/api/v1/bookings/``)
       .then(response => {
         setSlotInfo(prev => ({...prev, slotInfo}));
       })
       .catch(error => console.log("OOPS", error));
   };
 
-  const editChanges = (e) => {
-    console.log("slot info from calendar heey", slotInfo);
-    console.log(slotInfo);
-    const ID = slotInfo.id;
-    console.log(ID);
-    console.log(slotInfo);
-    setSlotInfo({...slotInfo, [e.target.name]: e.target.value});
-    axios.put(`/api/v1/bookings/${ID}`, slotInfo)
-    // axios.put(`/api/v1/bookings/``)
-      .then(response => {
-        console.log("changing");
+  // const editChanges = (e) => {
+  //   const ID = slotInfo.id;
+  //   console.log(start_time);
+  //   setSlotInfo({...slotInfo, [e.target.name]: e.target.value});
+  //   setSlotInfo({...slotInfo, start_time: e.target.value});
+  //   axios.put(`/api/v1/bookings/${ID}`, slotInfo)
+  //     .then(response => {
+  //       setSlotInfo(prev => ({...prev, slotInfo}));
+  //     })
+  //     .catch(error => console.log("OOPS", error));
+  // };
 
-        setSlotInfo(prev => ({...prev, slotInfo}));
-      })
-      .catch(error => console.log("OOPS", error));
-  };
+
+
+
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -197,7 +195,7 @@ const MyCalendar = (props) => {
           setEdit(false);
         }}
       >
-        <EditForm currentUser={currentUser} slotInfo={slotInfo} onChange={editChanges} onSubmit={save} onClose={()=>{
+        <EditForm currentUser={currentUser} slotInfo={slotInfo} setSlotInfo={setSlotInfo} onSubmit={save} onClose={()=>{
           setEdit(false);
         }}></EditForm>
       </Dialog>
