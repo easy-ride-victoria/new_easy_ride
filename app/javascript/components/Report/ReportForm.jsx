@@ -83,87 +83,87 @@ export default function AddHorseForm(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       > */}
-        <DialogTitle id="form-dialog-title">Create New Report</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            name="name"
-            label="Name"
-            type="text"
+      <DialogTitle id="form-dialog-title">Create New Report</DialogTitle>
+      <DialogContent>
+        <TextField
+          autoFocus
+          margin="dense"
+          name="name"
+          label="Name"
+          type="text"
+          onChange={handleChange}
+          value={state.name}
+          fullWidth
+        />
+        <TextField
+          margin="dense"
+          name="horse"
+          label="Horse you worked with"
+          type="text"
+          onChange={state.horse}
+          fullWidth
+        />
+        <TextField
+          margin="dense"
+          name="activity_date"
+          label="Date of the activity"
+          type="text"
+          onChange={handleChange}
+          value={state.date}
+          fullWidth
+        />
+        <FormControlLabel
+          control={<Checkbox checked={state.question1} onChange={handleChange} name="question1" />}
+          label="Did you warm-up with a 10 minutes walk on a loose rein?"
+        />
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-simple-select-label">Select what type of activity you did:</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value=""
             onChange={handleChange}
-            value={state.name}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            name="horse"
-            label="Horse you worked with"
-            type="text"
-            onChange={state.horse}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            name="activity_date"
-            label="Date of the activity"
-            type="text"
-            onChange={handleChange}
-            value={state.date}
-            fullWidth
-          />
-          <FormControlLabel
-            control={<Checkbox checked={state.question1} onChange={handleChange} name="question1" />}
-            label="Did you warm-up with a 10 minutes walk on a loose rein?"
-          />
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Select what type of activity you did:</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value=""
-              onChange={handleChange}
-            >
-              <MenuItem value={"lunge"}>Lunge</MenuItem>
-              <MenuItem value={"free-lunge"}>Free Lunge</MenuItem>
-              <MenuItem value={"trail-ride"}>Trail Ride</MenuItem>
-              <MenuItem value={"ring-ride"}>Ride in the Ring</MenuItem>
-              <MenuItem value={"play"}>Structured Play</MenuItem>
-              <MenuItem value={"hand-walk"}>Hand Walk</MenuItem>
-            </Select>
-            </FormControl>
-          <TextareaAutosize
-            margin="dense"
-            name="exercises"
-            aria-label="minimum height"
-            label="Details of exercises"
-            type="text"
-            rowsMin={3}
-            onChange={handleChange}
-            value={state.question3}
-            fullWidth
-          />
-          <TextareaAutosize
-            margin="dense"
-            name="comments"
-            aria-label="minimum height"
-            label="Any other relevant comments"
-            type="text"
-            rowsMin={3}
-            onChange={handleChange}
-            value={state.question4}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          >
+            <MenuItem value={"lunge"}>Lunge</MenuItem>
+            <MenuItem value={"free-lunge"}>Free Lunge</MenuItem>
+            <MenuItem value={"trail-ride"}>Trail Ride</MenuItem>
+            <MenuItem value={"ring-ride"}>Ride in the Ring</MenuItem>
+            <MenuItem value={"play"}>Structured Play</MenuItem>
+            <MenuItem value={"hand-walk"}>Hand Walk</MenuItem>
+          </Select>
+        </FormControl>
+        <TextareaAutosize
+          margin="dense"
+          name="exercises"
+          aria-label="minimum height"
+          label="Details of exercises"
+          type="text"
+          rowsMin={3}
+          onChange={handleChange}
+          value={state.question3}
+          fullWidth
+        />
+        <TextareaAutosize
+          margin="dense"
+          name="comments"
+          aria-label="minimum height"
+          label="Any other relevant comments"
+          type="text"
+          rowsMin={3}
+          onChange={handleChange}
+          value={state.question4}
+          fullWidth
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
             Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
+        </Button>
+        <Button onClick={handleClose} color="primary">
             Add
-          </Button>
-        </DialogActions>
-      </Dialog>
+        </Button>
+      </DialogActions>
+     
     </div>
   );
 }

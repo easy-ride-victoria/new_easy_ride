@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditForm = (props) => {
+const UserEditForm = (props) => {
   const styles = useStyles();
   const { currentUser, setCurrentUser, errors } = props;
   const { slotInfo, setSlotInfo } = props;
@@ -200,48 +200,30 @@ const EditForm = (props) => {
               onChange={handleEndTimeChange}
             />
           </div>
-          {slotInfo.event_type === "ride" && (
-            <>
-              <FormControl className={styles.formControl}>
-                <InputLabel id="rider-select-label">Rider</InputLabel>
-                <Select
-                  labelId="rider-select-label"
-                  id="rider-select"
-                  value={user.id}
-                  onChange={(e) => setUser({...user, id: e.target.value })}
-                >
-                  {users.map((user) => {
-                    return (
-                      <MenuItem value={user.id} key={user.id}>
-                        {user.attributes.first_name} {user.attributes.value}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-              <FormControl
-                className={styles.formControl}
-                error={errors && errors.horse ? true : false}
+          <>
+            <FormControl
+              className={styles.formControl}
+              error={errors && errors.horse ? true : false}
+            >
+              <InputLabel id="horse-select-label">Horse</InputLabel>
+              <Select
+                labelId="horse-select-label"
+                id="horse-select"
+                value={horse.id}
+                onChange={(e) => setHorse({...horse, id: e.target.value })}
               >
-                <InputLabel id="horse-select-label">Horse</InputLabel>
-                <Select
-                  labelId="horse-select-label"
-                  id="horse-select"
-                  value={horse.id}
-                  onChange={(e) => setHorse({...horse, id: e.target.value })}
-                >
-                  {horses.map((horse) => {
-                    return (
-                      <MenuItem value={horse.id} key={horse.id}>
-                        {horse.attributes.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-                <FormHelperText>{errors && errors.horse}</FormHelperText>
-              </FormControl>
-            </>
-          )}
+                {horses.map((horse) => {
+                  return (
+                    <MenuItem value={horse.id} key={horse.id}>
+                      {horse.attributes.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+              <FormHelperText>{errors && errors.horse}</FormHelperText>
+            </FormControl>
+          </>
+       
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
@@ -261,4 +243,4 @@ const EditForm = (props) => {
   );
 };
 
-export default EditForm;
+export default UserEditForm;
