@@ -40,6 +40,7 @@ module Api
         report = Report.find_by(id: params[:id])
         if report.destroy
           head :no_content
+          
         else
           render json: {error: report.errors.messages}, status: 422
         end
