@@ -12,22 +12,11 @@ import DeleteAlert from "./DeleteAlert";
 import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
-import {
-  InputLabel,
-  Button,
-  DialogContent,
-  DialogActions,
-  DialogTitle,
-  DialogContentText,
-} from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-import LessonPaymentForm from "./LessonPaymentForm";
-import { endOfDay } from "date-fns";
 
-// TODO: location is missing from the ride part of the form ** Change location from ride to booking table
+import Alert from "@material-ui/lab/Alert";
+// import LessonPaymentForm from "./LessonPaymentForm";
+
 // TODO: display validation errors for all of the fields
-// TODO: create form for rider to create a ride ** no choice of user **
-// TODO: add lesson migration attributes from ERD to rides & booking tables
 // TODO: create popout from lessons/rides to add more riders
 
 moment.locale("en-GB");
@@ -54,6 +43,7 @@ const updatedEv = (appointments) => {
     event_type: `${item.attributes.event_type}`,
     start_time: convertDate(item.attributes.start_time),
     end_time: convertDate(item.attributes.end_time),
+    rides: item.attributes.rides,
   }));
   return newArr;
 };
@@ -67,7 +57,7 @@ const MyCalendar = (props) => {
   const [errors, setErrors] = useState(null);
   const [edit, setEdit] = useState(false);
 
-  const handleSelectSlot = ({ start, end, resourceId }) => {
+  const handleSelectSlot = ({ start, end }) => {
     setSelectedSlot({ start_time: moment(start), end_time: moment(end) });
     // console.log("called::", start_time);
     // console.log("called::", end_time);
@@ -128,33 +118,26 @@ const MyCalendar = (props) => {
     console.log(e);
   };
 
-  const handleClickOpen = () => {
-    setEdit(true);
-  };
-
-  const save = ({ horse, user, rideData }) => {
-    console.log(horse);
-    console.log(user);
+  const save = ({ rideData }) => {
     const ID = slotInfo.id;
     const updateSlot = {
-      horse_id: horse.id,
-      user_id: user.id,
-      booking_id: slotInfo.id,
+      ...rideData,
+      booking: slotInfo,
     };
     //console.log(updateSlot);
     if (slotInfo.event_type === "ride") {
-      console.log("right id? => ",ID);
-      axios.put(`/api/v1/rides/${ID}`, updateSlot)
+      console.log("right id? => ", ID);
+      axios
+        .put(`/api/v1/rides/${slotInfo.rides[0].id}`, updateSlot)
         .then(() => {
           console.log("passing here...");
           updateAllBookings();
           setEdit(false);
-          rideData(prev => ({...prev, updateSlot}));
         });
     } else {
       axios
         .put(`/api/v1/bookings/${ID}`, slotInfo)
-        .then((response) => {
+        .then(() => {
           updateAllBookings();
           setEdit(false);
           setSlotInfo((prev) => ({ ...prev, slotInfo }));
@@ -180,12 +163,6 @@ const MyCalendar = (props) => {
       setEdit(false);
       setSlotInfo((prev) => ({ ...prev, slotInfo }));
     });
-  };
-
-  // const destroyBooking = ({ bookingData, rideData }) => {
-
-  const handleClose = () => {
-    setDestroy(false);
   };
 
   return (
@@ -260,31 +237,37 @@ const MyCalendar = (props) => {
       {currentUser.attributes.is_admin === false && (
         <Dialog
           open={edit}
-          onClose={()=>{
+          onClose={() => {
             setEdit(false);
           }}
         >
           <Dialog
             open={destroy}
-            onClose={()=>{
+            onClose={() => {
               setDestroy(false);
             }}
           >
-            <DeleteAlert onDelete={handleDestroyFromAlert} onClose={()=>{
-              setDestroy(false);
-            }}>
-            </DeleteAlert>
+            <DeleteAlert
+              onDelete={handleDestroyFromAlert}
+              onClose={() => {
+                setDestroy(false);
+              }}
+            ></DeleteAlert>
           </Dialog>
-          <RiderEditForm currentUser={currentUser} slotInfo={slotInfo} setSlotInfo={setSlotInfo} onSubmit={save} onClose={()=>{
-            setEdit(false);
-          }}></RiderEditForm>
+          <RiderEditForm
+            currentUser={currentUser}
+            slotInfo={slotInfo}
+            setSlotInfo={setSlotInfo}
+            onSubmit={save}
+            onClose={() => {
+              setEdit(false);
+            }}
+          ></RiderEditForm>
         </Dialog>
       )}
       <Calendar
         className={styles.calendar}
         selectable
-        min={new Date(0, 0, 0, 6, 0, 0)}
-        max={new Date(0, 0, 0, 19, 0, 0)}
         localizer={localizer}
         events={events}
         startAccessor="start_time"
@@ -293,7 +276,6 @@ const MyCalendar = (props) => {
         views={["week", "day"]}
         min={minTime}
         max={maxTime}
-        // style={{ height: 500 }}
         onSelectSlot={handleSelectSlot}
         onSelectEvent={(e) => handleSelectEvent(e)}
       />
