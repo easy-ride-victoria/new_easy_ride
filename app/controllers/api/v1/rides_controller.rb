@@ -11,25 +11,37 @@ module Api
         ride = Ride.find_by(id: params[:id])
         render json: RideSerializer.new(ride).serializable_hash.to_json
       end
-# user_id, horse_id, location, booking obj {start_time, end_time, event_type}
+      #user_id, horse_id, location, booking obj {start_time, end_time, event_type}
       def create
-        booking = Booking.new({
-          event_type: params[:booking][:event_type],
-          start_time: params[:booking][:start_time],
-          end_time: params[:booking][:end_time]
-        })
-        ride = Ride.new({user_id: params[:user_id], horse_id: params[:horse_id] , booking: booking})
-        if booking.valid?
-          if ride.valid?
-            booking.save!
-            ride.save!
+        if params.key? :booking
+          # this is for rides creation where we have to create the booking and the ride at the same time
+          booking = Booking.new({
+            event_type: params[:booking][:event_type],
+            start_time: params[:booking][:start_time],
+            end_time: params[:booking][:end_time]
+          })
+          ride = Ride.new({user_id: params[:user_id], horse_id: params[:horse_id] , booking: booking})
+          if booking.valid?
+            if ride.valid?
+              booking.save!
+              ride.save!
+              render json: RideSerializer.new(ride).serializable_hash.to_json
+            else
+              render json: {error: ride.errors.messages}, status: 422
+            end
+          else
+            render json: {error: booking.errors.messages}, status: 422
+          end
+        else
+          # this is for rides that are attached to a lesson
+          # in this case the booking already exists
+          ride = Ride.new(ride_params)
+          if ride.save
             render json: RideSerializer.new(ride).serializable_hash.to_json
           else
             render json: {error: ride.errors.messages}, status: 422
           end
-        else
-          render json: {error: booking.errors.messages}, status: 422
-        end
+        end 
       end
 
       def update
@@ -54,7 +66,9 @@ module Api
 
       def ride_params
         # puts params
-        params.require(:ride).permit(:user_id, :horse_id, :location, :booking_id, booking: [:event_type, :start_time, :end_time])
+        params.require(:ride).permit(
+          :user_id, :horse_id, :location, :booking_id, :lesson_payment_id, :lesson_payment_type,
+          :cancellation_requested_at, booking: [:event_type, :start_time, :end_time])
       end
 
     end

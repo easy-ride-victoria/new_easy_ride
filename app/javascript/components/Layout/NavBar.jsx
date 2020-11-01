@@ -110,13 +110,8 @@ export default function MenuAppBar(props) {
                 </Link>
                 <Link to={"/report"}>
                   <MenuItem onClick={handleClose}>Report</MenuItem>
-
                 </Link>
-
-                  <MenuItem onClick={() => setCurrentUser(null)}>
-                  Logout
-                  </MenuItem>
-                </Link>
+                <MenuItem onClick={() => setCurrentUser(null)}>Logout</MenuItem>
               </Menu>
             </div>
           )}

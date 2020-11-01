@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_181925) do
+ActiveRecord::Schema.define(version: 2020_10_30_223623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2020_10_30_181925) do
     t.datetime "end_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "lesson_price_cad"
+    t.integer "lesson_total_spots"
   end
 
   create_table "horses", force: :cascade do |t|
@@ -53,6 +55,9 @@ ActiveRecord::Schema.define(version: 2020_10_30_181925) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "horse_id"
     t.integer "user_id"
+    t.string "lesson_payment_id"
+    t.string "lesson_payment_type"
+    t.datetime "cancellation_requested_at"
     t.index ["booking_id"], name: "index_rides_on_booking_id"
   end
 
