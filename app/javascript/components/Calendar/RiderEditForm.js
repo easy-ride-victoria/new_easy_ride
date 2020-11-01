@@ -115,11 +115,9 @@ const RiderEditForm = (props) => {
       </DialogTitle>
       <DialogContent>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <FormControl className={styles.formControl}>
+          <FormControl className={styles.formControl} readOnly disabled>
             <InputLabel id="booking-type-label">Booking Type</InputLabel>
             <Select
-              readOnly={!canEditBooking}
-              disabled={!canEditBooking}
               labelId="booking-type-label"
               name="event_type"
               value={slotInfo.event_type}
@@ -174,17 +172,17 @@ const RiderEditForm = (props) => {
                 disabled
                 margin="dense"
                 name="lesson_total_spots"
-                label="Lesson Spots"
+                label="Lesson Spots Remaining"
                 type="number"
-                onChange={handleBookingChange}
-                value={slotInfo.lesson_total_spots}
+                // onChange={handleBookingChange}
+                value={slotInfo.lesson_total_spots - slotInfo.rides.length}
                 fullWidth
               />
             </>
           )}
           {slotInfo.event_type === "ride" && (
             <>
-              <FormControl className={styles.formControl}>
+              <FormControl className={styles.formControl} readOnly disabled>
                 <InputLabel id="rider-select-label">Rider</InputLabel>
                 <Select
                   labelId="rider-select-label"
@@ -209,6 +207,8 @@ const RiderEditForm = (props) => {
               <FormControl
                 className={styles.formControl}
                 error={errors && errors.horse ? true : false}
+                readOnly={!canEditBooking}
+                disabled={!canEditBooking}
               >
                 <InputLabel id="horse-select-label">Horse</InputLabel>
                 <Select

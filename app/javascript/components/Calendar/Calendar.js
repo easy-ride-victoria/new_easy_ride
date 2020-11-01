@@ -179,7 +179,7 @@ const MyCalendar = (props) => {
         {currentUser.attributes.is_admin === false && (
           <RiderBookingForm
             start_time={selectedSlot.start_time}
-            end_time={selectedSlot.end}
+            end_time={selectedSlot.end_time}
             onSubmit={doBooking}
             currentUser={currentUser}
             errors={errors}
