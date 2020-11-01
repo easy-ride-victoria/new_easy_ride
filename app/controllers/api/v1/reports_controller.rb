@@ -14,11 +14,9 @@ module Api
       end
 
       def create
-        # user = User.find_by(email: params[:email])
-        # puts user
-        # horse = Horse.find_by(name: params[:horse])
-        # puts horse
-        # ride = Ride.new({user: user, horse: horse , booking: booking})
+        user = User.find_by(email: params[:email])
+        horse = Horse.find_by(name: params[:horse])
+       
         report = Report.new({user_id: params[:user_id], horse_id: params[:horse_id], activity_date: params[:activity_date], answer1: params[:answer1], answer2: params[:answer2],answer3: params[:answer3], answer4: params[:answer4]})
         if report.save
           render json: ReportSerializer.new(report).serializable_hash.to_json
