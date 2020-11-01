@@ -40,10 +40,9 @@ const updatedEv = (appointments) => {
   console.log(appointments);
   const newArr = appointments.map((item) => ({
     id: `${item.id}`,
-    event_type: `${item.attributes.event_type}`,
+    ...item.attributes,
     start_time: convertDate(item.attributes.start_time),
     end_time: convertDate(item.attributes.end_time),
-    rides: item.attributes.rides,
   }));
   return newArr;
 };
@@ -59,8 +58,6 @@ const MyCalendar = (props) => {
 
   const handleSelectSlot = ({ start, end }) => {
     setSelectedSlot({ start_time: moment(start), end_time: moment(end) });
-    // console.log("called::", start_time);
-    // console.log("called::", end_time);
     setModal(true);
   };
 
@@ -68,16 +65,13 @@ const MyCalendar = (props) => {
     const URLbookings = "/api/v1/bookings";
     axios.get(URLbookings).then((response) => {
       let bookingAppointments = response.data.data;
-      // console.log("bookingAppointments:", bookingAppointments);
       let formattedBookings = updatedEv(bookingAppointments);
-      console.log("formattedBookings:", formattedBookings);
       setEvents(formattedBookings);
     });
   };
-  console.log("events rendered:", events);
 
   useEffect(updateAllBookings, []);
-  //
+
   const doBooking = ({ bookingData, rideData }) => {
     if (bookingData.event_type === "ride") {
       axios
@@ -115,7 +109,6 @@ const MyCalendar = (props) => {
   const handleSelectEvent = (e) => {
     setEdit(true);
     setSlotInfo(e);
-    console.log(e);
   };
 
   const save = ({ rideData }) => {
@@ -126,11 +119,9 @@ const MyCalendar = (props) => {
     };
     //console.log(updateSlot);
     if (slotInfo.event_type === "ride") {
-      console.log("right id? => ", ID);
       axios
         .put(`/api/v1/rides/${slotInfo.rides[0].id}`, updateSlot)
         .then(() => {
-          console.log("passing here...");
           updateAllBookings();
           setEdit(false);
         });
@@ -153,12 +144,8 @@ const MyCalendar = (props) => {
 
   const handleDestroyFromAlert = () => {
     const ID = slotInfo.id;
-    console.log("here");
     setDestroy(false);
-    console.log(slotInfo);
     axios.delete(`/api/v1/bookings/${ID}`, slotInfo).then((response) => {
-      console.log(response);
-      console.log("DELETING");
       updateAllBookings();
       setEdit(false);
       setSlotInfo((prev) => ({ ...prev, slotInfo }));

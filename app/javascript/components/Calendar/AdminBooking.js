@@ -9,7 +9,6 @@ import {
   MenuItem,
   InputLabel,
 } from "@material-ui/core";
-import { StyleSharp } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";

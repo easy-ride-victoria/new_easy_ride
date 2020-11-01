@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  TextField,
 } from "@material-ui/core";
 import { DateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -60,7 +61,6 @@ const EditForm = (props) => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     axios.get("/api/v1/users").then((response) => {
-      console.log(response);
       setUsers(response.data.data);
     });
   }, []);
@@ -73,8 +73,6 @@ const EditForm = (props) => {
     });
   };
   useEffect(loadHorses, []);
-
-  console.log(slotInfo, "<<< slot info");
 
   const [rideData, setRideData] = useState({
     ...slotInfo.rides[0],
@@ -103,7 +101,6 @@ const EditForm = (props) => {
   const handleDelete = () => {
     props.onDelete({ slotInfo, rideData });
   };
-
   return (
     <div className={styles.form}>
       <DialogTitle
@@ -152,6 +149,28 @@ const EditForm = (props) => {
               onChange={handleEndTimeChange}
             />
           </div>
+          {slotInfo.event_type === "lesson" && (
+            <>
+              <TextField
+                margin="dense"
+                name="lesson_price_cad"
+                label="Lesson Price"
+                type="number"
+                onChange={handleBookingChange}
+                value={slotInfo.lesson_price_cad}
+                fullWidth
+              />
+              <TextField
+                margin="dense"
+                name="lesson_total_spots"
+                label="Lesson Spots"
+                type="number"
+                onChange={handleBookingChange}
+                value={slotInfo.lesson_total_spots}
+                fullWidth
+              />
+            </>
+          )}
           {slotInfo.event_type === "ride" && (
             <>
               <FormControl className={styles.formControl}>
@@ -210,11 +229,11 @@ const EditForm = (props) => {
         <Button onClick={handleDelete} color="secondary">
           Delete
         </Button>
-        <Button onClick={handleEdit} color="primary">
-          Edit
-        </Button>
         <Button onClick={props.onClose} color="primary">
           Cancel
+        </Button>
+        <Button onClick={handleEdit} color="primary">
+          Save
         </Button>
       </DialogActions>
     </div>
