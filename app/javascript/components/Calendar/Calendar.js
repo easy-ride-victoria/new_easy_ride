@@ -12,6 +12,7 @@ import DeleteAlert from "./DeleteAlert";
 import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
+import Weather from "./Weather/Weather";
 
 import Alert from "@material-ui/lab/Alert";
 // import LessonPaymentForm from "./LessonPaymentForm";
@@ -168,6 +169,7 @@ const MyCalendar = (props) => {
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Weather></Weather>
       <Dialog
         open={modal}
         onClose={() => {
