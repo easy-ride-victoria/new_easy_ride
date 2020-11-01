@@ -145,7 +145,7 @@ const MyCalendar = (props) => {
   const handleDestroyFromAlert = () => {
     const ID = slotInfo.id;
     setDestroy(false);
-    axios.delete(`/api/v1/bookings/${ID}`, slotInfo).then((response) => {
+    axios.delete(`/api/v1/bookings/${ID}`, slotInfo).then(() => {
       updateAllBookings();
       setEdit(false);
       setSlotInfo((prev) => ({ ...prev, slotInfo }));

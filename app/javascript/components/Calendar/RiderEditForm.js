@@ -103,7 +103,11 @@ const RiderEditForm = (props) => {
 
   const canEditBooking =
     slotInfo.event_type === "ride" && rideData.user_id === currentUser.id;
-
+  const titles = {
+    ride: "Edit Ride",
+    lesson: "Join Lesson",
+    other: "Indoor Arena Booking",
+  };
   return (
     <div className={styles.form}>
       <DialogTitle
@@ -111,23 +115,10 @@ const RiderEditForm = (props) => {
         className={styles.title}
         disableTypography
       >
-        Booking
+        {titles[slotInfo.event_type]}
       </DialogTitle>
       <DialogContent>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <FormControl className={styles.formControl} readOnly disabled>
-            <InputLabel id="booking-type-label">Booking Type</InputLabel>
-            <Select
-              labelId="booking-type-label"
-              name="event_type"
-              value={slotInfo.event_type}
-              onChange={handleBookingChange}
-            >
-              <MenuItem value={"lesson"}>Lesson</MenuItem>
-              <MenuItem value={"ride"}>Ride</MenuItem>
-              <MenuItem value={"other"}>Other Arena Booking</MenuItem>
-            </Select>
-          </FormControl>
           <div className={styles.dateTimePickerContainer}>
             <DateTimePicker
               readOnly={!canEditBooking}
@@ -237,11 +228,11 @@ const RiderEditForm = (props) => {
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
-        {canEditBooking && (
+        {/* {canEditBooking && (
           <Button onClick={handleDelete} color="secondary">
             Delete
           </Button>
-        )}
+        )} */}
         <Button onClick={props.onClose} color="primary">
           Cancel
         </Button>
