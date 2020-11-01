@@ -6,7 +6,8 @@ class Ride < ApplicationRecord
   validate :horse_is_available?
 
   def horse_is_available?
-    if horse.has_ride_on_day?(booking.start_time.to_date)
+    bookings_by_day = horse.bookings_by_day(booking.start_time.to_date)
+    if !bookings_by_day.empty? && bookings_by_day.first.id != booking.id
       self.errors.add :horse, 'has already been booked for this day'
     end
   end

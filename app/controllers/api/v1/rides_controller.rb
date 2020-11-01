@@ -45,11 +45,23 @@ module Api
       end
 
       def update
+        #we are getting a booking_id  = 10 from react
+        # over in the Rails, we are using the 10 id to check on another column "id", booking_id
+
         ride = Ride.find_by(id: params[:id])
+        # PUT /api/v1/rides/123
+        # {user_id:42, horse_id:2, location: "outdoor", booking:{start_time:"..." , end_time: "..." }}
+        ride.booking.update(start_time: params[:booking][:start_time], end_time: params[:booking][:end_time])
+        # 
+        puts "TEST RIDE ID"
+        puts ride.inspect
         if ride.update(ride_params)
+          puts "EVERYTHING WORKED"
           render json: RideSerializer.new(ride).serializable_hash.to_json
         else
+          puts "THERE WAS AN ERROR"
           render json: {error: ride.errors.messages}, status: 422
+
         end
       end
 
