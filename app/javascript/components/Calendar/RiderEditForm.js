@@ -233,7 +233,7 @@ const RiderEditForm = (props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleEdit} color="primary">
-          Edit
+          Save
         </Button>
         <Button onClick={props.onClose} color="primary">
           Cancel

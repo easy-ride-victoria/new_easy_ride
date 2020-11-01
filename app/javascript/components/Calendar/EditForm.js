@@ -211,7 +211,7 @@ const EditForm = (props) => {
           Delete
         </Button>
         <Button onClick={handleEdit} color="primary">
-          Edit
+          Save
         </Button>
         <Button onClick={props.onClose} color="primary">
           Cancel
