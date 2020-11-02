@@ -10,8 +10,9 @@ import EditForm from "./EditForm";
 import RiderEditForm from "./RiderEditForm";
 import DeleteAlert from "./DeleteAlert";
 import MenuAppBar from "../Layout/NavBar";
-import Dialog from "@material-ui/core/Dialog";
-import { useStyles } from "./styles";
+import { makeStyles, useStyles } from "@material-ui/core/styles";
+import { Dialog, Button, Grid } from "@material-ui/core";
+import Weather from "./Weather/Weather";
 import Alert from "@material-ui/lab/Alert";
 
 // TODO: display validation errors for all of the fields
@@ -19,6 +20,21 @@ import Alert from "@material-ui/lab/Alert";
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
+
+const useStyles = makeStyles({
+  calendar: {
+    fontFamily: "Roboto",
+    border: 0,
+    borderRadius: 3,
+    paddingTop: "30px",
+    color: "#004578",
+  },
+  weather: {
+    // paddingTop: "20px",
+    margin: "10px",
+  }
+});
+
 
 const convertDate = (date) => {
   return moment.utc(date).toDate();
@@ -43,7 +59,7 @@ const MyCalendar = (props) => {
   const [selectedSlot, setSelectedSlot] = useState({});
   const [errors, setErrors] = useState(null);
   const [edit, setEdit] = useState(false);
-
+  const [openWeather, setOpenWeather] = useState(false);
   const handleSelectSlot = ({ start, end }) => {
     setSelectedSlot({ start_time: moment(start), end_time: moment(end) });
     setModal(true);
@@ -138,8 +154,14 @@ const MyCalendar = (props) => {
       setEdit(false);
       setSlotInfo((prev) => ({ ...prev, slotInfo }));
     });
-  };
 
+
+
+
+    // const handleOpenWeather = () => {
+    //   setOpenWeather(!openWeather);
+    // };
+  };
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
@@ -240,6 +262,16 @@ const MyCalendar = (props) => {
           ></RiderEditForm>
         </Dialog>
       )}
+      <Grid container justify="flex-end" spacing={2}>
+        <Button size="medium" color="primary" className={styles.weather} onClick={() => {
+          setOpenWeather(!openWeather);
+        }}>
+        Show Weather Forecast
+        </Button>
+      </Grid>
+      {openWeather && (
+        <Weather/>
+      )}
       <Calendar
         className={styles.calendar}
         selectable
@@ -254,8 +286,6 @@ const MyCalendar = (props) => {
         onSelectSlot={handleSelectSlot}
         onSelectEvent={(e) => handleSelectEvent(e)}
       />
-      {/* component for payment: uncomment to test. Will be moved to a better spot
-      <LessonPaymentForm amount={32.0} currency="CAD" /> */}
     </div>
   );
 };
