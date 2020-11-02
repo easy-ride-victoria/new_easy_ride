@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 2020_10_30_223623) do
     t.string "answer2"
     t.string "answer3"
     t.text "answer4"
-    t.text "answer5"
     t.index ["horse_id"], name: "index_reports_on_horse_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
