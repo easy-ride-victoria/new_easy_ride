@@ -1,6 +1,5 @@
 import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -42,14 +41,7 @@ const useStyles = makeStyles({
     height:"35px"
   },
 });
-const style = {
-  width: "25px",
-  height: "25px"
-}
 
-
-
- 
 
 export default function ReportsTable(props) {
   const classes = useStyles();
