@@ -16,6 +16,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
+    "formik": "^2.2.1",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -25,7 +26,8 @@
     "react-router-dom": "^5.2.0",
     "react-square-payment-form": "^0.7.2",
     "react_ujs": "^2.6.1",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "yup": "^0.29.3"
   },
   "version": "0.1.0",
   "devDependencies": {
