@@ -6,27 +6,6 @@ import ForecastCard from './ForecastCard';
 
 // Material ui customization
 const useStyles = makeStyles((theme) => ({
-  // table: {
-  // width: "90%",
-  // margin: "auto",
-  // }, // tableHead: {
-  // backgroundColor: "#004578",
-  // },
-  // tableCellHead: {
-  // color: "white",
-  // fontSize: "1.5rem",
-  // fontFamily: "Roboto",
-  // lineHeight: "3rem",
-  // },
-  // tableCellHeader: {
-  // fontSize: "1.5rem",
-  // fontFamily: "Roboto",
-  // },
-  // control: {
-  // fontSize: "1.5rem",
-  // fontFamily: "Roboto",
-  // padding: theme.spacing(3),
-  // },
   root: {
     flexGrow: 1,
   },
@@ -34,9 +13,6 @@ const useStyles = makeStyles((theme) => ({
     height: 140,
     width: 100,
   },
-  gridRow: {
-    marginTop: 50
-  }
 }));
 
 const Weather = () => {
@@ -48,16 +24,17 @@ const Weather = () => {
       .then(response => {
         console.log(response.data);
         console.log(response.data.list);
-        let weatherData = response.data.list.filter(entry => entry.dt_txt.includes("10:00:00"));
+        let weatherData = response.data.list.filter(entry => entry.dt_txt.includes("12:00:00"));
         let forecasts = [];
         console.log("weather data", weatherData);
         weatherData.forEach((element, index) => {
-          let day = (new Date(element.dt_txt));
+          let day = (new Date(element.dt_txt)).getDay();
           console.log("day", day);
           let currentElementWeather = element.weather[0];
-          let temp = Math.trunc(element.main.feels_like) + "C";
-          console.log(temp); console.log("current e weather", currentElementWeather);
-          let dailyForecast = {'key': index, 'day': day, 'weather': currentElementWeather.main, 'icon': currentElementWeather.icon};
+          let temp = Math.trunc(element.main.feels_like / 10) + "°C";
+          console.log(temp);
+          console.log("current e weather CIONS", currentElementWeather.icon);
+          let dailyForecast = {'key': index, 'day': day, 'weather': currentElementWeather.main, 'icon': currentElementWeather.icon, "temp": temp};
           console.log("daily forecast", dailyForecast);
           forecasts.push(dailyForecast); console.log(forecasts);
         });
@@ -68,16 +45,12 @@ const Weather = () => {
 
   return (
     <div>
-      <h1>Workind here</h1>
-      <Typography variant="display4" align="center">
-      Forecast
-      </Typography>
-      <Grid item xs={12} className={classes.gridRow}>
-        <Grid container justify="center" spacing={16}>
+      <Grid item xs={12} justify-items="end" >
+        <Grid container justify-items="end" spacing={2} >
           {weather.map((value) => {
             // const { day, weather, icon } = weather;
             return (<Grid key={value.key} item>
-              <ForecastCard day={value.day} weather={value.weather} value={value.key} icon={value.icon} />
+              <ForecastCard day={value.day} weather={value.weather} value={value.key} icon={value.icon} temp={value.temp} />
             </Grid>);
           })}
         </Grid>

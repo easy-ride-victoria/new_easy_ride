@@ -13,7 +13,7 @@ import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import Weather from "./Weather/Weather";
-
+import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
 // import LessonPaymentForm from "./LessonPaymentForm";
 
@@ -57,6 +57,7 @@ const MyCalendar = (props) => {
   const [selectedSlot, setSelectedSlot] = useState({});
   const [errors, setErrors] = useState(null);
   const [edit, setEdit] = useState(false);
+  const [openWeather, setOpenWeather] = useState(false);
 
   const handleSelectSlot = ({ start, end }) => {
     setSelectedSlot({ start_time: moment(start), end_time: moment(end) });
@@ -169,6 +170,9 @@ const MyCalendar = (props) => {
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Button color="primary" align="right" >
+        Weather Forecast
+      </Button>
       <Weather></Weather>
       <Dialog
         open={modal}
