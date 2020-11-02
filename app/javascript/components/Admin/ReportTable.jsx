@@ -8,7 +8,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-// import EditHorseForm from "./EditHorseForm";
+import Axios from "axios";
+import EditReportForm from "./EditReportForm";
 
 // Material ui customization
 const useStyles = makeStyles({
@@ -46,12 +47,29 @@ const style = {
   height: "25px"
 }
 
+
+
+ 
+
 export default function ReportsTable(props) {
   const classes = useStyles();
   const {reports} = props;
+//   const handleSubmit = () => {
+//     console.log(reports)
+//      //   Axios.delete(`api/v1/reports/${props.report.id}`)
+// //   .then( () => {
+// //     console.log ("deleted!")
+// //   setTimeout(() => {
+// //     alert("Deleeted")
+// //   }, 400);
+// // })
+// //   .catch ((error) => {
+// //     console.log("not sent, ", error)
+// //   })
+// }
+    
 
-
-  console.log("reports: ", reports);
+  // console.log("reports: ", reports);
   return (
     <TableContainer >
       <Table className={classes.table} aria-label="customized table">
@@ -70,7 +88,6 @@ export default function ReportsTable(props) {
         </TableHead>
         <TableBody>
           {reports.map((report) => {
-  //  change from here
             const {
               id,
               activity_date,
@@ -83,24 +100,32 @@ export default function ReportsTable(props) {
             } = report.attributes;
             return (
               <TableRow key={report.id}>
+                
                 <TableCell className={classes.tableCellBody} component="th" scope="row">
                   {horse.name}
                 </TableCell>
+                
                 <TableCell className={classes.tableCellBody}  component="th" scope="row">
-                  {user.first_name}
+                 {`${user.first_name} ${user.last_name}`}
                 </TableCell>
-                <TableCell className={classes.tableCellBody} >{activity_date}</TableCell>
-                <TableCell className={classes.tableCellBody} >{answer1?"Yes":"No"}</TableCell>
-                <TableCell className={classes.tableCellBody} >{answer2}</TableCell>
                 
-                <TableCell className={classes.tableCellBody} >{answer3}</TableCell>
+                <TableCell className={classes.tableCellBody} >{activity_date}
+                </TableCell>
                 
-                <TableCell className={classes.tableCellBody} >{answer4}</TableCell>
+                <TableCell className={classes.tableCellBody} >  {answer1?"Yes":"No"}
+                </TableCell>
+                <TableCell className={classes.tableCellBody} >{answer2}
+                </TableCell>
+                
+                <TableCell className={classes.tableCellBody} >{answer3}
+                </TableCell>
+                
+                <TableCell className={classes.tableCellBody} >{answer4}
+                </TableCell>
+
                 <TableCell className={classes.tableCellBody} >
-                <Avatar className={classes.avatar}>
-                  <DeleteOutlineIcon style={style} onClick={() => Axios.delete(`api/v1/reports/${id}`)}/>
-                  </Avatar>
-                  </TableCell>
+                <EditReportForm report={report} onSubmit={props.onChange} />
+                </TableCell>
               </TableRow>
             );
           })}

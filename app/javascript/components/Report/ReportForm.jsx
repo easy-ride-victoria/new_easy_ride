@@ -29,7 +29,7 @@ export default function AddReportForm() {
         .then( () => {
           console.log ("sent!")
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
+          alert('Thank You!');
           setSubmitting(false);
         }, 400);
       })
@@ -76,8 +76,9 @@ export default function AddReportForm() {
       <InputLabel htmlFor="answer4">Any other comment you feel are relevant?</InputLabel>
       <Field name="answer4" as={TextareaAutosize} type="text" />
       <ErrorMessage name="answer4" />
-      
+      <FormGroup>
       <Button variant="contained" color="secondary" type="submit">Submit</Button>
+      </FormGroup>
     </Form>
     </Container>
   </Formik>
