@@ -24,11 +24,15 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     textAlign: "right",
-    marginRight: "50px",
+    marginRight: "1em",
   },
   toolbar: {
-    height: "100px",
+    height: "80px",
     justifyContent: "center",
+  },
+  menuIcon: {
+    height: "3rem",
+    width: "3rem",
   },
 }));
 
@@ -58,10 +62,10 @@ export default function MenuAppBar(props) {
           <Link to={"/"}>
             <img
               src="https://photos.smugmug.com/photos/i-89Rgs5V/0/2d5e195f/O/i-89Rgs5V.png"
-              height="75px"
+              height="50px"
             />
           </Link>
-          <Typography variant="h2" className={classes.title}>
+          <Typography variant="h4" className={classes.title}>
             Welcome {currentUser && currentUser.attributes.first_name}
           </Typography>
           {auth && (
@@ -73,7 +77,7 @@ export default function MenuAppBar(props) {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <MenuIcon />
+                <MenuIcon className={classes.menuIcon} />
               </IconButton>
               <Menu
                 id="menu-appbar"

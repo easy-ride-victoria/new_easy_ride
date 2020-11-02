@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
-  makeStyles,
   Button,
   Select,
   FormControl,
@@ -11,46 +10,14 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  TextField,
 } from "@material-ui/core";
 import { DateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
+import { useStyles } from "./styles";
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    // position: "absolute",
-    // width: 600,
-    // backgroundColor: "white",
-    border: "2px solid #000",
-    boxShadow: "10px 5px 5px black",
-    // padding: "16px 32px 24px",
-    // top: "50%",
-    // left: "50%",
-    // transform: "translate(-50%, -50%)",
-    color: theme.palette.primary.main,
-  },
-  button: {
-    textAlign: "right",
-    justifyItems: "space-between",
-    alignSelf: "right",
-  },
-  title: {
-    textAlign: "center",
-    width: "100%",
-    fontSize: theme.typography.h4.fontSize,
-  },
-  formControl: {
-    width: "100%",
-    margin: theme.spacing(1, 0, 2),
-  },
-  dateTimePickerContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  dateTimePicker: {
-    margin: theme.spacing(2, 1, 2),
-  },
-}));
+// TODO: Admin adding or removing particular people from lessons (including themselves)
 
 const EditForm = (props) => {
   const styles = useStyles();
@@ -60,7 +27,6 @@ const EditForm = (props) => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     axios.get("/api/v1/users").then((response) => {
-      console.log(response);
       setUsers(response.data.data);
     });
   }, []);
@@ -73,8 +39,6 @@ const EditForm = (props) => {
     });
   };
   useEffect(loadHorses, []);
-
-  console.log(slotInfo, "<<< slot info");
 
   const [rideData, setRideData] = useState({
     ...slotInfo.rides[0],
@@ -103,7 +67,6 @@ const EditForm = (props) => {
   const handleDelete = () => {
     props.onDelete({ slotInfo, rideData });
   };
-
   return (
     <div className={styles.form}>
       <DialogTitle
@@ -152,6 +115,28 @@ const EditForm = (props) => {
               onChange={handleEndTimeChange}
             />
           </div>
+          {slotInfo.event_type === "lesson" && (
+            <>
+              <TextField
+                margin="dense"
+                name="lesson_price_cad"
+                label="Lesson Price"
+                type="number"
+                onChange={handleBookingChange}
+                value={slotInfo.lesson_price_cad}
+                fullWidth
+              />
+              <TextField
+                margin="dense"
+                name="lesson_total_spots"
+                label="Lesson Spots"
+                type="number"
+                onChange={handleBookingChange}
+                value={slotInfo.lesson_total_spots}
+                fullWidth
+              />
+            </>
+          )}
           {slotInfo.event_type === "ride" && (
             <>
               <FormControl className={styles.formControl}>
@@ -210,11 +195,16 @@ const EditForm = (props) => {
         <Button onClick={handleDelete} color="secondary">
           Delete
         </Button>
+
         <Button onClick={handleEdit} color="primary">
           Save
         </Button>
+
         <Button onClick={props.onClose} color="primary">
           Cancel
+        </Button>
+        <Button onClick={handleEdit} color="primary">
+          Save
         </Button>
       </DialogActions>
     </div>

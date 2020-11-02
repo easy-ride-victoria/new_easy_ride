@@ -10,7 +10,6 @@ export default function ReportsPage(props) {
 
   const getReports = () => {
     Axios.get("/api/v1/reports").then((response) => {
-      console.log(response.data.data);
       setReports(response.data.data);
     });
   };

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
     width: "70px",
-    height:"70px"
+    height: "70px",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -37,11 +37,11 @@ export default function SignIn(props) {
   const [password, setPassword] = useState("");
   const classes = useStyles();
 
-  const handleSubmit = function(event) {
+  const handleSubmit = function (event) {
     event.preventDefault();
     if (email === "1@1.ca") {
       props.setCurrentUser({
-        id: "1",
+        id: 1,
         type: "user",
         attributes: {
           first_name: "Audrey",
@@ -56,7 +56,7 @@ export default function SignIn(props) {
       });
     } else {
       props.setCurrentUser({
-        id: "2",
+        id: 2,
         type: "user",
         attributes: {
           first_name: "Iyris",
