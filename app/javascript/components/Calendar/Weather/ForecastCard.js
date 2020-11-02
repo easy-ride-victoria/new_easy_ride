@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -9,18 +8,22 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
+    paddingBottom: 18,
   },
   paper: {
     width: 100,
-    spacing: 8,
-    // padding: 8,
+    spacing: 5,
+    padding: 5,
   },
   dayHeading: {
     paddingBottom: 0,
+    justifyContent: "space-around",
+    margin: "auto",
+    textAlign: "center",
    
   },
   forecastImage: {
-    padding: 0,
+    padding: 2,
   }});
 
 
@@ -33,14 +36,6 @@ const ForecastCard = (props) => {
   };
 
   const retrieveIconURL = (icon) => {
-    // let page = `https://raw.githubusercontent.com/easy-ride-victoria/new_easy_ride/add-weather/docs/weatherIcons/02d.png`;
-    // console.log(page);
-    // console.log(icon);
-    // if (icon == "10n") {
-    //   return `https://raw.githubusercontent.com/easy-ride-victoria/new_easy_ride/add-weather/docs/weatherIcons/02d.png`;
-    // } else {
-    //   console.log("neeeeeh", icon);
-    // }
     let showIcon = "";
     switch (icon) {
     case "01d":
@@ -101,21 +96,21 @@ const ForecastCard = (props) => {
 
   return (
     <>
-      <Paper className={classes.paper} >
+      <Paper elevation={2} className={classes.paper} >
         <Grid justify="space-between" container className={classes.root} >
           <Grid item xs={12} className={classes.dayHeading}>
-            <Typography variant="subheading" align="center"> {retrieveDayName(props.day)} </Typography>
+            <Typography variant="subheading" align="center" >  {retrieveDayName(props.day)} </Typography>
           </Grid>
           <Grid item xs={12} className={classes.forecastImage}>
             <Grid
               container
               justify="center">
-              <img src={retrieveIconURL(props.icon)} alt={props.weather} height="50" width="50" />
+              <img src={retrieveIconURL(props.icon)} alt={props.weather} height="30" width="30" />
             </Grid>
           </Grid>
           <Grid item xs={12} container justify="space-between">
             <Typography inline variant="subheading" align="left"> {props.weather} </Typography>
-            <Typography inline variant="subheading" align="right"> {props.temp} </Typography>
+            <Typography inline variant="subheading" align="right" > {props.temp} </Typography>
           </Grid>
         </Grid>
       </Paper>

@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    height: "150px",
+    height: "100px",
   },
   menuButton: {
     marginRight: theme.spacing(4),
