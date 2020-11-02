@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, TextField, TextareaAutosize, InputLabel, Container, Checkbox, FormGroup, FormLabel } from '@material-ui/core';
 import { Field, Form, ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import Axios from "axios";
@@ -34,31 +35,32 @@ export default function AddReportForm() {
       })
       }}
     >
-
+<Container maxWidth="sm">
     <Form>
-      <label htmlFor="first_name"> First Name</label>
+      <InputLabel htmlFor="first_name"> First Name</InputLabel>
       <Field name="first_name" type="text" />
       <ErrorMessage name="first_name" />
 
-      <label htmlFor="last_name"> First Name</label>
+      <InputLabel htmlFor="last_name"> Last Name</InputLabel>
       <Field name="last_name" type="text" />
       <ErrorMessage name="last_name" />
 
-      <label htmlFor="horse"> Horse</label>
+      <InputLabel htmlFor="horse"> Horse</InputLabel>
       <Field name="horse" type="text" />
       <ErrorMessage name="horse" />
 
-      <label htmlFor="activity_date"> Date of your ride or other activity</label>
+      <InputLabel htmlFor="activity_date"> Date of your ride or other activity</InputLabel>
       <Field name="activity_date" type="text" />
       <ErrorMessage name="activity_date" />
 
-      <label >
+      <FormLabel >
       <Field type="checkbox" name="answer1" /> 
       {"Did you warm-up with a 10 minutes walk on a loose rein?"}
-      </label>
+      </FormLabel>
 
-      <label htmlFor="answer2"> Select the type of activity you did on that occasion</label>
+      <InputLabel htmlFor="answer2"> Select the type of activity you did on that occasion</InputLabel>
       <Field name="answer2" as="select" className="answer2">
+      <option value="lunge"></option>
         <option value="lunge">Lunge</option>
         <option value="free_lunge">Free lunge</option>
         <option value="trail_ride">Trail ride</option>
@@ -67,17 +69,17 @@ export default function AddReportForm() {
         <option value="handwalk">Handwalk</option>
       </Field>
 
-      <label htmlFor="answer3">Please detail the exercises you worked on:</label>
-      <Field name="answer3" as="textarea" type="text" />
+      <InputLabel htmlFor="answer3">Please detail the exercises you worked on:</InputLabel>
+      <Field name="answer3" as={TextareaAutosize} type="text" />
       <ErrorMessage name="answer3" />
-
-      <label htmlFor="answer4">Any other comment you feel are relevant?</label>
-      <Field name="answer4" as="textarea" type="text" />
+    
+      <InputLabel htmlFor="answer4">Any other comment you feel are relevant?</InputLabel>
+      <Field name="answer4" as={TextareaAutosize} type="text" />
       <ErrorMessage name="answer4" />
       
-      <button type="submit">Submit</button>
+      <Button variant="contained" color="secondary" type="submit">Submit</Button>
     </Form>
-
+    </Container>
   </Formik>
   )};
 
