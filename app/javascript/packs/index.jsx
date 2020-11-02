@@ -2,20 +2,20 @@
 // like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
 // of the page.
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import App from '../components/App';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import App from "../components/App";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#004578',
+      main: "#004578",
     },
     secondary: {
-      main: '#a47638',
+      main: "#a47638",
     },
     // Used by `getContrastText()` to maximize the contrast between
     // the background and the text.
@@ -39,43 +39,44 @@ const theme = createMuiTheme({
       fontSize: "2rem",
     },
     h4: {
-      fontSize: "2.75rem"
+      fontSize: "2.75rem",
     },
     h3: {
-      fontSize: "3.5rem"
+      fontSize: "3.5rem",
     },
     h2: {
-      fontSize: "4.5rem"
+      fontSize: "4.5rem",
     },
     button: {
-      fontSize: "1.5rem"
-    }
+      fontSize: "1.5rem",
+    },
   },
   overrides: {
-    MuiSvgIcon: {
-      root: {
-        width: "3em",
-        height: "3em",
-      },
-    },
+    // MuiSvgIcon: {
+    //   root: {
+    //     width: "3em",
+    //     height: "3em",
+    //   },
+    // },
     MuiOutlinedInput: {
       multiline: {
-          fontWeight: 'bold',
-          fontSize: '20px',
-          color: 'purple',
-          width: '50vw'
-      }
-  }
+        fontWeight: "bold",
+        fontSize: "20px",
+        color: "purple",
+        width: "50vw",
+      },
+    },
   },
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
     <ThemeProvider theme={theme}>
       <Router>
-        <Route path='/' component={App}/>
-      </Router>,
+        <Route path="/" component={App} />
+      </Router>
+      ,
     </ThemeProvider>,
-    document.body.appendChild(document.createElement('div')),
+    document.body.appendChild(document.createElement("div"))
   );
 });
