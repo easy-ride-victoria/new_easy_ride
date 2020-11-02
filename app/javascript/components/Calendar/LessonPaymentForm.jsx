@@ -58,8 +58,7 @@ const LessonPaymentForm = (props) => {
   };
 
   return (
-    <div>
-      <h1>Payment Page</h1>
+    <>
       <SquarePaymentForm
         sandbox={true}
         applicationId={process.env.SQUARE_SANDBOX_APPLICATION_ID}
@@ -89,7 +88,7 @@ const LessonPaymentForm = (props) => {
           <li key={`sq-error-${errorMessage}`}>{errorMessage}</li>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

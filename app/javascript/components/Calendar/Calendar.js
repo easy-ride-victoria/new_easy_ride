@@ -10,27 +10,15 @@ import EditForm from "./EditForm";
 import RiderEditForm from "./RiderEditForm";
 import DeleteAlert from "./DeleteAlert";
 import MenuAppBar from "../Layout/NavBar";
-import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
-
+import { useStyles } from "./styles";
 import Alert from "@material-ui/lab/Alert";
-// import LessonPaymentForm from "./LessonPaymentForm";
 
 // TODO: display validation errors for all of the fields
 // TODO: create popout from lessons/rides to add more riders
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
-
-const useStyles = makeStyles({
-  calendar: {
-    fontFamily: "Roboto",
-    border: 0,
-    borderRadius: 3,
-    padding: "0 30px",
-    color: "#004578",
-  },
-});
 
 const convertDate = (date) => {
   return moment.utc(date).toDate();

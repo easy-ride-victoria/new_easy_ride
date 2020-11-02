@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
-  makeStyles,
   Button,
   Select,
   FormControl,
@@ -16,42 +15,7 @@ import {
 import { DateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
-
-const useStyles = makeStyles((theme) => ({
-  form: {
-    // position: "absolute",
-    // width: 600,
-    // backgroundColor: "white",
-    border: "2px solid #000",
-    boxShadow: "10px 5px 5px black",
-    // padding: "16px 32px 24px",
-    // top: "50%",
-    // left: "50%",
-    // transform: "translate(-50%, -50%)",
-    color: theme.palette.primary.main,
-  },
-  button: {
-    textAlign: "right",
-    justifyItems: "space-between",
-    alignSelf: "right",
-  },
-  title: {
-    textAlign: "center",
-    width: "100%",
-    fontSize: theme.typography.h4.fontSize,
-  },
-  formControl: {
-    width: "100%",
-    margin: theme.spacing(1, 0, 2),
-  },
-  dateTimePickerContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  dateTimePicker: {
-    margin: theme.spacing(2, 1, 2),
-  },
-}));
+import { useStyles } from "./styles";
 
 const EditForm = (props) => {
   const styles = useStyles();

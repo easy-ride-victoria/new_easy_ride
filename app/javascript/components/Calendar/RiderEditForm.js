@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
-  makeStyles,
   Button,
   Select,
   FormControl,
@@ -16,42 +15,8 @@ import {
 import { DateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
-
-const useStyles = makeStyles((theme) => ({
-  form: {
-    // position: "absolute",
-    // width: 600,
-    // backgroundColor: "white",
-    border: "2px solid #000",
-    boxShadow: "10px 5px 5px black",
-    // padding: "16px 32px 24px",
-    // top: "50%",
-    // left: "50%",
-    // transform: "translate(-50%, -50%)",
-    color: theme.palette.primary.main,
-  },
-  button: {
-    textAlign: "right",
-    justifyItems: "space-between",
-    alignSelf: "right",
-  },
-  title: {
-    textAlign: "center",
-    width: "100%",
-    fontSize: theme.typography.h4.fontSize,
-  },
-  formControl: {
-    width: "100%",
-    margin: theme.spacing(1, 0, 2),
-  },
-  dateTimePickerContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  dateTimePicker: {
-    margin: theme.spacing(2, 1, 2),
-  },
-}));
+import JoinLessonAlert from "./JoinLessonAlert";
+import { useStyles } from "./styles";
 
 const RiderEditForm = (props) => {
   const styles = useStyles();
@@ -97,9 +62,18 @@ const RiderEditForm = (props) => {
     props.onSubmit({ slotInfo, rideData });
   };
 
-  const handleDelete = () => {
-    props.onDelete({ slotInfo, rideData });
+  // const handleDelete = () => {
+  //   props.onDelete({ slotInfo, rideData });
+  // };
+
+  const [showJoinLessonAlert, setShowJoinLessonAlert] = useState(false);
+  const handleJoinLesson = () => {
+    setShowJoinLessonAlert(true);
   };
+
+  const showJoinLessonButton =
+    slotInfo.event_type === "lesson" &&
+    slotInfo.lesson_total_spots - slotInfo.rides.length > 0;
 
   const canEditBooking =
     slotInfo.event_type === "ride" && rideData.user_id === currentUser.id;
@@ -236,10 +210,26 @@ const RiderEditForm = (props) => {
         <Button onClick={props.onClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleEdit} color="primary">
-          Save
-        </Button>
+        {canEditBooking && (
+          <Button onClick={handleEdit} color="primary">
+            Save
+          </Button>
+        )}
+        {showJoinLessonButton && (
+          <Button onClick={handleJoinLesson}>Join Lesson</Button>
+        )}
       </DialogActions>
+      {showJoinLessonAlert && (
+        <JoinLessonAlert
+          onClose={() => {
+            setShowJoinLessonAlert(false);
+          }}
+          horses={horses}
+          currentUser={currentUser}
+          booking_id={slotInfo.id}
+          lesson_price_cad={slotInfo.lesson_price_cad}
+        />
+      )}
     </div>
   );
 };
