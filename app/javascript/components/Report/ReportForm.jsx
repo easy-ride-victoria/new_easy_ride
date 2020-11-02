@@ -11,26 +11,27 @@ export default function AddReportForm() {
 
   return (
     <Formik
-      initialValues={{ first_name: "", last_name: "", horse: "", activity_date: "", activity_type: "", answer1: "", answer2: "", answer3: "", answer4: ""}}
+      initialValues={{ first_name: "", last_name: "", horse: "", activity_date: "", answer1: "", answer2: "", answer3: "", answer4: ""}}
       
-      // validationSchema={Yup.object({
-      //   first_name: Yup.string()
-      //   .required('Required'),
-      //   last_name: Yup.string()
-      //   .max(10, "max of 10 chars allowed")
-      //   .required('Required'),
-      //   horse: Yup.string()
-      //   .required('Required'),
-      //   activity_date: Yup.string()
-      //   .required('Required'),
-      //   activity_type: Yup.string()
-      //   .required('Required')
-      // })}
+      validationSchema={Yup.object({
+        first_name: Yup.string()
+        .required('Required'),
+        last_name: Yup.string()
+        .required('Required'),
+        horse: Yup.string()
+        .required('Required'),
+        activity_date: Yup.string()
+        .required('Required')
+      })}
       onSubmit={(values, { setSubmitting }) => {
+        Axios.post("/api/v1/reports", values)
+        .then( () => {
+          console.log ("sent!")
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
         }, 400);
+      })
       }}
     >
 
