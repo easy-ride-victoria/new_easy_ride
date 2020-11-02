@@ -71,6 +71,11 @@ const RiderEditForm = (props) => {
     setShowJoinLessonAlert(true);
   };
 
+  const handleJoinLessonSubmit = () => {
+    setShowJoinLessonAlert(false);
+    props.onClose();
+  };
+
   const showJoinLessonButton =
     slotInfo.event_type === "lesson" &&
     slotInfo.lesson_total_spots - slotInfo.rides.length > 0;
@@ -224,6 +229,7 @@ const RiderEditForm = (props) => {
           onClose={() => {
             setShowJoinLessonAlert(false);
           }}
+          onSubmit={handleJoinLessonSubmit}
           horses={horses}
           currentUser={currentUser}
           booking_id={slotInfo.id}

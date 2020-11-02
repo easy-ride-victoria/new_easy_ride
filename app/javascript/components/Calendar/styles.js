@@ -41,4 +41,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: "0 30px",
     color: "#004578",
   },
+  paymentForm: {
+    margin: theme.spacing(1, 0, 1),
+  },
 }));

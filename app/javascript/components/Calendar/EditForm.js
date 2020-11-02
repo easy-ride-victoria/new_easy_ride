@@ -17,6 +17,8 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import { useStyles } from "./styles";
 
+// TODO: Admin adding or removing particular people from lessons (including themselves)
+
 const EditForm = (props) => {
   const styles = useStyles();
   const { errors } = props;

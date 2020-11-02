@@ -9,10 +9,12 @@ import {
   CreditCardSubmitButton,
 } from "react-square-payment-form";
 import Axios from "axios";
+// import { useStyles } from "./styles";
 
 const LessonPaymentForm = (props) => {
   const [errorMessages, setErrorMessages] = useState([]);
-  const { amount, currency } = props;
+  const [paymentComplete, setPaymentComplete] = useState(false);
+  const { amount, currency, currentUser, onPaymentComplete } = props;
   const cardNonceResponseReceived = (
     errors,
     nonce,
@@ -25,17 +27,16 @@ const LessonPaymentForm = (props) => {
     }
 
     setErrorMessages([]);
-    alert(
-      "nonce created: " +
-        nonce +
-        ", buyerVerificationToken: " +
-        buyerVerificationToken
-    );
+
     Axios.post("/api/v1/payments", {
       nonce: nonce,
       amount,
       currency,
       token: buyerVerificationToken,
+    }).then((response) => {
+      console.log(response, "<<<put response");
+      onPaymentComplete(JSON.parse(response.data[0]).payment.id);
+      setPaymentComplete(true);
     });
   };
 
@@ -45,18 +46,20 @@ const LessonPaymentForm = (props) => {
       currencyCode: currency,
       intent: "CHARGE",
       billingContact: {
-        familyName: "Smith",
-        givenName: "John",
-        email: "jsmith@example.com",
-        country: "GB",
-        city: "London",
-        addressLines: ["1235 Emperor's Gate"],
-        postalCode: "SW7 4JA",
-        phone: "020 7946 0532",
+        familyName: currentUser.attributes.last_name,
+        givenName: currentUser.attributes.first_name,
+        email: currentUser.attributes.email,
+        // country: "CA",
+        // city: "Victoria",
+        // addressLines: ["1234 This St"],
+        // postalCode: "SW7 4JA",
+        // phone: "1 250 946 0532",
       },
     };
   };
-
+  if (paymentComplete) {
+    return "Lesson Payment Recieved!";
+  }
   return (
     <>
       <SquarePaymentForm
