@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   TextField,
-  makeStyles,
   Button,
   Select,
   FormControl,
@@ -9,7 +8,6 @@ import {
   MenuItem,
   InputLabel,
 } from "@material-ui/core";
-import { StyleSharp } from "@material-ui/icons";
 import { DateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
@@ -17,48 +15,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Axios from "axios";
+import { useStyles } from "./styles";
 
 /* eslint-disable */
-const useStyles = makeStyles((theme) => ({
-  form: {
-    // position: "absolute",
-    // width: 600,
-    // backgroundColor: "white",
-    border: "2px solid #000",
-    boxShadow: "10px 5px 5px black",
-    // padding: "16px 32px 24px",
-    // top: "50%",
-    // left: "50%",
-    // transform: "translate(-50%, -50%)",
-    color: theme.palette.primary.main,
-  },
-  textfield: {
-    width: "100%",
-    margin: "auto",
-  },
-  button: {
-    textAlign: "right",
-    justifyItems: "space-between",
-    alignSelf: "right",
-  },
-  title: {
-    textAlign: "center",
-    width: "100%",
-    fontSize: theme.typography.h4.fontSize,
-  },
-  formControl: {
-    width: "100%",
-    margin: theme.spacing(1, 0, 2),
-  },
-  dateTimePickerContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  dateTimePicker: {
-    margin: theme.spacing(2, 1, 2),
-  },
-}));
-
 const BookingForm = (props) => {
   const styles = useStyles();
   const {

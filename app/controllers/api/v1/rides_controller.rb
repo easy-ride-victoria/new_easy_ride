@@ -51,10 +51,10 @@ module Api
         ride = Ride.find_by(id: params[:id])
         # PUT /api/v1/rides/123
         # {user_id:42, horse_id:2, location: "outdoor", booking:{start_time:"..." , end_time: "..." }}
-        ride.booking.update(start_time: params[:booking][:start_time], end_time: params[:booking][:end_time])
-        # 
-        puts "TEST RIDE ID"
-        puts ride.inspect
+        unless params[:booking].nil?
+          ride.booking.update(start_time: params[:booking][:start_time], end_time: params[:booking][:end_time])
+        end
+
         if ride.update(ride_params)
           puts "EVERYTHING WORKED"
           render json: RideSerializer.new(ride).serializable_hash.to_json
