@@ -38,7 +38,8 @@ const Weather = () => {
           console.log("daily forecast", dailyForecast);
           forecasts.push(dailyForecast); console.log(forecasts);
         });
-        console.log(forecasts); setWeather(forecasts);
+        console.log(forecasts);
+        setWeather(forecasts);
       });
   }, []);
   console.log("WEATHER IS", weather);
@@ -46,7 +47,7 @@ const Weather = () => {
   return (
     <div>
       <Grid item xs={12} justify-items="end" >
-        <Grid container justify-items="end" spacing={2} >
+        <Grid container justify-items="end" spacing={2} justify="flex-end">
           {weather.map((value) => {
             // const { day, weather, icon } = weather;
             return (<Grid key={value.key} item>
