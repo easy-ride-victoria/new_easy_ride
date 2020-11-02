@@ -30,6 +30,7 @@ const JoinLessonAlert = (props) => {
     horse_id: 1,
     payment_type: "square",
   });
+  const [rideId, setRideId] = useState(null);
   const [errors, setErrors] = useState({});
   const [activeStep, setActiveStep] = useState(0);
 
@@ -44,13 +45,13 @@ const JoinLessonAlert = (props) => {
         .then((response) => {
           setActiveStep(activeStep + 1);
           console.log(response, "<<< response");
-          setRideData({ ...rideData, id: response.data.data.id });
+          setRideId(response.data.data.id);
         })
         .catch((error) => {
           setErrors(error.response.data.error);
         });
     } else {
-      Axios.put(`/api/v1/rides/${rideData.id}`, rideData)
+      Axios.put(`/api/v1/rides/${rideId}`, rideData)
         .then(() => {
           setActiveStep(activeStep + 1);
           onSubmit();

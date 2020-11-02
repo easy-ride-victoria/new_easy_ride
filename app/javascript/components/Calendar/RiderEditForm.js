@@ -227,7 +227,9 @@ const RiderEditForm = (props) => {
           </Button>
         )}
         {showJoinLessonButton && (
-          <Button onClick={handleJoinLesson}>Join Lesson</Button>
+          <Button onClick={handleJoinLesson} color="secondary">
+            Join Lesson
+          </Button>
         )}
       </DialogActions>
       {showJoinLessonAlert && (

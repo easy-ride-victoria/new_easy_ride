@@ -98,7 +98,9 @@ const MyCalendar = (props) => {
           console.log(response.data.data.id);
           bookingData = { ...bookingData, id: response.data.data.id };
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          setErrors(error.response.data.error);
+        });
     }
   };
 
@@ -128,6 +130,10 @@ const MyCalendar = (props) => {
         .then(() => {
           updateAllBookings();
           setEdit(false);
+          setErrors({});
+        })
+        .catch((error) => {
+          setErrors(error.response.data.error);
         });
     } else {
       axios
@@ -136,8 +142,11 @@ const MyCalendar = (props) => {
           updateAllBookings();
           setEdit(false);
           setSlotInfo((prev) => ({ ...prev, slotInfo }));
+          setErrors({});
         })
-        .catch((error) => console.log("OOPS", error));
+        .catch((error) => {
+          setErrors(error.response.data.error);
+        });
     }
   };
 
@@ -162,15 +171,18 @@ const MyCalendar = (props) => {
     //   setOpenWeather(!openWeather);
     // };
   };
+
+  const closeDialogs = () => {
+    setDestroy(false);
+    setEdit(false);
+    setModal(false);
+    setErrors(null);
+  };
+
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <Dialog
-        open={modal}
-        onClose={() => {
-          setModal(false);
-        }}
-      >
+      <Dialog open={modal} onClose={closeDialogs}>
         {errors && (
           <Alert severity="error">Ruh-roh! Something went wrong.</Alert>
         )}
@@ -181,9 +193,7 @@ const MyCalendar = (props) => {
             onSubmit={doBooking}
             currentUser={currentUser}
             errors={errors}
-            onCancel={() => {
-              setModal(false);
-            }}
+            onCancel={closeDialogs}
           />
         )}
         {currentUser.attributes.is_admin === false && (
@@ -193,30 +203,16 @@ const MyCalendar = (props) => {
             onSubmit={doBooking}
             currentUser={currentUser}
             errors={errors}
-            onCancel={() => {
-              setModal(false);
-            }}
+            onCancel={closeDialogs}
           />
         )}
       </Dialog>
       {currentUser.attributes.is_admin && (
-        <Dialog
-          open={edit}
-          onClose={() => {
-            setEdit(false);
-          }}
-        >
-          <Dialog
-            open={destroy}
-            onClose={() => {
-              setDestroy(false);
-            }}
-          >
+        <Dialog open={edit} onClose={closeDialogs}>
+          <Dialog open={destroy} onClose={closeDialogs}>
             <DeleteAlert
               onDelete={handleDestroyFromAlert}
-              onClose={() => {
-                setDestroy(false);
-              }}
+              onClose={closeDialogs}
             ></DeleteAlert>
           </Dialog>
           <EditForm
@@ -225,30 +221,16 @@ const MyCalendar = (props) => {
             setSlotInfo={setSlotInfo}
             onSubmit={save}
             onDelete={handleDestroy}
-            onClose={() => {
-              setEdit(false);
-            }}
+            onClose={closeDialogs}
           ></EditForm>
         </Dialog>
       )}
       {currentUser.attributes.is_admin === false && (
-        <Dialog
-          open={edit}
-          onClose={() => {
-            setEdit(false);
-          }}
-        >
-          <Dialog
-            open={destroy}
-            onClose={() => {
-              setDestroy(false);
-            }}
-          >
+        <Dialog open={edit} onClose={closeDialogs}>
+          <Dialog open={destroy} onClose={closeDialogs}>
             <DeleteAlert
               onDelete={handleDestroyFromAlert}
-              onClose={() => {
-                setDestroy(false);
-              }}
+              onClose={closeDialogs}
             ></DeleteAlert>
           </Dialog>
           <RiderEditForm
@@ -256,9 +238,8 @@ const MyCalendar = (props) => {
             slotInfo={slotInfo}
             setSlotInfo={setSlotInfo}
             onSubmit={save}
-            onClose={() => {
-              setEdit(false);
-            }}
+            errors={errors}
+            onClose={closeDialogs}
           ></RiderEditForm>
         </Dialog>
       )}
