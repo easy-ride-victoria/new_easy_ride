@@ -26,14 +26,27 @@ const convertDate = (date) => {
 };
 
 const updatedEv = (appointments) => {
-  console.log(appointments);
   const newArr = appointments.map((item) => ({
+    title: item.attributes.event_type,
     id: `${item.id}`,
     ...item.attributes,
     start_time: convertDate(item.attributes.start_time),
     end_time: convertDate(item.attributes.end_time),
   }));
   return newArr;
+};
+
+const getEventStyle = (event) => {
+  const colours = {
+    ride: "#004578",
+    lesson: "#a47638",
+    other: "#5ba87f",
+  };
+  return {
+    style: {
+      backgroundColor: colours[event.event_type],
+    },
+  };
 };
 
 const MyCalendar = (props) => {
@@ -224,6 +237,7 @@ const MyCalendar = (props) => {
       </Grid>
       {openWeather && <Weather />}
       <Calendar
+        eventPropGetter={getEventStyle}
         className={styles.calendar}
         selectable
         localizer={localizer}
