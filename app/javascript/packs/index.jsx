@@ -37,10 +37,10 @@ const theme = createMuiTheme({
     },
     MuiOutlinedInput: {
       multiline: {
-        fontWeight: "bold",
-        fontSize: "20px",
-        color: "purple",
-        width: "50vw",
+        // fontWeight: "bold",
+        // fontSize: "20px",
+        // color: "purple",
+        width: "30vw",
       },
     },
   },
