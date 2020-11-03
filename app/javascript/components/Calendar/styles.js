@@ -38,10 +38,14 @@ export const useStyles = makeStyles((theme) => ({
     fontFamily: "Roboto",
     border: 0,
     borderRadius: 3,
-    padding: "0 30px",
+    padding: "30px",
     color: "#004578",
   },
   paymentForm: {
     margin: theme.spacing(1, 0, 1),
+  },
+  weather: {
+    // paddingTop: "20px",
+    margin: "10px",
   },
 }));

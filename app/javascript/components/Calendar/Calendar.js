@@ -10,31 +10,17 @@ import EditForm from "./EditForm";
 import RiderEditForm from "./RiderEditForm";
 import DeleteAlert from "./DeleteAlert";
 import MenuAppBar from "../Layout/NavBar";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles, useStyles } from "@material-ui/core/styles";
 import { Dialog, Button, Grid } from "@material-ui/core";
 import Weather from "./Weather/Weather";
 import Alert from "@material-ui/lab/Alert";
+import { useStyles } from "./styles";
 
 // TODO: display validation errors for all of the fields
 // TODO: create popout from lessons/rides to add more riders
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
-
-const useStyles = makeStyles({
-  calendar: {
-    fontFamily: "Roboto",
-    border: 0,
-    borderRadius: 3,
-    paddingTop: "30px",
-    color: "#004578",
-  },
-  weather: {
-    // paddingTop: "20px",
-    margin: "10px",
-  }
-});
-
 
 const convertDate = (date) => {
   return moment.utc(date).toDate();
@@ -164,9 +150,6 @@ const MyCalendar = (props) => {
       setSlotInfo((prev) => ({ ...prev, slotInfo }));
     });
 
-
-
-
     // const handleOpenWeather = () => {
     //   setOpenWeather(!openWeather);
     // };
@@ -244,15 +227,18 @@ const MyCalendar = (props) => {
         </Dialog>
       )}
       <Grid container justify="flex-end" spacing={2}>
-        <Button size="medium" color="primary" className={styles.weather} onClick={() => {
-          setOpenWeather(!openWeather);
-        }}>
-        Show Weather Forecast
+        <Button
+          size="medium"
+          color="primary"
+          className={styles.weather}
+          onClick={() => {
+            setOpenWeather(!openWeather);
+          }}
+        >
+          Show Weather Forecast
         </Button>
       </Grid>
-      {openWeather && (
-        <Weather/>
-      )}
+      {openWeather && <Weather />}
       <Calendar
         className={styles.calendar}
         selectable
