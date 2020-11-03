@@ -208,6 +208,8 @@ const RiderEditForm = (props) => {
               <HorseSelect
                 rideData={rideData}
                 setRideData={setRideData}
+                readOnly={!canEditBooking}
+                disabled={!canEditBooking}
                 errors={errors}
                 horses={horses}
               />

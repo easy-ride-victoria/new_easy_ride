@@ -13,14 +13,15 @@ import { useStyles } from "./styles";
 
 const HorseSelect = (props) => {
   const styles = useStyles();
-  const { rideData, setRideData, errors, horses } = props;
+  const { rideData, setRideData, errors, horses, readOnly, disabled } = props;
 
   return (
     <FormControl
       className={styles.formControl}
       error={errors && errors.horse ? true : false}
       fullWidth
-      autoFocus
+      readOnly={readOnly}
+      Disabled={disabled}
     >
       <InputLabel id="horse-select-label">Horse</InputLabel>
       <Select
