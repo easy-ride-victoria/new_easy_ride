@@ -33,40 +33,38 @@ const useStyles = makeStyles((theme) => ({
 const ProfileRoute = (props) => {
   const classes = useStyles();
   const { currentUser, setCurrentUser } = props;
-
-  const [values, setValues] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    hcbc_number: "",
-    hcbc_active: false
-  });
   
+  const [state, setState] = useState(currentUser.attributes);
+
   useEffect(() => {
     axios.get("http://localhost:3000/api/v1/users")
       .then((response) => {
         // console.log("response:", response);
         const listOfUsersDb = response.data.data;
-        const userId = listOfUsersDb.find(i => i.id === currentUser.id);
+        const userId = listOfUsersDb.find(i => i.id == currentUser.id);
         const userAttributes = userId.attributes;
-        setValues(userAttributes);
+        setState(userAttributes);
         // console.log("userAtr", userAttributes);
       });
   },[]);
 
   const handleSubmit = () => {
-    // console.log(currentUser);
     // event.preventDefault();
-
     const id = currentUser.id;
-  
-    // console.log("Passing:", values);
-    axios.put(`http://localhost:3000/api/v1/users/${id}`, values)
-      .then(response => {
-        setValues(prev => ({...prev, values}));
+    console.log(state);
+    axios.put(`http://localhost:3000/api/v1/users/${id}`, state)
+      .then(() => {
+        setState(prev => ({...prev, state}));
       })
       .catch(error => console.log(error));
   };
+
+  console.log(currentUser);
+  
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.value });
+  };
+  console.log(state);
   
   return (
     <div>
@@ -77,36 +75,28 @@ const ProfileRoute = (props) => {
             My Profile
           </Typography>
           <br></br><br></br>
-          <TextField variant="outlined" label="First name" value={values.first_name} onChange={(e) => {
-            setValues({...values, first_name: e.target.value});
-          }}/>
+          <TextField variant="outlined" label="First name" name="first_name" value={state.first_name} onChange={handleChange}/>
           <br></br><br></br>
-          <TextField variant="outlined" label="Last name" value={values.last_name} onChange={(e) => {
-            setValues({...values, last_name: e.target.value});
-          }}/>
+          <TextField variant="outlined" label="Last name" name="last_name" value={state.last_name} onChange={handleChange}/>
           <br></br><br></br>
-          <TextField variant="outlined" label="Email" value={values.email} onChange={(e) => {
-            setValues({...values, email: e.target.value});
-          }}/>
+          <TextField variant="outlined" label="Email" name="last_name" value={state.email} onChange={handleChange}/>
           <br></br><br></br>
-          <TextField variant="outlined" label="Password" value="******"/>
+          <TextField variant="outlined" label="Password" name="password" value="******" disabled />
           <Link href="#" variant="subtitle1">
             <FormHelperText id="my-helper-text">Forgot your password?</FormHelperText>
           </Link>
           <br></br>
-          <TextField variant="outlined" label="HCBC Number" value={values.hcbc_number} onChange={(e) => {
-            setValues({...values, hcbc_number: e.target.value});
-          }}/>
+          <TextField variant="outlined" label="HCBC Number" name="hcbc_number" value={state.hcbc_number} onChange={handleChange}/>
           <br></br><br></br>
           <FormControlLabel
             control={
               <Switch
-                checked={values.hcbc_active}
+                checked={state.hcbc_active}
+                name="hcbc_active"
                 onChange={(e) => {
-                  setValues({ ...values, hcbc_active: !values.hcbc_active });
+                  setState({ ...state, hcbc_active: e.target.checked });
                 }}
-                name="active"
-                color="primary"
+                color="secondary"
               />
             }
             label="Active HCBC"
@@ -115,7 +105,7 @@ const ProfileRoute = (props) => {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
+            color="secondary"
             className={classes.submit}
             onClick={handleSubmit}
           >
