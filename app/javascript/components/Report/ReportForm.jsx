@@ -1,15 +1,58 @@
 import React, { useState } from "react";
 import { Button, TextField, TextareaAutosize, InputLabel, Container, Checkbox, FormGroup, FormLabel } from '@material-ui/core';
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { Field, Form, ErrorMessage, Formik } from 'formik';
+import styled from 'styled-components';
 import * as Yup from 'yup';
 import Axios from "axios";
+import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
+
+const StyledInputLabel = styled.p`
+  margin-top: 30px;
+  font-size: 1.5rem;
+  font-family: "Roboto";
+  font-weight: 400;
+  `;
+
+const StyledFormLabel = styled.p`
+  margin-top: 30px;
+  font-size: 1.5rem;
+  font-family: "Roboto";
+  font-weight: 400;
+  `;
+
+  const StyledButton = withStyles({
+    root: {
+      background: '#004578',
+      borderRadius: 3,
+      border: 0,
+      color: 'white',
+      height: 48,
+      padding: '0 30px',
+      marginTop: '50px'
+    },
+    label: {
+      textTransform: 'capitalize',
+    },
+  })(Button);
 
 
 
 
 export default function AddReportForm() {
-
-
+  const stylesTextArea = {
+    height: "200px",
+    width: "550px" 
+  }
+  const stylesInputField = {
+    height: "35px",
+    width: "550px" 
+  }
+  const stylesTitle = {
+    textAlign: "center",
+    fontSize: "2rem" 
+  }
+  
   return (
     <Formik
       initialValues={{ first_name: "", last_name: "", horse: "", activity_date: "", answer1: "", answer2: "", answer3: "", answer4: ""}}
@@ -37,30 +80,32 @@ export default function AddReportForm() {
     >
 <Container maxWidth="sm">
     <Form>
-      <InputLabel htmlFor="first_name"> First Name</InputLabel>
-      <Field name="first_name" type="text" />
+      <FormLabel style={stylesTitle} >Thank you for sending your report!</FormLabel>
+      <StyledInputLabel htmlFor="first_name"> First Name</StyledInputLabel>
+      <Field name="first_name" type="text" style={stylesInputField} />
       <ErrorMessage name="first_name" />
-
-      <InputLabel htmlFor="last_name"> Last Name</InputLabel>
-      <Field name="last_name" type="text" />
+      
+      <StyledInputLabel htmlFor="last_name"> Last Name</StyledInputLabel>
+      <Field name="last_name" type="text" style={stylesInputField} />
       <ErrorMessage name="last_name" />
 
-      <InputLabel htmlFor="horse"> Horse</InputLabel>
-      <Field name="horse" type="text" />
+      <StyledInputLabel htmlFor="horse"> Horse</StyledInputLabel>
+      <Field name="horse" type="text" style={stylesInputField} />
       <ErrorMessage name="horse" />
 
-      <InputLabel htmlFor="activity_date"> Date of your ride or other activity</InputLabel>
-      <Field name="activity_date" type="text" />
+      <StyledInputLabel htmlFor="activity_date"> Date of your ride or other activity</StyledInputLabel>
+      <Field name="activity_date" type="text" style={stylesInputField} />
       <ErrorMessage name="activity_date" />
 
-      <FormLabel >
+      <StyledFormLabel >
       <Field type="checkbox" name="answer1" /> 
       {"Did you warm-up with a 10 minutes walk on a loose rein?"}
-      </FormLabel>
+      </StyledFormLabel>
 
-      <InputLabel htmlFor="answer2"> Select the type of activity you did on that occasion</InputLabel>
-      <Field name="answer2" as="select" className="answer2">
+      <StyledInputLabel htmlFor="answer2"> Select the type of activity you did on that occasion</StyledInputLabel>
+      <Field name="answer2" as="select" style={stylesInputField} className="answer2">
       <option value="lunge"></option>
+
         <option value="lunge">Lunge</option>
         <option value="free_lunge">Free lunge</option>
         <option value="trail_ride">Trail ride</option>
@@ -69,170 +114,18 @@ export default function AddReportForm() {
         <option value="handwalk">Handwalk</option>
       </Field>
 
-      <InputLabel htmlFor="answer3">Please detail the exercises you worked on:</InputLabel>
-      <Field name="answer3" as={TextareaAutosize} type="text" />
+      <StyledInputLabel htmlFor="answer3">Please detail the exercises you worked on:</StyledInputLabel>
+      <Field name="answer3" style={stylesTextArea} type="text" />
       <ErrorMessage name="answer3" />
     
-      <InputLabel htmlFor="answer4">Any other comment you feel are relevant?</InputLabel>
-      <Field name="answer4" as={TextareaAutosize} type="text" />
+      <StyledInputLabel htmlFor="answer4">Any other comment you feel are relevant?</StyledInputLabel>
+      <Field name="answer4" style={stylesTextArea} type="text" />
       <ErrorMessage name="answer4" />
+      
       <FormGroup>
-      <Button variant="contained" color="secondary" type="submit">Submit</Button>
+      <StyledButton variant="contained" color="secondary" type="submit">Submit</StyledButton>
       </FormGroup>
     </Form>
     </Container>
   </Formik>
   )};
-
-//   const classes = useStyles();
-//   // const { currentUser, setCurrentUser } = props;
-//   const defaultValues = {
-//     first_name: "",
-//     last_name: "",
-//     horse: "",
-//     date: "",
-//     activity_type: "",
-//     answer1: true,
-//     answer2: "",
-//     answer3: "",
-//     answer4: ""
-//   };
-
-//   const [values, setValues]= useState(defaultValues)
-//   // const handleSubmit = () => {
-//   //   Axios.post("/api/v1/reports", state).then(() => {
-//   //     handleClose();
-//   //     if (props.onSubmit) {
-//   //       props.onSubmit();
-//   //     }
-//   //   });
-//   // };
-
-//   const handleClose = () => {
-//     setState(defaultValues);
-//     <Link to={"/"} /> 
-//   };
-
-//   return (
-
-//     <div className={classes.root}>
-//       <h3>Fill in this form and press save to send your report</h3>
-//       <FormControl className="formControl">
-//       <Grid container spacing={3}>
-//         <Grid item xs={6}>
-//           <TextField
-          
-//             autoFocus
-//             margin="normal"
-//             name="first_name"
-//             label="First Name"
-//             type="text"
-//             value={values.first_name}
-//             onChange={(e) => {
-//               setValues({ ...values, first_name: e.target.value})
-//             }}
-//           />
-//         </Grid>
-//         <Grid item xs={6}>
-//           <TextField
-          
-//             margin="normal"
-//             name="last_name"
-//             label="Last Name"
-//             type="text"
-//             value={values.last_name}
-//             onChange={(e) => {
-//               setValues({ ...values, last_name: e.target.value})
-//             }}
-//           />
-//           </Grid></Grid>
-//           <TextField
-//             margin="normal"
-//             name="horse"
-//             label="Horse you worked with"
-//             type="text"
-//             value={values.horse}
-//             onChange= {(e) => {
-//               setValues({ ...values, horse: e.target.value})
-//             }}
-//           />
-//           <TextField
-//             margin="normal"
-//             name="activity_date"
-//             label="Date of the activity"
-//             type="text"
-//             value={values.date}
-//             onChange= {(e) => {
-//               setValues({ ...values, date: e.target.value})
-//             }}
-//           />
-//           <FormControlLabel
-//             control={
-//               <Checkbox 
-//                 checked={values.question1} 
-                 
-//                 onChange={() => {
-//                   setValues({ ...values, answer1: !values.answer1 });
-//                 }}
-//               />}
-//             label="Did you warm-up with a 10 minutes walk on a loose rein?"
-//           />
-
-//           <FormControl className={classes.formControl}>
-//             <InputLabel id="demo-simple-select-label">Select what type of activity you did:</InputLabel>
-//               <Select
-//                 name="activity"
-//                 variant="outlined"
-//                 labelId="demo-simple-select-label"
-//                 id="demo-simple-select"
-//                 value={values.answer2}
-//                 onChange= {(e) => {setValues({...values, answer2: e.target.value})
-//                 }}
-//               >
-//                 <MenuItem value={"lunge"}>Lunge</MenuItem>
-//                 <MenuItem value={"free-lunge"}>Free Lunge</MenuItem>
-//                 <MenuItem value={"trail-ride"}>Trail Ride</MenuItem>
-//                 <MenuItem value={"ring-ride"}>Ride in the Ring</MenuItem>
-//                 <MenuItem value={"play"}>Structured Play</MenuItem>
-//                 <MenuItem value={"hand-walk"}>Hand Walk</MenuItem>
-//               </Select>
-//           </FormControl>
-
-//           <TextField
-//             margin="normal"
-//             name="exercises"
-//             label="Please detail the exercises you worked on:"
-//             multiline
-//             rows={10}
-//             variant="outlined"
-//             value={values.answer3}
-//             onChange= {(e) => {
-//               setValues({ ...values, answer3: e.target.value})
-//             }}
-//           />
-          
-//           <TextField
-//             margin="normal"
-//             name="comments"
-//             label="Any other comment you feel are relevant?"
-//             multiline
-//             rows={10}
-//             variant="outlined"
-//             value={values.answer4}
-//             onChange= {(e) => {
-//               setValues({ ...values, answer4: e.target.value})
-//             }}
-//           />
-        
-//           <Button className="saveButton" onClick={handleClose} color="primary">
-//             Cancel
-//           </Button>
-//           <Button className="saveButton" onClick={handleClose} color="primary">
-//             Send
-//           </Button>
-      
-//         </FormControl>
-      
-//     </div>
-//   );
-//  }

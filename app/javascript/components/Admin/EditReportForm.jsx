@@ -1,33 +1,11 @@
 import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import styled from 'styled-components';
+import { Avatar, Button, Textfield, Dialog, DialogActions, DialogContent, DialogTitle, Switch, FormControlLabel,InputLabel, Select, MenuItem } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import Axios from "axios";
 
 
-
-const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: "#004578",
-    width: "35px",
-    height:"35px"
-  },
-});
-const style = {
-  width: "25px",
-  height: "25px"
-}
 
 export default function EditReportForm(props) {
   const classes = useStyles();
