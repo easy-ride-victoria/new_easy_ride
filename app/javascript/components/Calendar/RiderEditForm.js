@@ -11,6 +11,11 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
 } from "@material-ui/core";
 import { DateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -75,6 +80,9 @@ const RiderEditForm = (props) => {
     setShowJoinLessonAlert(false);
     props.onSubmit();
   };
+
+  const remainingLessonSpots =
+    slotInfo.lesson_total_spots - slotInfo.rides.length;
 
   const showJoinLessonButton =
     slotInfo.event_type === "lesson" &&
@@ -145,9 +153,32 @@ const RiderEditForm = (props) => {
                 label="Lesson Spots Remaining"
                 type="number"
                 // onChange={handleBookingChange}
-                value={slotInfo.lesson_total_spots - slotInfo.rides.length}
+                value={remainingLessonSpots}
                 fullWidth
               />
+              <List>
+                {slotInfo.rides.map((ride) => {
+                  const user = users.find((u) => Number(u.id) === ride.user_id);
+                  const horse = horses.find(
+                    (h) => Number(h.id) === ride.horse_id
+                  );
+                  console.log(ride, user, horse, users, horses);
+                  if (!user || !horse) return null;
+                  const { first_name, last_name } = user.attributes;
+                  const { name, profile_picture } = horse.attributes;
+                  return (
+                    <ListItem key={ride.id}>
+                      <ListItemAvatar>
+                        <Avatar src={profile_picture} />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={`${first_name} ${last_name}`}
+                        secondary={name}
+                      />
+                    </ListItem>
+                  );
+                })}
+              </List>
             </>
           )}
           {slotInfo.event_type === "ride" && (
@@ -222,7 +253,14 @@ const RiderEditForm = (props) => {
           </Button>
         )}
         {showJoinLessonButton && (
-          <Button onClick={handleJoinLesson} color="secondary">
+          <Button
+            disabled={
+              slotInfo.rides.some((r) => r.user_id === currentUser.id) ||
+              remainingLessonSpots === 0
+            }
+            onClick={handleJoinLesson}
+            color="secondary"
+          >
             Join Lesson
           </Button>
         )}
