@@ -7,9 +7,11 @@ import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
+import Grid from '@material-ui/core/Grid';
 import MenuAppBar from '../Layout/NavBar';
 import Link from "@material-ui/core/Link";
 import axios from "axios";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,6 +29,21 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(8),
     width: '15ch',
+  },
+  root: {
+    height: "100vh",
+  },
+  image: {
+    backgroundImage: "url(https://photos.smugmug.com/photos/i-5ZBKBq4/0/dd69311e/L/i-5ZBKBq4-L.jpg)",
+    backgroundRepeat: "no-repeat",
+    backgroundColor:
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: "130vh",
+    
   },
 }));
 
@@ -47,7 +64,7 @@ const ProfileRoute = (props) => {
       .then((response) => {
         // console.log("response:", response);
         const listOfUsersDb = response.data.data;
-        const userId = listOfUsersDb.find(i => i.id === currentUser.id);
+        const userId = listOfUsersDb.find(i => i.id == currentUser.id);
         const userAttributes = userId.attributes;
         setValues(userAttributes);
         // console.log("userAtr", userAttributes);
@@ -71,6 +88,9 @@ const ProfileRoute = (props) => {
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Grid container spacing={1} >
+        
+        <Grid item xs={5}>
       <div className={classes.paper}>
         <form className={classes.form} >
           <Typography component="h4" variant="h4">
@@ -123,6 +143,9 @@ const ProfileRoute = (props) => {
           </Button>
         </form>
       </div>
+      </Grid>
+      <Grid item xs={7} className={classes.image} />
+      </Grid>
     </div>
   );
 };
