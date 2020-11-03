@@ -4,7 +4,6 @@ import {
   Button,
   Select,
   FormControl,
-  FormHelperText,
   MenuItem,
   InputLabel,
   DialogTitle,
@@ -22,6 +21,7 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import JoinLessonAlert from "./JoinLessonAlert";
 import { useStyles } from "./styles";
+import HorseSelect from "./HorseSelect";
 
 const RiderEditForm = (props) => {
   const styles = useStyles();
@@ -205,34 +205,12 @@ const RiderEditForm = (props) => {
                   })}
                 </Select>
               </FormControl>
-              <FormControl
-                className={styles.formControl}
-                error={errors && errors.horse ? true : false}
-                readOnly={!canEditBooking}
-                disabled={!canEditBooking}
-              >
-                <InputLabel id="horse-select-label">Horse</InputLabel>
-                <Select
-                  labelId="horse-select-label"
-                  id="horse-select"
-                  value={rideData.horse_id}
-                  onChange={(e) =>
-                    setRideData({
-                      ...rideData,
-                      horse_id: Number(e.target.value),
-                    })
-                  }
-                >
-                  {horses.map((horse) => {
-                    return (
-                      <MenuItem value={horse.id} key={horse.id}>
-                        {horse.attributes.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-                <FormHelperText>{errors && errors.horse}</FormHelperText>
-              </FormControl>
+              <HorseSelect
+                rideData={rideData}
+                setRideData={setRideData}
+                errors={errors}
+                horses={horses}
+              />
             </>
           )}
         </MuiPickersUtilsProvider>

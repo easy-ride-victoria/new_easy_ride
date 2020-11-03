@@ -29,6 +29,12 @@ const theme = createMuiTheme({
     fontSize: 21,
   },
   overrides: {
+    MuiSelect: {
+      root: {
+        display: "flex",
+        alignItems: "center",
+      },
+    },
     MuiOutlinedInput: {
       multiline: {
         fontWeight: "bold",

@@ -5,6 +5,9 @@ import {
   FormHelperText,
   MenuItem,
   InputLabel,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
 } from "@material-ui/core";
 import { useStyles } from "./styles";
 
@@ -32,9 +35,13 @@ const HorseSelect = (props) => {
         }
       >
         {horses.map((horse) => {
+          const { profile_picture, name } = horse.attributes;
           return (
             <MenuItem value={horse.id} key={horse.id}>
-              {horse.attributes.name}
+              <ListItemAvatar>
+                <Avatar src={profile_picture} />
+              </ListItemAvatar>
+              <ListItemText primary={name} />
             </MenuItem>
           );
         })}

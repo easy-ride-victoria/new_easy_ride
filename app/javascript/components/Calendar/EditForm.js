@@ -4,7 +4,6 @@ import {
   Button,
   Select,
   FormControl,
-  FormHelperText,
   MenuItem,
   InputLabel,
   DialogTitle,
@@ -16,6 +15,7 @@ import { DateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import { useStyles } from "./styles";
+import HorseSelect from "./HorseSelect";
 
 // TODO: Admin adding or removing particular people from lessons (including themselves)
 
@@ -161,32 +161,12 @@ const EditForm = (props) => {
                   })}
                 </Select>
               </FormControl>
-              <FormControl
-                className={styles.formControl}
-                error={errors && errors.horse ? true : false}
-              >
-                <InputLabel id="horse-select-label">Horse</InputLabel>
-                <Select
-                  labelId="horse-select-label"
-                  id="horse-select"
-                  value={rideData.horse_id}
-                  onChange={(e) =>
-                    setRideData({
-                      ...rideData,
-                      horse_id: Number(e.target.value),
-                    })
-                  }
-                >
-                  {horses.map((horse) => {
-                    return (
-                      <MenuItem value={horse.id} key={horse.id}>
-                        {horse.attributes.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-                <FormHelperText>{errors && errors.horse}</FormHelperText>
-              </FormControl>
+              <HorseSelect
+                rideData={rideData}
+                setRideData={setRideData}
+                errors={errors}
+                horses={horses}
+              />
             </>
           )}
         </MuiPickersUtilsProvider>
@@ -195,11 +175,6 @@ const EditForm = (props) => {
         <Button onClick={handleDelete} color="secondary">
           Delete
         </Button>
-
-        <Button onClick={handleEdit} color="primary">
-          Save
-        </Button>
-
         <Button onClick={props.onClose} color="primary">
           Cancel
         </Button>
