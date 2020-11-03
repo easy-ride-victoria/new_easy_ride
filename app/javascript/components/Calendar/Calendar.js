@@ -10,31 +10,16 @@ import EditForm from "./EditForm";
 import RiderEditForm from "./RiderEditForm";
 import DeleteAlert from "./DeleteAlert";
 import MenuAppBar from "../Layout/NavBar";
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles, useStyles } from "@material-ui/core/styles";
 import { Dialog, Button, Grid } from "@material-ui/core";
 import Weather from "./Weather/Weather";
-import Alert from "@material-ui/lab/Alert";
+import { useStyles } from "./styles";
 
 // TODO: display validation errors for all of the fields
 // TODO: create popout from lessons/rides to add more riders
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
-
-const useStyles = makeStyles({
-  calendar: {
-    fontFamily: "Roboto",
-    border: 0,
-    borderRadius: 3,
-    paddingTop: "30px",
-    color: "#004578",
-  },
-  weather: {
-    // paddingTop: "20px",
-    margin: "10px",
-  }
-});
-
 
 const convertDate = (date) => {
   return moment.utc(date).toDate();
@@ -56,9 +41,9 @@ const MyCalendar = (props) => {
   const { currentUser, setCurrentUser } = props;
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState({});
   const [errors, setErrors] = useState(null);
-  const [edit, setEdit] = useState(false);
   const [openWeather, setOpenWeather] = useState(false);
   const handleSelectSlot = ({ start, end }) => {
     setSelectedSlot({ start_time: moment(start), end_time: moment(end) });
@@ -98,7 +83,9 @@ const MyCalendar = (props) => {
           console.log(response.data.data.id);
           bookingData = { ...bookingData, id: response.data.data.id };
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          setErrors(error.response.data.error);
+        });
     }
   };
 
@@ -108,36 +95,39 @@ const MyCalendar = (props) => {
   const maxTime = new Date();
   maxTime.setHours(20, 30, 0);
 
-  const [slotInfo, setSlotInfo] = useState(0);
-  // Opens edit form
-  const handleSelectEvent = (e) => {
-    setEdit(true);
-    setSlotInfo(e);
-  };
-
-  const save = ({ rideData }) => {
-    const ID = slotInfo.id;
+  const save = (data) => {
+    if (!data) {
+      updateAllBookings();
+      closeDialogs();
+      return;
+    }
+    const { rideData } = data;
+    const ID = selectedBooking.id;
     const updateSlot = {
       ...rideData,
-      booking: slotInfo,
+      booking: selectedBooking,
     };
     //console.log(updateSlot);
-    if (slotInfo.event_type === "ride") {
+    if (selectedBooking.event_type === "ride") {
       axios
-        .put(`/api/v1/rides/${slotInfo.rides[0].id}`, updateSlot)
+        .put(`/api/v1/rides/${selectedBooking.rides[0].id}`, updateSlot)
         .then(() => {
           updateAllBookings();
-          setEdit(false);
+          closeDialogs();
+        })
+        .catch((error) => {
+          setErrors(error.response.data.error);
         });
     } else {
       axios
-        .put(`/api/v1/bookings/${ID}`, slotInfo)
+        .put(`/api/v1/bookings/${ID}`, selectedBooking)
         .then(() => {
           updateAllBookings();
-          setEdit(false);
-          setSlotInfo((prev) => ({ ...prev, slotInfo }));
+          closeDialogs();
         })
-        .catch((error) => console.log("OOPS", error));
+        .catch((error) => {
+          setErrors(error.response.data.error);
+        });
     }
   };
 
@@ -147,33 +137,28 @@ const MyCalendar = (props) => {
   };
 
   const handleDestroyFromAlert = () => {
-    const ID = slotInfo.id;
-    setDestroy(false);
-    axios.delete(`/api/v1/bookings/${ID}`, slotInfo).then(() => {
+    const ID = selectedBooking.id;
+    axios.delete(`/api/v1/bookings/${ID}`, selectedBooking).then(() => {
       updateAllBookings();
-      setEdit(false);
-      setSlotInfo((prev) => ({ ...prev, slotInfo }));
+      closeDialogs();
     });
-
-
-
 
     // const handleOpenWeather = () => {
     //   setOpenWeather(!openWeather);
     // };
   };
+
+  const closeDialogs = () => {
+    setDestroy(false);
+    setModal(false);
+    setErrors(null);
+    setSelectedBooking(null);
+  };
+
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <Dialog
-        open={modal}
-        onClose={() => {
-          setModal(false);
-        }}
-      >
-        {errors && (
-          <Alert severity="error">Ruh-roh! Something went wrong.</Alert>
-        )}
+      <Dialog open={modal} onClose={closeDialogs}>
         {currentUser.attributes.is_admin && (
           <BookingForm
             start_time={selectedSlot.start_time}
@@ -181,9 +166,7 @@ const MyCalendar = (props) => {
             onSubmit={doBooking}
             currentUser={currentUser}
             errors={errors}
-            onCancel={() => {
-              setModal(false);
-            }}
+            onCancel={closeDialogs}
           />
         )}
         {currentUser.attributes.is_admin === false && (
@@ -193,85 +176,53 @@ const MyCalendar = (props) => {
             onSubmit={doBooking}
             currentUser={currentUser}
             errors={errors}
-            onCancel={() => {
-              setModal(false);
-            }}
+            onCancel={closeDialogs}
           />
         )}
       </Dialog>
-      {currentUser.attributes.is_admin && (
-        <Dialog
-          open={edit}
-          onClose={() => {
-            setEdit(false);
-          }}
-        >
-          <Dialog
-            open={destroy}
-            onClose={() => {
-              setDestroy(false);
-            }}
-          >
+      {currentUser.attributes.is_admin && selectedBooking && (
+        <Dialog open={true} onClose={closeDialogs}>
+          <Dialog open={destroy} onClose={closeDialogs}>
             <DeleteAlert
               onDelete={handleDestroyFromAlert}
-              onClose={() => {
-                setDestroy(false);
-              }}
+              onClose={closeDialogs}
             ></DeleteAlert>
           </Dialog>
           <EditForm
             currentUser={currentUser}
-            slotInfo={slotInfo}
-            setSlotInfo={setSlotInfo}
+            slotInfo={selectedBooking}
+            setSlotInfo={setSelectedBooking}
             onSubmit={save}
             onDelete={handleDestroy}
-            onClose={() => {
-              setEdit(false);
-            }}
+            onClose={closeDialogs}
           ></EditForm>
         </Dialog>
       )}
-      {currentUser.attributes.is_admin === false && (
-        <Dialog
-          open={edit}
-          onClose={() => {
-            setEdit(false);
-          }}
-        >
-          <Dialog
-            open={destroy}
-            onClose={() => {
-              setDestroy(false);
-            }}
-          >
-            <DeleteAlert
-              onDelete={handleDestroyFromAlert}
-              onClose={() => {
-                setDestroy(false);
-              }}
-            ></DeleteAlert>
-          </Dialog>
+      {currentUser.attributes.is_admin === false && selectedBooking && (
+        <Dialog open={true} onClose={closeDialogs}>
           <RiderEditForm
             currentUser={currentUser}
-            slotInfo={slotInfo}
-            setSlotInfo={setSlotInfo}
+            slotInfo={selectedBooking}
+            setSlotInfo={setSelectedBooking}
             onSubmit={save}
-            onClose={() => {
-              setEdit(false);
-            }}
+            errors={errors}
+            onClose={closeDialogs}
           ></RiderEditForm>
         </Dialog>
       )}
       <Grid container justify="flex-end" spacing={2}>
-        <Button size="medium" color="primary" className={styles.weather} onClick={() => {
-          setOpenWeather(!openWeather);
-        }}>
-        Show Weather Forecast
+        <Button
+          size="medium"
+          color="primary"
+          className={styles.weather}
+          onClick={() => {
+            setOpenWeather(!openWeather);
+          }}
+        >
+          Show Weather Forecast
         </Button>
       </Grid>
-      {openWeather && (
-        <Weather/>
-      )}
+      {openWeather && <Weather />}
       <Calendar
         className={styles.calendar}
         selectable
@@ -284,7 +235,7 @@ const MyCalendar = (props) => {
         min={minTime}
         max={maxTime}
         onSelectSlot={handleSelectSlot}
-        onSelectEvent={(e) => handleSelectEvent(e)}
+        onSelectEvent={(e) => setSelectedBooking(e)}
       />
     </div>
   );

@@ -10,7 +10,7 @@ class Booking < ApplicationRecord
 
   def valid_dates
     if !start_time.nil? && !end_time.nil? && start_time >= end_time
-      self.errors.add :start_time, 'has to be before End time'
+      errors.add :start_time, 'has to be before End time'
     end
   end
 

@@ -73,7 +73,7 @@ const RiderEditForm = (props) => {
 
   const handleJoinLessonSubmit = () => {
     setShowJoinLessonAlert(false);
-    props.onClose();
+    props.onSubmit();
   };
 
   const showJoinLessonButton =
@@ -207,11 +207,6 @@ const RiderEditForm = (props) => {
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
-
-        <Button onClick={handleEdit} color="primary">
-          Save
-        </Button>
-
         {/* {canEditBooking && (
           <Button onClick={handleDelete} color="secondary">
             Delete
@@ -227,7 +222,9 @@ const RiderEditForm = (props) => {
           </Button>
         )}
         {showJoinLessonButton && (
-          <Button onClick={handleJoinLesson}>Join Lesson</Button>
+          <Button onClick={handleJoinLesson} color="secondary">
+            Join Lesson
+          </Button>
         )}
       </DialogActions>
       {showJoinLessonAlert && (
