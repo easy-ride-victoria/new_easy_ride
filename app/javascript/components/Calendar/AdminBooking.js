@@ -4,7 +4,6 @@ import {
   Button,
   Select,
   FormControl,
-  FormHelperText,
   MenuItem,
   InputLabel,
 } from "@material-ui/core";
@@ -16,6 +15,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Axios from "axios";
 import { useStyles } from "./styles";
+import HorseSelect from "./HorseSelect";
 
 /* eslint-disable */
 const BookingForm = (props) => {
@@ -177,27 +177,12 @@ const BookingForm = (props) => {
                   })}
                 </Select>
               </FormControl>
-              <FormControl
-                className={styles.formControl}
-                error={errors && errors.horse ? true : false}
-              >
-                <InputLabel id="horse-select-label">Horse</InputLabel>
-                <Select
-                  labelId="horse-select-label"
-                  id="horse-select"
-                  value={rideData.horse_id}
-                  onChange={handleHorseChange}
-                >
-                  {horses.map((horse) => {
-                    return (
-                      <MenuItem value={horse.id}>
-                        {horse.attributes.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-                <FormHelperText>{errors && errors.horse}</FormHelperText>
-              </FormControl>
+              <HorseSelect
+                rideData={rideData}
+                setRideData={setRideData}
+                errors={errors}
+                horses={horses}
+              />
             </>
           )}
         </MuiPickersUtilsProvider>
