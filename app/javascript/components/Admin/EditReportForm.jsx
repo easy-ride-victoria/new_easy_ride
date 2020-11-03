@@ -62,7 +62,7 @@ return (
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-      <DialogTitle id="form-dialog-title">Edit User</DialogTitle>
+      <DialogTitle id="form-dialog-title">Edit Report</DialogTitle>
         <DialogContent>
         <TextField
             autoFocus

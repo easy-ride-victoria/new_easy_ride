@@ -11,14 +11,16 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
-    backgroundImage: "url(https://photos.smugmug.com/photos/i-9WW9LrP/0/f269eb2d/X2/i-9WW9LrP-X2.jpg)",
+    backgroundImage: "url(https://photos.smugmug.com/photos/i-Tpvfv46/0/b8bb8820/X2/i-Tpvfv46-X2.jpg)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
         ? theme.palette.grey[50]
         : theme.palette.grey[900],
     backgroundSize: "cover",
-    backgroundPosition: "right",
+    backgroundPosition: "center",
+    height: "100vh",
+    
   },
 }));
 
