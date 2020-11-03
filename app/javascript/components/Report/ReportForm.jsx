@@ -48,6 +48,10 @@ export default function AddReportForm() {
     height: "35px",
     width: "550px" 
   }
+  const stylesTitle = {
+    textAlign: "center",
+    fontSize: "2rem" 
+  }
   
   return (
     <Formik
@@ -76,7 +80,7 @@ export default function AddReportForm() {
     >
 <Container maxWidth="sm">
     <Form>
-      
+      <FormLabel style={stylesTitle} >Thank you for sending your report!</FormLabel>
       <StyledInputLabel htmlFor="first_name"> First Name</StyledInputLabel>
       <Field name="first_name" type="text" style={stylesInputField} />
       <ErrorMessage name="first_name" />
