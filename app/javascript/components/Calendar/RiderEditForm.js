@@ -207,11 +207,17 @@ const RiderEditForm = (props) => {
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
+
+        <Button onClick={handleEdit} color="primary">
+          Save
+        </Button>
+
         {/* {canEditBooking && (
           <Button onClick={handleDelete} color="secondary">
             Delete
           </Button>
         )} */}
+
         <Button onClick={props.onClose} color="primary">
           Cancel
         </Button>

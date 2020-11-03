@@ -1,15 +1,14 @@
 import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Axios from "axios";
 import EditReportForm from "./EditReportForm";
+import DeleteReportForm from "./DeleteReportForm";
 
 // Material ui customization
 const useStyles = makeStyles({
@@ -42,34 +41,12 @@ const useStyles = makeStyles({
     height:"35px"
   },
 });
-const style = {
-  width: "25px",
-  height: "25px"
-}
 
-
-
- 
 
 export default function ReportsTable(props) {
   const classes = useStyles();
   const {reports} = props;
-//   const handleSubmit = () => {
-//     console.log(reports)
-//      //   Axios.delete(`api/v1/reports/${props.report.id}`)
-// //   .then( () => {
-// //     console.log ("deleted!")
-// //   setTimeout(() => {
-// //     alert("Deleeted")
-// //   }, 400);
-// // })
-// //   .catch ((error) => {
-// //     console.log("not sent, ", error)
-// //   })
-// }
-    
 
-  // console.log("reports: ", reports);
   return (
     <TableContainer >
       <Table className={classes.table} aria-label="customized table">
@@ -83,6 +60,7 @@ export default function ReportsTable(props) {
             <TableCell className={classes.tableCellHead} >Activity</TableCell>
             <TableCell className={classes.tableCellHead} >Exercises</TableCell>
             <TableCell className={classes.tableCellHead} >Comments</TableCell>
+            <TableCell className={classes.tableCellHead} >Edit</TableCell>
             <TableCell className={classes.tableCellHead} >Delete</TableCell>
           </TableRow>
         </TableHead>
@@ -125,6 +103,9 @@ export default function ReportsTable(props) {
 
                 <TableCell className={classes.tableCellBody} >
                 <EditReportForm report={report} onSubmit={props.onChange} />
+                </TableCell>
+                <TableCell className={classes.tableCellBody} >
+                <DeleteReportForm report={report} onSubmit={props.onChange} />
                 </TableCell>
               </TableRow>
             );
