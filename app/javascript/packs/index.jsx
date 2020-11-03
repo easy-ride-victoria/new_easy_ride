@@ -26,44 +26,21 @@ const theme = createMuiTheme({
     tonalOffset: 0.2,
   },
   typography: {
-    body1: {
-      fontSize: "1.5rem",
-    },
-    subtitle1: {
-      fontSize: "1.5rem",
-    },
-    h6: {
-      fontSize: "1.75rem",
-    },
-    h5: {
-      fontSize: "2rem",
-    },
-    h4: {
-      fontSize: "2.75rem",
-    },
-    h3: {
-      fontSize: "3.5rem",
-    },
-    h2: {
-      fontSize: "4.5rem",
-    },
-    button: {
-      fontSize: "1.5rem",
-    },
+    fontSize: 21,
   },
   overrides: {
-    // MuiSvgIcon: {
-    //   root: {
-    //     width: "3em",
-    //     height: "3em",
-    //   },
-    // },
+    MuiSelect: {
+      root: {
+        display: "flex",
+        alignItems: "center",
+      },
+    },
     MuiOutlinedInput: {
       multiline: {
-        fontWeight: "bold",
-        fontSize: "20px",
-        color: "purple",
-        width: "50vw",
+        // fontWeight: "bold",
+        // fontSize: "20px",
+        // color: "purple",
+        width: "30vw",
       },
     },
   },

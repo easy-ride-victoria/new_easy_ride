@@ -10,12 +10,13 @@ import HorsesPage from "./Admin/HorsesPage";
 import UsersPage from "./Admin/UsersPage";
 import ReportPage from "./Report/ReportPage";
 import ReportsPage from "./Admin/ReportsPage";
+import Cancellation from "./Cancellation/Cancellation";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("currentUser"))
   );
-  const setCurrentUserInStorage = function (user) {
+  const setCurrentUserInStorage = function(user) {
     if (user) {
       sessionStorage.setItem("currentUser", JSON.stringify(user));
     } else {
@@ -40,6 +41,9 @@ const App = () => {
       </RiderRoute>
       <RiderRoute currentUser={currentUser} exact path="/report">
         <ReportPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      </RiderRoute>
+      <RiderRoute currentUser={currentUser} exact path="/cancellation">
+        <Cancellation currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </RiderRoute>
       {/* Admin Routes */}
       <AdminRoute currentUser={currentUser} exact path="/admin">
