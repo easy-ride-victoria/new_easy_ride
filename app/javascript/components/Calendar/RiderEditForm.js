@@ -19,9 +19,9 @@ import {
 import { DateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
-import JoinLessonAlert from "./EditBooking/JoinLessonAlert";
+import JoinLessonAlert from "./JoinLessonAlert";
 import { useStyles } from "./styles";
-import HorseSelect from "./HelperComponents/HorseSelect";
+import HorseSelect from "./HorseSelect";
 
 const RiderEditForm = (props) => {
   const styles = useStyles();

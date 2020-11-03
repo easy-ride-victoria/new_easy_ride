@@ -18,7 +18,7 @@ import {
 import LessonPaymentForm from "./LessonPaymentForm";
 import { useStyles } from "./styles";
 import Axios from "axios";
-import HorseSelect from "./HelperComponents/HorseSelect";
+import HorseSelect from "./HorseSelect";
 
 const JoinLessonAlert = (props) => {
   const { horses, currentUser, booking_id, onSubmit } = props;

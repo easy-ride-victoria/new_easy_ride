@@ -14,7 +14,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Axios from "axios";
 import { useStyles } from "./styles";
-import HorseSelect from "../HelperComponents/HorseSelect";
+import HorseSelect from "./HorseSelect";
 
 /* eslint-disable */
 const RiderBookingForm = (props) => {
