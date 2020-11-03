@@ -63,7 +63,7 @@ const theme = createMuiTheme({
         // fontWeight: "bold",
         // fontSize: "20px",
         // color: "purple",
-        width: "50vw",
+        width: "30vw",
       },
     },
   },
