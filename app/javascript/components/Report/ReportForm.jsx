@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, TextField, TextareaAutosize, InputLabel, Container, Checkbox, FormGroup, FormLabel } from '@material-ui/core';
+import { Button, TextField, TextareaAutosize, InputLabel, Container, Checkbox, FormGroup, FormLabel, Typography } from '@material-ui/core';
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { Field, Form, ErrorMessage, Formik } from 'formik';
 import styled from 'styled-components';
@@ -80,7 +80,7 @@ export default function AddReportForm() {
     >
 <Container maxWidth="sm">
     <Form>
-      <FormLabel style={stylesTitle} >Thank you for sending your report!</FormLabel>
+    <Typography component="h4" variant="h4">Thank you for sending your report!</Typography>
       <StyledInputLabel htmlFor="first_name"> First Name</StyledInputLabel>
       <Field name="first_name" type="text" style={stylesInputField} />
       <ErrorMessage name="first_name" />

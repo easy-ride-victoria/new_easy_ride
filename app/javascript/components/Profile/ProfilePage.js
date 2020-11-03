@@ -73,7 +73,7 @@ const ProfileRoute = (props) => {
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <div className={classes.paper}>
         <form className={classes.form} >
-          <Typography component="h3" variant="h3">
+          <Typography component="h4" variant="h4">
             My Profile
           </Typography>
           <br></br><br></br>

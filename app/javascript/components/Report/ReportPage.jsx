@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         : theme.palette.grey[900],
     backgroundSize: "cover",
     backgroundPosition: "center",
-    height: "100vh",
+    height: "130vh",
     
   },
 }));
