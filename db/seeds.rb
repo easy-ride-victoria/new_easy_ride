@@ -427,7 +427,7 @@ reports = Report.create ([
     answer4: "Trigger felt very stiff on his left hind",
   },
   {
-    user: users[2],
+    user: users[1],
     horse: horses[2],
     activity_date: "October 20, 2020",
     answer1: true,
