@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { Button, Grid, TextField, TextareaAutosize, InputLabel, Container, Checkbox, FormGroup, FormLabel, Typography } from '@material-ui/core';
+import React from "react";
+import { Button, Grid, TextField, InputLabel,  FormLabel, Typography } from '@material-ui/core';
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import { Field, Form, ErrorMessage, Formik } from 'formik';
-import styled from 'styled-components';
+import { Field, ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import Axios from "axios";
-import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
-import { green } from "@material-ui/core/colors";
 
-
+// Material ui styles overide
 const useStyles = makeStyles((theme) => ({
   textfield: {
     marginTop: "30px",
@@ -17,26 +14,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-  const StyledButton = withStyles({
-    root: {
-      background: '#004578',
-      borderRadius: 3,
-      border: 0,
-      color: 'white',
-      height: 48,
-      padding: '0 30px',
-      marginTop: '50px',
-      marginLeft: "30px",
-      marginRight: "50px",
-    },
-    })(Button);
-
-
-
 
 export default function AddReportForm() {
   
-  // styles
+  // in-line styles
   const classes = useStyles();
   
   const stylesTextArea = {
@@ -48,7 +29,7 @@ export default function AddReportForm() {
     marginTop: "40px" 
   }
   
-  // render
+  // rendering
   return (
     <Formik
       initialValues={{ first_name: "", last_name: "", horse: "", activity_date: "", answer1: "", answer2: "", answer3: "", answer4: ""}}

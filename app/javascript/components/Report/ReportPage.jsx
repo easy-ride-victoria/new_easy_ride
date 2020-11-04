@@ -32,9 +32,9 @@ export default function ReportPage(props) {
   return (
     <>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <Grid container spacing={1} >
-        <Grid item xs={5} className={classes.image} />
-        <Grid item xs={7}>
+      <Grid container spacing={4} >
+        <Grid item xs={6} className={classes.image} />
+        <Grid item xs={6}>
           <ReportForm />
         </Grid>
       </Grid>

@@ -6,7 +6,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Axios from "axios";
 import EditReportForm from "./EditReportForm";
 import DeleteReportForm from "./DeleteReportForm";
 
@@ -19,7 +18,6 @@ const useStyles = makeStyles({
   },
   tableHead: {
     backgroundColor: "#a47638",
-    
   },
   tableCellHead: {
     color: "white",

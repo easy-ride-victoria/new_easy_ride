@@ -4,15 +4,8 @@ import MenuAppBar from '../Layout/NavBar';
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, TextField, Grid,  Typography, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-  // form: {
-  //   width: "50%",
-  //   marginLeft: theme.spacing(4),
-  //   marginRight: theme.spacing(4),
-  //   margin: "20px",
-  //   padding: "20px",
-    
-  // },
+// Material UI style over-ride
+const useStyles = makeStyles(() => ({
   titles: {
     marginLeft: "30px",
   },
@@ -32,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+// Form functionality handling
 const Cancellation = (props) => {
   const { currentUser, setCurrentUser } = props;
   const classes = useStyles();
@@ -42,8 +36,8 @@ const Cancellation = (props) => {
   
     emailjs.sendForm('gmail', 'template_wrw8lum', e.target, `${process.env.REACT_APP_EMAILJS}`)
       .then((result) => {
-        console.log(result);
-        console.log(e.target);
+        // console.log(result);
+        // console.log(e.target);
       }, (error) => {
         alert(error.text);
       });
@@ -59,7 +53,7 @@ const Cancellation = (props) => {
     setOpen(false);
   };
 
-  console.log(currentUser);
+  // Rendering
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />

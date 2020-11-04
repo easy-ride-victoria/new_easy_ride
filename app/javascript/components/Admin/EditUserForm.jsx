@@ -1,4 +1,5 @@
 import React from "react";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,9 +8,25 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import EditIcon from '@material-ui/icons/Edit';
+import Avatar from '@material-ui/core/Avatar'
 import Axios from "axios";
 
+const useStyles = makeStyles({
+  avatar: {
+    backgroundColor: "#004578",
+    width: "35px",
+    height:"35px"
+  },
+});
+
+const style = {
+  width: "25px",
+  height: "25px"
+}
+
 export default function EditUserForm(props) {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState(props.user.attributes);
 
@@ -37,8 +54,10 @@ export default function EditUserForm(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Edit User
+      <Button onClick={handleClickOpen}>
+        <Avatar className={classes.avatar}>
+          <EditIcon style={style} />
+        </Avatar>
       </Button>
       <Dialog
         open={open}

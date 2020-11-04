@@ -14,6 +14,7 @@ import axios from "axios";
 
 
 const useStyles = makeStyles((theme) => ({
+
   paper: {
     display: "flex",
     flexDirection: "column",
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(8),
-    width: '30vw',
+    // width: '30vw',
   },
   root: {
     height: "100vh",
@@ -46,6 +47,10 @@ const useStyles = makeStyles((theme) => ({
     
   },
 }));
+
+const stylesTextArea = {
+  width: "300px" 
+}
 
 const ProfileRoute = (props) => {
   const classes = useStyles();
@@ -90,7 +95,7 @@ const ProfileRoute = (props) => {
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Grid container spacing={1} >
         
-        <Grid item xs={5}>
+        <Grid item xs={5} style={stylesTextArea}>
       <div className={classes.paper}>
         <form className={classes.form} >
           <Typography component="h4" variant="h4">
