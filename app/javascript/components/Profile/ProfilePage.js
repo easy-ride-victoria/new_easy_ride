@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(8),
-    width: '15ch',
+    width: '30vw',
   },
   root: {
     height: "100vh",
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         ? theme.palette.grey[50]
         : theme.palette.grey[900],
     backgroundSize: "cover",
-    backgroundPosition: "center",
+    backgroundPosition: "left",
     height: "130vh",
     
   },
@@ -109,7 +109,7 @@ const ProfileRoute = (props) => {
             setValues({...values, email: e.target.value});
           }}/>
           <br></br><br></br>
-          <TextField variant="outlined" label="Password" value="******"/>
+          <TextField variant="outlined" label="Password" value="******" disabled/>
           <Link href="#" variant="subtitle1">
             <FormHelperText id="my-helper-text">Forgot your password?</FormHelperText>
           </Link>
@@ -126,7 +126,7 @@ const ProfileRoute = (props) => {
                   setValues({ ...values, hcbc_active: !values.hcbc_active });
                 }}
                 name="active"
-                color="primary"
+                color="secondary"
               />
             }
             label="Active HCBC"
@@ -135,7 +135,7 @@ const ProfileRoute = (props) => {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
+            color="secondary"
             className={classes.submit}
             onClick={handleSubmit}
           >

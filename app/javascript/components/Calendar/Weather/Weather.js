@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Grid } from "@material-ui/core";
 
+const weatherStyle = {
+  marginRight: "65px",
+}
+
 import ForecastCard from "./ForecastCard";
 
 const Weather = () => {
@@ -39,7 +43,7 @@ const Weather = () => {
   return (
     <div>
       <Grid container item xs={12} justify="flex-end">
-        <Grid container justify-items="end" spacing={2} justify="flex-end">
+        <Grid container justify-items="end" spacing={2} justify="flex-end" style={weatherStyle}>
           {weather.map((value) => {
             return (
               <Grid key={value.key} item>
