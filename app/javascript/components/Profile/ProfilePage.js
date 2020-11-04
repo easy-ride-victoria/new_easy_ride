@@ -1,5 +1,6 @@
-import React from 'react';
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import MenuAppBar from "../Layout/NavBar";
+import axios from "axios";
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
@@ -7,9 +8,7 @@ import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-import MenuAppBar from '../Layout/NavBar';
 import Link from "@material-ui/core/Link";
-import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,41 +29,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileRoute = (props) => {
+const ProfilePage = (props) => {
   const classes = useStyles();
   const { currentUser, setCurrentUser } = props;
-  
-  const [state, setState] = useState(currentUser.attributes);
+  const [user, setUser] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    hcbc_active: false,
+    hcbc_number: "",
+  });
+ 
+  const userId = currentUser.id;
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/v1/users")
+    axios.get(`/api/v1/users/${userId}`)
       .then((response) => {
-        // console.log("response:", response);
-        const listOfUsersDb = response.data.data;
-        const userId = listOfUsersDb.find(i => i.id == currentUser.id);
-        const userAttributes = userId.attributes;
-        setState(userAttributes);
-        // console.log("userAtr", userAttributes);
-      });
-  },[]);
+        const data = response.data.data.attributes;
+        setUser(data);
+      })
+      .catch(err => console.log(err));
+  }, []);
 
-  const handleSubmit = () => {
-    // event.preventDefault();
-    const id = currentUser.id;
-    console.log(state);
-    axios.put(`http://localhost:3000/api/v1/users/${id}`, state)
+  const handleChange = ((e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+    setUser({
+      [name]: value
+    });
+  });
+
+  const handleSubmit = (() => {
+    axios.put(`/api/v1/users/${userId}`, user)
       .then(() => {
-        setState(prev => ({...prev, state}));
+        setUser(prev => ({...prev, user}));
       })
       .catch(error => console.log(error));
-  };
-
-  console.log(currentUser);
-  
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.value });
-  };
-  console.log(state);
+  });
   
   return (
     <div>
@@ -72,30 +73,42 @@ const ProfileRoute = (props) => {
       <div className={classes.paper}>
         <form className={classes.form} >
           <Typography component="h3" variant="h3">
-            My Profile
+        My Profile
           </Typography>
           <br></br><br></br>
-          <TextField variant="outlined" label="First name" name="first_name" value={state.first_name} onChange={handleChange}/>
+          <TextField
+            variant="outlined"
+            label="First name"
+            name="first_name"
+            value={user.first_name}
+            onChange={handleChange}
+          />
           <br></br><br></br>
-          <TextField variant="outlined" label="Last name" name="last_name" value={state.last_name} onChange={handleChange}/>
+          <TextField variant="outlined" label="Last name" name="last_name" value={user.last_name}
+            onChange={handleChange}
+          />
           <br></br><br></br>
-          <TextField variant="outlined" label="Email" name="last_name" value={state.email} onChange={handleChange}/>
+          <TextField variant="outlined" label="Email" name="last_name" value={user.email}
+            onChange={handleChange}
+          />
           <br></br><br></br>
           <TextField variant="outlined" label="Password" name="password" value="******" disabled />
           <Link href="#" variant="subtitle1">
             <FormHelperText id="my-helper-text">Forgot your password?</FormHelperText>
           </Link>
           <br></br>
-          <TextField variant="outlined" label="HCBC Number" name="hcbc_number" value={state.hcbc_number} onChange={handleChange}/>
+          <TextField variant="outlined" label="HCBC Number" name="hcbc_number" value={user.hcbc_number}
+            onChange={handleChange}
+          />
           <br></br><br></br>
           <FormControlLabel
             control={
               <Switch
-                checked={state.hcbc_active}
-                name="hcbc_active"
+                checked={user.hcbc_active}
                 onChange={(e) => {
-                  setState({ ...state, hcbc_active: e.target.checked });
+                  setUser({ ...user, hcbc_active: e.target.checked});
                 }}
+                name="hcbc_active"
                 color="secondary"
               />
             }
@@ -109,7 +122,7 @@ const ProfileRoute = (props) => {
             className={classes.submit}
             onClick={handleSubmit}
           >
-            Save
+        Save
           </Button>
         </form>
       </div>
@@ -117,4 +130,4 @@ const ProfileRoute = (props) => {
   );
 };
 
-export default ProfileRoute;
+export default ProfilePage;
