@@ -129,8 +129,8 @@ bookings = Booking.create ([
 
 users = User.create ([
   {
-    first_name: "Audrey",
-    last_name: "Cooper",
+    first_name: "Nicole",
+    last_name: "Woodcock",
     email: "1@1.ca",
     hcbc_number: "111",
     hcbc_active: false,
@@ -144,8 +144,8 @@ users = User.create ([
     hcbc_active: false,
   },  
   {
-    first_name: "Nicole",
-    last_name: "Woodcock",
+    first_name: "Audrey",
+    last_name: "Cooper",
     email: "3@3.ca",
     hcbc_number: "113",
     hcbc_active: false,
@@ -425,5 +425,14 @@ reports = Report.create ([
     answer2: "ring-ride",
     answer3: "figure 8 in walk and trot. Canter at the end",
     answer4: "Trigger felt very stiff on his left hind",
+  },
+  {
+    user: users[1],
+    horse: horses[2],
+    activity_date: "October 20, 2020",
+    answer1: true,
+    answer2: "trail-ride",
+    answer3: "We worked on all 3 gaits.",
+    answer4: "Trigger is the best",
   }
 ])

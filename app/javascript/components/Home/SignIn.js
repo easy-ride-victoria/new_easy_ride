@@ -44,8 +44,8 @@ export default function SignIn(props) {
         id: 1,
         type: "user",
         attributes: {
-          first_name: "Audrey",
-          last_name: "Cooper",
+          first_name: "Nicole",
+          last_name: "Woodcock",
           hcbc_number: "12",
           hcbc_active: false,
           is_admin: true,
