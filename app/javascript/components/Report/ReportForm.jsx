@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "30px",
     marginLeft: "25px",
     marginRight: "25px",
+  },
+  title: {
+    marginLeft: "25px",
+    marginRight: "25px",
   }
 }));
 
@@ -58,7 +62,7 @@ export default function AddReportForm() {
     
       <Grid container alignItems="stretch" justify="space-around" direction="column" >
  
-        <Grid item xs className={classes.textfield}>
+        <Grid item xs className={classes.title}>
           <Typography gutterBottom variant="h4">
             Thank you for sending your report!
           </Typography>

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     backgroundPosition: "center",
     height: "130vh",
-    
+    marginTop: "15px",
   },
 }));
 
