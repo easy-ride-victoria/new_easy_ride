@@ -149,9 +149,9 @@ export default function AddReportForm() {
       <ErrorMessage name="answer4" />
       </Grid>
 
-      <FormGroup>
-      <StyledButton variant="contained" color="primary" type="submit">SUBMIT</StyledButton>
-      </FormGroup>
+      <Grid item xs className={classes.textfield}>
+      <Button variant="contained" color="secondary" type="submit">SUBMIT</Button>
+      </Grid>
       
     
     </Grid>

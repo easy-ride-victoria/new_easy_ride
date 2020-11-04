@@ -63,13 +63,15 @@ const Cancellation = (props) => {
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      
       <Grid container alignItems="start" justify="space-around" direction="column" >
  
         <Grid item xs className={classes.titles}>
-          <Typography gutterBottom variant="h3">
+          <Typography gutterBottom variant="h4">
               Cancellation request
           </Typography>
         </Grid>
+
         <Grid item className={classes.titles}>
           <Typography color="secondary" variant="body1" >
         * Customers must notify at least 5 days before the start of the event.
