@@ -11,14 +11,12 @@ import EditHorseForm from "./EditHorseForm";
 
 // Material ui customization
 const useStyles = makeStyles({
-  
   table: {
     width: "90%",
     margin: "auto",
   },
   tableHead: {
     backgroundColor: "#a47638",
-    
   },
   tableCellHead: {
     color: "white",
@@ -33,7 +31,7 @@ const useStyles = makeStyles({
   tableCellBody: {
     fontSize: "1.5rem",
     fontFamily: "Roboto",
-  }
+  },
 });
 
 export default function HorsesTable(props) {
@@ -44,15 +42,26 @@ export default function HorsesTable(props) {
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
-      
-        <TableHead >
-          <TableRow className={classes.tableHead}> 
-            <TableCell className={classes.tableCellHead}>Profile Picture</TableCell>
-            <TableCell className={classes.tableCellHead} align="right">Name</TableCell>
-            <TableCell className={classes.tableCellHead} align="right">Breed</TableCell>
-            <TableCell className={classes.tableCellHead} align="right">Date of Birth</TableCell>
-            <TableCell className={classes.tableCellHead} align="right">Active</TableCell>
-            <TableCell className={classes.tableCellHead} align="center">Edit</TableCell>
+        <TableHead>
+          <TableRow className={classes.tableHead}>
+            <TableCell className={classes.tableCellHead}>
+              Profile Picture
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="right">
+              Name
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="right">
+              Breed
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="right">
+              Date of Birth
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="right">
+              Active
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="center">
+              Edit
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -69,11 +78,20 @@ export default function HorsesTable(props) {
                 <TableCell>
                   <img src={profile_picture} />
                 </TableCell>
-                <TableCell className={classes.tableCellBody} align="right" component="th" scope="row">
+                <TableCell
+                  className={classes.tableCellBody}
+                  align="right"
+                  component="th"
+                  scope="row"
+                >
                   {name}
                 </TableCell>
-                <TableCell className={classes.tableCellBody} align="right">{breed}</TableCell>
-                <TableCell className={classes.tableCellBody} align="right">{date_of_birth}</TableCell>
+                <TableCell className={classes.tableCellBody} align="right">
+                  {breed}
+                </TableCell>
+                <TableCell className={classes.tableCellBody} align="right">
+                  {date_of_birth}
+                </TableCell>
                 <TableCell className={classes.tableCellBody} align="right">
                   {active ? "Yes" : "No"}
                 </TableCell>
@@ -87,7 +105,6 @@ export default function HorsesTable(props) {
             );
           })}
         </TableBody>
-       
       </Table>
     </TableContainer>
   );

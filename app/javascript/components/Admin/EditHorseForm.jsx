@@ -8,8 +8,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import EditIcon from '@material-ui/icons/Edit';
-import Avatar from '@material-ui/core/Avatar';
+import EditIcon from "@material-ui/icons/Edit";
+import Avatar from "@material-ui/core/Avatar";
 import Axios from "axios";
 import { FullscreenExit } from "@material-ui/icons";
 
@@ -21,15 +21,18 @@ const useStyles = makeStyles({
   avatar: {
     backgroundColor: "#004578",
     width: "35px",
-    height:"35px"
+    height: "35px",
+  },
+  root: {
+    display: "flex",
+    justifyContent: "center",
   },
 });
 
 const style = {
   width: "25px",
   height: "25px",
-  
-}
+};
 
 export default function EditHorseForm(props) {
   const classes = useStyles();
@@ -73,7 +76,7 @@ export default function EditHorseForm(props) {
   return (
     <div className={classes.root}>
       <Button onClick={handleClickOpen} align="right">
-        <Avatar className={classes.avatar} >
+        <Avatar className={classes.avatar}>
           <EditIcon style={style} />
         </Avatar>
       </Button>
