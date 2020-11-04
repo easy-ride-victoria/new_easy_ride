@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     margin: "auto",
   },
   tableHead: {
-    backgroundColor: "#004578",
+    backgroundColor: "#a47638",
     
   },
   tableCellHead: {
@@ -52,7 +52,7 @@ export default function HorsesTable(props) {
             <TableCell className={classes.tableCellHead} align="right">Breed</TableCell>
             <TableCell className={classes.tableCellHead} align="right">Date of Birth</TableCell>
             <TableCell className={classes.tableCellHead} align="right">Active</TableCell>
-            <TableCell className={classes.tableCellHead} align="right"> </TableCell>
+            <TableCell className={classes.tableCellHead} align="center">Edit</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -77,7 +77,7 @@ export default function HorsesTable(props) {
                 <TableCell className={classes.tableCellBody} align="right">
                   {active ? "Yes" : "No"}
                 </TableCell>
-                <TableCell align="right">
+                <TableCell>
                   <EditHorseForm
                     horse={horse}
                     onSubmit={onChange}

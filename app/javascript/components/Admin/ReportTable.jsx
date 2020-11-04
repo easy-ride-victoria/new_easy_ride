@@ -33,8 +33,13 @@ const useStyles = makeStyles({
     fontSize: "1.5rem",
     fontFamily: "Roboto",
   },
-  avatar: {
+  avatarEdit: {
     backgroundColor: "#004578",
+    width: "35px",
+    height:"35px"
+  },
+  avatarDelete: {
+    backgroundColor: "#780e0c",
     width: "35px",
     height:"35px"
   },
@@ -102,9 +107,11 @@ export default function ReportsTable(props) {
                 <TableCell className={classes.tableCellBody} >
                 <EditReportForm report={report} onSubmit={props.onChange} />
                 </TableCell>
+                
                 <TableCell className={classes.tableCellBody} >
                 <DeleteReportForm report={report} onSubmit={props.onChange} />
                 </TableCell>
+              
               </TableRow>
             );
           })}

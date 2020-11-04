@@ -21,6 +21,11 @@ const useStyles = makeStyles({
     width: "35px",
     height:"35px"
   },
+  avatarDelete: {
+    backgroundColor: "#780e0c",
+    width: "35px",
+    height:"35px",
+  },
 });
 const style = {
   width: "25px",
@@ -58,7 +63,7 @@ export default function DeleteReportForm(props) {
   return (
     <div>
       <Button onClick={handleClickOpen}>
-        <Avatar className={classes.avatar}>
+        <Avatar className={classes.avatarDelete}>
           <DeleteOutlineIcon style={style} />
         </Avatar>
       </Button>
