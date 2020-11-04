@@ -12,7 +12,7 @@ const Weather = () => {
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=48.612128&lon=-123.401191&exclude=minutely,hourly&units=metric&appid=523f9b16e3bc83b651631d7cbe6d5d2e`)
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=48.612128&lon=-123.401191&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_OPEN_WEATHER}`)
       .then(response => {
         let weatherData = response.data.list.filter(entry => entry.dt_txt.includes("21:00:00"));
         let forecasts = [];
