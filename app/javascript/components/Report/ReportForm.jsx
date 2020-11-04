@@ -1,58 +1,39 @@
-import React, { useState } from "react";
-import { Button, TextField, TextareaAutosize, InputLabel, Container, Checkbox, FormGroup, FormLabel } from '@material-ui/core';
+import React from "react";
+import { Button, Grid, TextField, InputLabel,  FormLabel, Typography } from '@material-ui/core';
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import { Field, Form, ErrorMessage, Formik } from 'formik';
-import styled from 'styled-components';
+import { Field, ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import Axios from "axios";
-import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
 
-const StyledInputLabel = styled.p`
-  margin-top: 30px;
-  font-size: 1.5rem;
-  font-family: "Roboto";
-  font-weight: 400;
-  `;
-
-const StyledFormLabel = styled.p`
-  margin-top: 30px;
-  font-size: 1.5rem;
-  font-family: "Roboto";
-  font-weight: 400;
-  `;
-
-  const StyledButton = withStyles({
-    root: {
-      background: '#004578',
-      borderRadius: 3,
-      border: 0,
-      color: 'white',
-      height: 48,
-      padding: '0 30px',
-      marginTop: '50px'
-    },
-    label: {
-      textTransform: 'capitalize',
-    },
-  })(Button);
-
-
+// Material ui styles overide
+const useStyles = makeStyles((theme) => ({
+  textfield: {
+    marginTop: "30px",
+    marginLeft: "25px",
+    marginRight: "25px",
+  },
+  title: {
+    marginLeft: "25px",
+    marginRight: "25px",
+  }
+}));
 
 
 export default function AddReportForm() {
+  
+  // in-line styles
+  const classes = useStyles();
+  
   const stylesTextArea = {
-    height: "200px",
-    width: "550px" 
+    width: "500px" 
   }
-  const stylesInputField = {
-    height: "35px",
-    width: "550px" 
-  }
+
   const stylesTitle = {
-    textAlign: "center",
-    fontSize: "2rem" 
+    width: "500px",
+    marginTop: "40px" 
   }
   
+  // rendering
   return (
     <Formik
       initialValues={{ first_name: "", last_name: "", horse: "", activity_date: "", answer1: "", answer2: "", answer3: "", answer4: ""}}
@@ -78,33 +59,53 @@ export default function AddReportForm() {
       })
       }}
     >
-<Container maxWidth="sm">
-    <Form>
-      <FormLabel style={stylesTitle} >Thank you for sending your report!</FormLabel>
-      <StyledInputLabel htmlFor="first_name"> First Name</StyledInputLabel>
-      <Field name="first_name" type="text" style={stylesInputField} />
-      <ErrorMessage name="first_name" />
+    
+      <Grid container alignItems="stretch" justify="space-around" direction="column" >
+ 
+        <Grid item xs className={classes.title}>
+          <Typography gutterBottom variant="h4">
+            Thank you for sending your report!
+          </Typography>
+        </Grid>
       
-      <StyledInputLabel htmlFor="last_name"> Last Name</StyledInputLabel>
-      <Field name="last_name" type="text" style={stylesInputField} />
-      <ErrorMessage name="last_name" />
+        <Grid item xs className={classes.textfield}>
+          {/* <StyledInputLabel htmlFor="first_name"> 
+            First Name
+          </StyledInputLabel> */}
+          <TextField id="filled-multiline-static" label="First Name" variant="outlined" name="first_name" style={stylesTextArea} type="text" rows={5}
+          InputLabelProps={{
+            shrink: true,
+          }}/>
+          <ErrorMessage name="first_name" />
+        </Grid>
+      
 
-      <StyledInputLabel htmlFor="horse"> Horse</StyledInputLabel>
-      <Field name="horse" type="text" style={stylesInputField} />
-      <ErrorMessage name="horse" />
+        <Grid item xs className={classes.textfield}>
+          <TextField id="filled-multiline-static" variant="outlined" name="last_name" style={stylesTextArea} type="text" label="Last Name" rows={5} InputLabelProps={{shrink: true,}} />
+          <ErrorMessage name="last_name" />
+        </Grid>
 
-      <StyledInputLabel htmlFor="activity_date"> Date of your ride or other activity</StyledInputLabel>
-      <Field name="activity_date" type="text" style={stylesInputField} />
-      <ErrorMessage name="activity_date" />
+        <Grid item xs className={classes.textfield}>
+          <TextField id="filled-multiline-static" variant="outlined" name="horse" style={stylesTextArea} type="text" label="Horse Name" rows={5} InputLabelProps={{shrink: true,}} />
+          <ErrorMessage name="horse" />
+        </Grid>
 
-      <StyledFormLabel >
-      <Field type="checkbox" name="answer1" /> 
-      {"Did you warm-up with a 10 minutes walk on a loose rein?"}
-      </StyledFormLabel>
+        <Grid item xs className={classes.textfield}>
+          <TextField id="filled-multiline-static" variant="outlined" name="activity_date" style={stylesTextArea} type="text" label="Date of your ride or other activity" rows={5} InputLabelProps={{shrink: true,}} />
+          <ErrorMessage name="activity_date" />
+        </Grid>
 
-      <StyledInputLabel htmlFor="answer2"> Select the type of activity you did on that occasion</StyledInputLabel>
-      <Field name="answer2" as="select" style={stylesInputField} className="answer2">
-      <option value="lunge"></option>
+      <Grid item xs className={classes.textfield}>
+        <FormLabel >
+        <Field type="checkbox" name="answer1" /> 
+          {"Did you warm-up with a 10 minutes walk on a loose rein?"}
+        </FormLabel>
+      </Grid>
+
+      <Grid item xs className={classes.textfield}>  
+      <InputLabel > Select the type of activity you did on that occasion</InputLabel>
+        <Field name="answer2" as="select" className="answer2">
+        <option value="lunge"></option>
 
         <option value="lunge">Lunge</option>
         <option value="free_lunge">Free lunge</option>
@@ -113,19 +114,31 @@ export default function AddReportForm() {
         <option value="play">Structured play</option>
         <option value="handwalk">Handwalk</option>
       </Field>
-
-      <StyledInputLabel htmlFor="answer3">Please detail the exercises you worked on:</StyledInputLabel>
-      <Field name="answer3" style={stylesTextArea} type="text" />
-      <ErrorMessage name="answer3" />
-    
-      <StyledInputLabel htmlFor="answer4">Any other comment you feel are relevant?</StyledInputLabel>
-      <Field name="answer4" style={stylesTextArea} type="text" />
-      <ErrorMessage name="answer4" />
+      </Grid>
       
-      <FormGroup>
-      <StyledButton variant="contained" color="secondary" type="submit">Submit</StyledButton>
-      </FormGroup>
-    </Form>
-    </Container>
+      <Grid item xs className={classes.textfield}>
+      {/* <StyledInputLabel htmlFor="answer3">Please detail the exercises you worked on:</StyledInputLabel> */}
+      <TextField id="filled-multiline-static" label="Please detail the exercises you worked on" variant="outlined" name="answer3" style={stylesTitle} type="text" rows={5}
+      InputLabelProps={{
+        shrink: true,
+      }}/>
+      <ErrorMessage name="answer3" />
+      </Grid>
+      
+      <Grid item xs className={classes.textfield}>
+      {/* <StyledInputLabel htmlFor="answer4">Any other comment you feel are relevant?</StyledInputLabel> */}
+      <TextField id="filled-multiline-static" label="Any other comment you feel are relevant?" variant="outlined" name="answer4" style={stylesTextArea} type="text" rows={5}
+      InputLabelProps={{
+        shrink: true,
+      }}/>
+      <ErrorMessage name="answer4" />
+      </Grid>
+
+      <Grid item xs className={classes.textfield}>
+      <Button variant="contained" color="secondary" type="submit">SUBMIT</Button>
+      </Grid>
+      
+    
+    </Grid>
   </Formik>
   )};

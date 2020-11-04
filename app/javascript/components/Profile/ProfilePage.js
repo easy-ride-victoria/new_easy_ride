@@ -7,11 +7,14 @@ import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
+import Grid from '@material-ui/core/Grid';
 import MenuAppBar from '../Layout/NavBar';
 import Link from "@material-ui/core/Link";
 import axios from "axios";
 
+
 const useStyles = makeStyles((theme) => ({
+
   paper: {
     display: "flex",
     flexDirection: "column",
@@ -26,9 +29,28 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(8),
-    width: '15ch',
+    // width: '30vw',
+  },
+  root: {
+    height: "100vh",
+  },
+  image: {
+    backgroundImage: "url(https://photos.smugmug.com/photos/i-5ZBKBq4/0/dd69311e/L/i-5ZBKBq4-L.jpg)",
+    backgroundRepeat: "no-repeat",
+    backgroundColor:
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "left",
+    height: "130vh",
+    
   },
 }));
+
+const stylesTextArea = {
+  width: "300px" 
+}
 
 const ProfileRoute = (props) => {
   const classes = useStyles();
@@ -47,7 +69,7 @@ const ProfileRoute = (props) => {
       .then((response) => {
         // console.log("response:", response);
         const listOfUsersDb = response.data.data;
-        const userId = listOfUsersDb.find(i => i.id === currentUser.id);
+        const userId = listOfUsersDb.find(i => i.id == currentUser.id);
         const userAttributes = userId.attributes;
         setValues(userAttributes);
         // console.log("userAtr", userAttributes);
@@ -71,9 +93,12 @@ const ProfileRoute = (props) => {
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      <Grid container spacing={1} >
+        
+        <Grid item xs={5} style={stylesTextArea}>
       <div className={classes.paper}>
         <form className={classes.form} >
-          <Typography component="h3" variant="h3">
+          <Typography component="h4" variant="h4">
             My Profile
           </Typography>
           <br></br><br></br>
@@ -89,7 +114,7 @@ const ProfileRoute = (props) => {
             setValues({...values, email: e.target.value});
           }}/>
           <br></br><br></br>
-          <TextField variant="outlined" label="Password" value="******"/>
+          <TextField variant="outlined" label="Password" value="******" disabled/>
           <Link href="#" variant="subtitle1">
             <FormHelperText id="my-helper-text">Forgot your password?</FormHelperText>
           </Link>
@@ -106,7 +131,7 @@ const ProfileRoute = (props) => {
                   setValues({ ...values, hcbc_active: !values.hcbc_active });
                 }}
                 name="active"
-                color="primary"
+                color="secondary"
               />
             }
             label="Active HCBC"
@@ -115,7 +140,7 @@ const ProfileRoute = (props) => {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
+            color="secondary"
             className={classes.submit}
             onClick={handleSubmit}
           >
@@ -123,6 +148,9 @@ const ProfileRoute = (props) => {
           </Button>
         </form>
       </div>
+      </Grid>
+      <Grid item xs={7} className={classes.image} />
+      </Grid>
     </div>
   );
 };

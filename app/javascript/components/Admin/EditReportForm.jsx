@@ -6,15 +6,21 @@ import EditIcon from '@material-ui/icons/Edit';
 import Axios from "axios";
 
 const useStyles = makeStyles({
-  avatar: {
+  avatarEdit: {
     backgroundColor: "#004578",
     width: "35px",
-    height:"35px"
+    height:"35px",
+  },
+  avatarDelete: {
+    backgroundColor: "#780e0c",
+    width: "35px",
+    height:"35px",
   },
 });
 const style = {
   width: "25px",
-  height: "25px"
+  height: "25px",
+  
 }
 
 export default function EditReportForm(props) {
@@ -52,7 +58,7 @@ export default function EditReportForm(props) {
 return (
   <div>
     <Button onClick={handleClickOpen}>
-      <Avatar className={classes.avatar}>
+      <Avatar className={classes.avatarEdit}>
         <EditIcon style={style} />
       </Avatar>
     </Button>
@@ -62,7 +68,7 @@ return (
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-      <DialogTitle id="form-dialog-title">Edit User</DialogTitle>
+      <DialogTitle id="form-dialog-title">Edit Report</DialogTitle>
         <DialogContent>
         <TextField
             autoFocus

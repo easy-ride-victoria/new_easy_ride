@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     margin: "auto",
   },
   tableHead: {
-    backgroundColor: "#004578",
+    backgroundColor: "#a47638",
     
   },
   tableCellHead: {
@@ -33,7 +33,12 @@ const useStyles = makeStyles({
   tableCellBody: {
     fontSize: "1.5rem",
     fontFamily: "Roboto",
-  }
+  },
+  avatar: {
+    backgroundColor: "#004578",
+    width: "35px",
+    height:"35px"
+  },
 });
 
 export default function UsersTable(props) {
@@ -51,7 +56,7 @@ export default function UsersTable(props) {
             <TableCell className={classes.tableCellHead} align="right">HCBC Status</TableCell>
             <TableCell className={classes.tableCellHead} align="right">Admin</TableCell>
             <TableCell className={classes.tableCellHead} align="right">Active Rider</TableCell>
-            <TableCell className={classes.tableCellHead} align="right"></TableCell>
+            <TableCell className={classes.tableCellHead} align="center">Edit</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -81,7 +86,7 @@ export default function UsersTable(props) {
                 <TableCell className={classes.tableCellBody} align="right">
                   {active ? "Yes" : "No"}
                 </TableCell>
-                <TableCell className={classes.tableCellBody} align="right">
+                <TableCell className={classes.tableCellBody} align="center">
                   <EditUserForm user={user} onSubmit={props.onChange} />
                 </TableCell>
               </TableRow>

@@ -6,7 +6,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Axios from "axios";
 import EditReportForm from "./EditReportForm";
 import DeleteReportForm from "./DeleteReportForm";
 
@@ -19,7 +18,6 @@ const useStyles = makeStyles({
   },
   tableHead: {
     backgroundColor: "#a47638",
-    
   },
   tableCellHead: {
     color: "white",
@@ -35,8 +33,13 @@ const useStyles = makeStyles({
     fontSize: "1.5rem",
     fontFamily: "Roboto",
   },
-  avatar: {
+  avatarEdit: {
     backgroundColor: "#004578",
+    width: "35px",
+    height:"35px"
+  },
+  avatarDelete: {
+    backgroundColor: "#780e0c",
     width: "35px",
     height:"35px"
   },
@@ -104,9 +107,11 @@ export default function ReportsTable(props) {
                 <TableCell className={classes.tableCellBody} >
                 <EditReportForm report={report} onSubmit={props.onChange} />
                 </TableCell>
+                
                 <TableCell className={classes.tableCellBody} >
                 <DeleteReportForm report={report} onSubmit={props.onChange} />
                 </TableCell>
+              
               </TableRow>
             );
           })}

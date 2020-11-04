@@ -15,7 +15,7 @@ const DeleteAlert = (props) => {
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          For questions email admin@vtra.ca or call (778) 426-0506.
+          This action cannot be undone.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

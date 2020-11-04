@@ -50,5 +50,6 @@ export const useStyles = makeStyles((theme) => ({
   weather: {
     // paddingTop: "20px",
     margin: "10px",
+    marginRight: "75px",
   },
 }));

@@ -16,6 +16,9 @@ import { useStyles } from "./styles";
 
 // TODO: display validation errors for all of the fields
 // TODO: create popout from lessons/rides to add more riders
+const styledGrid = {
+  marginRight: "45px",
+}
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
@@ -39,7 +42,7 @@ const getEventStyle = (event) => {
   const colours = {
     ride: "#004578",
     lesson: "#a47638",
-    other: "#5ba87f",
+    other: "#780e0c",
   };
   return {
     style: {
@@ -222,7 +225,7 @@ const MyCalendar = (props) => {
           ></RiderEditForm>
         </Dialog>
       )}
-      <Grid container justify="flex-end" spacing={2}>
+      <Grid container justify="flex-end" spacing={2} >
         <Button
           size="medium"
           color="primary"
