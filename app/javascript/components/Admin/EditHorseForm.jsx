@@ -11,8 +11,13 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import EditIcon from '@material-ui/icons/Edit';
 import Avatar from '@material-ui/core/Avatar';
 import Axios from "axios";
+import { FullscreenExit } from "@material-ui/icons";
 
 const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+  },
   avatar: {
     backgroundColor: "#004578",
     width: "35px",
@@ -66,7 +71,7 @@ export default function EditHorseForm(props) {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Button onClick={handleClickOpen} align="right">
         <Avatar className={classes.avatar} >
           <EditIcon style={style} />

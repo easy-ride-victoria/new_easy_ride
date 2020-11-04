@@ -425,5 +425,14 @@ reports = Report.create ([
     answer2: "ring-ride",
     answer3: "figure 8 in walk and trot. Canter at the end",
     answer4: "Trigger felt very stiff on his left hind",
+  },
+  {
+    user: users[2],
+    horse: horses[2],
+    activity_date: "October 20, 2020",
+    answer1: true,
+    answer2: "trail-ride",
+    answer3: "We worked on all 3 gaits.",
+    answer4: "Trigger is the best",
   }
 ])
