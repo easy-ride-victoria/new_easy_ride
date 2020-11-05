@@ -1,31 +1,44 @@
 import React, { useState, useEffect } from "react";
 import MenuAppBar from "../Layout/NavBar";
 import axios from "axios";
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextField from '@material-ui/core/TextField';
-import Switch from '@material-ui/core/Switch';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { Button, FormHelperText, Grid, FormControlLabel, TextField, Switch, Typography, Link } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
-import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    display: "flex",
-    flexDirection: "column",
+  container: {
+    marginLeft: "20px",
+  },
+  title: {
+    margin: "30px",
+  },
+  button: {
+    margin: "20px",
     alignItems: "center",
-    flexWrap: 'wrap'
+    textAlign: 'start',
   },
-  form: {
-    width: "100%",
-    marginLeft: theme.spacing(4),
-    marginRight: theme.spacing(4),
+  link: {
+    marginBottom: "10px",
+    marginTop: "0px",
+    marginLeft: "25px",
+
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(8),
-    width: '15ch',
+  switch: {
+    marginBottom: "10px",
+    marginTop: "0px",
+    marginLeft: "12px",
+  },
+  textfield: {
+    margingLeft: "60px",
+    margin: "20px",
+    marginTop: "20px",
+    width: "20vw",
+  },
+  password: {
+    margingLeft: "60px",
+    marginBottom: "5px",
+    margin: "20px",
+    marginTop: "20px",
+    width: "20vw",
   },
 }));
 
@@ -70,62 +83,75 @@ const ProfilePage = (props) => {
   return (
     <div>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <div className={classes.paper}>
-        <form className={classes.form} >
-          <Typography component="h3" variant="h3">
-        My Profile
+      <Grid className={classes.container} container alignItems="start" justify="space-around" direction="column" >
+        <Grid item xs className={classes.titles}>
+          <Typography gutterBottom variant="h3" marginLeft="20px">
+              My profile
           </Typography>
-          <br></br><br></br>
-          <TextField
-            variant="outlined"
-            label="First name"
-            name="first_name"
-            value={user.first_name}
-            onChange={handleChange}
-          />
-          <br></br><br></br>
-          <TextField variant="outlined" label="Last name" name="last_name" value={user.last_name}
-            onChange={handleChange}
-          />
-          <br></br><br></br>
-          <TextField variant="outlined" label="Email" name="last_name" value={user.email}
-            onChange={handleChange}
-          />
-          <br></br><br></br>
-          <TextField variant="outlined" label="Password" name="password" value="******" disabled />
-          <Link href="#" variant="subtitle1">
-            <FormHelperText id="my-helper-text">Forgot your password?</FormHelperText>
-          </Link>
-          <br></br>
-          <TextField variant="outlined" label="HCBC Number" name="hcbc_number" value={user.hcbc_number}
-            onChange={handleChange}
-          />
-          <br></br><br></br>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={user.hcbc_active}
-                onChange={(e) => {
-                  setUser({ ...user, hcbc_active: e.target.checked});
-                }}
-                name="hcbc_active"
-                color="secondary"
-              />
-            }
-            label="Active HCBC"
-          />
-          <br></br><br></br>
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            className={classes.submit}
-            onClick={handleSubmit}
-          >
+        </Grid>
+
+        <Grid container alignItems="start" justify="space-around" direction="column">
+          <Grid item xs>
+            <TextField id="filled-multiline-static" className={classes.textfield} type="text" variant="outlined" label="First name" name="first_name" value={user.first_name} onChange={handleChange} />
+          </Grid>
+
+          <Grid item xs>
+            <TextField id="filled-multiline-static" className={classes.textfield} variant="outlined" label="Last name" name="last_name" value={user.last_name}
+              onChange={handleChange}
+            />
+          </Grid>
+
+          <Grid item xs>
+            <TextField id="filled-multiline-static" className={classes.textfield} variant="outlined" label="Email" name="last_name" value={user.email}
+              onChange={handleChange}
+            />
+          </Grid>
+
+          <Grid item xs>
+            <TextField id="filled-multiline-static" className={classes.password} variant="outlined" label="Password" name="password" value="******" disabled />
+            <Link href="#" variant="subtitle1" >
+              <FormHelperText className={classes.link} id="my-helper-text">Forgot your password?</FormHelperText>
+            </Link>
+          </Grid>
+
+          <Grid item xs>
+            <TextField id="filled-multiline-static" className={classes.textfield} variant="outlined" label="HCBC Number" name="hcbc_number" value={user.hcbc_number}
+              onChange={handleChange}
+            />
+          </Grid>
+
+          <Grid item xs>
+            <FormControlLabel
+              className={classes.switch}
+              control={
+                <Switch
+                  checked={user.hcbc_active}
+                  onChange={(e) => {
+                    setUser({ ...user, hcbc_active: e.target.checked});
+                  }}
+                  name="hcbc_active"
+                  color="secondary"
+                />
+              }
+              label="Active HCBC"
+            />
+          </Grid>
+
+          <Grid item xs className={classes.button}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+              onClick={handleSubmit}
+            >
         Save
-          </Button>
-        </form>
-      </div>
+            </Button>
+          </Grid>
+
+        </Grid>
+      </Grid>
+
     </div>
   );
 };
