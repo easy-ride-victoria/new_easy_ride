@@ -5,14 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, TextField, Grid,  Typography, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  // form: {
-  //   width: "50%",
-  //   marginLeft: theme.spacing(4),
-  //   marginRight: theme.spacing(4),
-  //   margin: "20px",
-  //   padding: "20px",
-    
-  // },
   titles: {
     marginLeft: "30px",
   },
@@ -65,7 +57,7 @@ const Cancellation = (props) => {
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Grid container alignItems="start" justify="space-around" direction="column" >
  
-        <Grid item xs className={classes.titles}>
+        <Grid item xs className={classes.title}>
           <Typography gutterBottom variant="h3">
               Cancellation request
           </Typography>
