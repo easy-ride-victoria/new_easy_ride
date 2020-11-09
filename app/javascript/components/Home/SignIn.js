@@ -39,7 +39,7 @@ export default function SignIn(props) {
 
   const handleSubmit = function (event) {
     event.preventDefault();
-    if (email === "1@1.ca") {
+    if (email === "nicole@easyride.ca") {
       props.setCurrentUser({
         id: 1,
         type: "user",
@@ -50,7 +50,7 @@ export default function SignIn(props) {
           hcbc_active: false,
           is_admin: true,
           active: true,
-          email: "1@1.ca",
+          email: "nicole@easyride.ca",
         },
         relationships: { rides: { data: [{ id: "1", type: "ride" }] } },
       });
@@ -65,7 +65,7 @@ export default function SignIn(props) {
           hcbc_active: false,
           is_admin: false,
           active: true,
-          email: "2@2.ca",
+          email: "iyris@easyride.ca",
         },
         relationships: { rides: { data: [{ id: "2", type: "ride" }] } },
       });
