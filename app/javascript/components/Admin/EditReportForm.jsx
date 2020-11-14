@@ -34,9 +34,9 @@ export default function EditReportForm(props) {
     Axios.put(`/api/v1/reports/${props.report.id}`, state)
       .then(() => {
         handleClose();
-        setTimeout(() => {
-          alert("changes registered");
-        }, 400);
+        // setTimeout(() => {
+        //   alert("changes registered");
+        // }, 400);
       if (props.onSubmit) {
         props.onSubmit();
        }

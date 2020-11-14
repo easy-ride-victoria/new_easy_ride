@@ -44,7 +44,7 @@ export default function DeleteReportForm(props) {
       .then(() => {
         handleClose();
         setTimeout(() => {
-          alert("Report deleted");
+          // alert("Report deleted");
         }, 400);
       if (props.onSubmit) {
         props.onSubmit();

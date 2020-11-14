@@ -131,7 +131,7 @@ users = User.create ([
   {
     first_name: "Nicole",
     last_name: "Woodcock",
-    email: "1@1.ca",
+    email: "nicole@easyride.ca",
     hcbc_number: "111",
     hcbc_active: false,
     is_admin: true,
@@ -139,7 +139,7 @@ users = User.create ([
   {
     first_name: "Iyris",
     last_name: "Vigil",
-    email: "2@2.ca",
+    email: "iyris@easyride.ca",
     hcbc_number: "112",
     hcbc_active: false,
   },  
