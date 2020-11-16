@@ -19,10 +19,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+// Set State
+const initialState = { 
+  first_name: "", 
+  last_name: "", 
+  horse: "", 
+  activity_date: "", 
+  answer1: "", 
+  answer2: "", 
+  answer3: "", 
+  answer4: ""
+}
 
-export default function AddReportForm() {
+export default function AddReportForm(props) {
   
-  // in-line styles
+  // styles
   const classes = useStyles();
   
   const stylesTextArea = {
@@ -35,41 +46,27 @@ export default function AddReportForm() {
   }
   
   // form functionality
+  const [open, setopen] = useState(false)
+  const [state, setstate] = useState(initialState)
+
+
   const handleSubmit = event => {
     event.preventDefault();
-    Axios.post("/api/v1/reports", values)
-        .then( () => {
-          console.log ("sent!")
+    // Axios.post("/api/v1/reports", values)
+    //     .then( () => {
+    //       console.log ("sent!")
         setOpen(true);
-      })
+      // })
   }
 
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.value });
+  };
+  
+  console.log ("props are:", props)
+  
   // rendering
   return (
-    <Formik
-      initialValues={{ first_name: "", last_name: "", horse: "", activity_date: "", answer1: "", answer2: "", answer3: "", answer4: ""}}
-      
-      validationSchema={Yup.object({
-        first_name: Yup.string()
-        .required('Required'),
-        last_name: Yup.string()
-        .required('Required'),
-        horse: Yup.string()
-        .required('Required'),
-        activity_date: Yup.string()
-        .required('Required')
-      })}
-      onSubmit={(values, { setSubmitting }) => {
-        Axios.post("/api/v1/reports", values)
-        .then( () => {
-          console.log ("sent!")
-        setTimeout(() => {
-          alert('Thank You!');
-          setSubmitting(false);
-        }, 400);
-      })
-      }}
-    >
     
       <Grid container alignItems="stretch" justify="space-around" direction="column" >
  
