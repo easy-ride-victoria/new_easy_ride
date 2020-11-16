@@ -4,6 +4,7 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { Field, ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 import Axios from "axios";
+import { SettingsPowerRounded } from "@material-ui/icons";
 
 // Material ui styles overide
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +34,16 @@ export default function AddReportForm() {
     marginTop: "40px" 
   }
   
+  // form functionality
+  const handleSubmit = event => {
+    event.preventDefault();
+    Axios.post("/api/v1/reports", values)
+        .then( () => {
+          console.log ("sent!")
+        setOpen(true);
+      })
+  }
+
   // rendering
   return (
     <Formik
