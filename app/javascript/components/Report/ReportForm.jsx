@@ -1,8 +1,6 @@
-import React from "react";
-import { Button, Grid, TextField, InputLabel,  FormLabel, Typography } from '@material-ui/core';
+import React, { useState } from "react";
+import { Button, Grid, TextField, InputLabel,  FormControlLabel, Typography, Checkbox } from '@material-ui/core';
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import { Field, ErrorMessage, Formik } from 'formik';
-import * as Yup from 'yup';
 import Axios from "axios";
 import { SettingsPowerRounded } from "@material-ui/icons";
 
@@ -25,7 +23,7 @@ const initialState = {
   last_name: "", 
   horse: "", 
   activity_date: "", 
-  answer1: "", 
+  answer1: "true", 
   answer2: "", 
   answer3: "", 
   answer4: ""
@@ -62,52 +60,63 @@ export default function AddReportForm(props) {
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
+
+  const handleChecked = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
   
   console.log ("props are:", props)
   
   // rendering
   return (
     
-      <Grid container alignItems="stretch" justify="space-around" direction="column" >
- 
-        <Grid item xs className={classes.title}>
-          <Typography gutterBottom variant="h4">
-            Thank you for sending your report!
-          </Typography>
-        </Grid>
+    <Grid container 
+    alignItems="stretch" justify="space-around" direction="column" >
+
+      <Grid item xs className={classes.title}>
+        <Typography gutterBottom variant="h4">
+          Please fill your report here.
+        </Typography>
+      </Grid>
       
+      <form>
+
         <Grid item xs className={classes.textfield}>
-          {/* <StyledInputLabel htmlFor="first_name"> 
-            First Name
-          </StyledInputLabel> */}
           <TextField id="filled-multiline-static" label="First Name" variant="outlined" name="first_name" style={stylesTextArea} type="text" rows={5}
           InputLabelProps={{
             shrink: true,
           }}/>
-          <ErrorMessage name="first_name" />
+          
         </Grid>
       
 
         <Grid item xs className={classes.textfield}>
-          <TextField id="filled-multiline-static" variant="outlined" name="last_name" style={stylesTextArea} type="text" label="Last Name" rows={5} InputLabelProps={{shrink: true,}} />
-          <ErrorMessage name="last_name" />
+        <TextField id="outlined-basic" label="Outlined" variant="outlined" name="last_name" style={stylesTextArea} type="text" label="Last Name" InputLabelProps={{shrink: true,}} />
+         
         </Grid>
 
         <Grid item xs className={classes.textfield}>
           <TextField id="filled-multiline-static" variant="outlined" name="horse" style={stylesTextArea} type="text" label="Horse Name" rows={5} InputLabelProps={{shrink: true,}} />
-          <ErrorMessage name="horse" />
+       
         </Grid>
 
         <Grid item xs className={classes.textfield}>
           <TextField id="filled-multiline-static" variant="outlined" name="activity_date" style={stylesTextArea} type="text" label="Date of your ride or other activity" rows={5} InputLabelProps={{shrink: true,}} />
-          <ErrorMessage name="activity_date" />
+      
         </Grid>
 
       <Grid item xs className={classes.textfield}>
-        <FormLabel >
-        <Field type="checkbox" name="answer1" /> 
-          {"Did you warm-up with a 10 minutes walk on a loose rein?"}
-        </FormLabel>
+        <FormControlLabel 
+          control = {
+            <Checkbox
+              checked={state.answer1}
+              onChange={handleChecked}
+              name="answer1"
+              color="secondary" 
+            />
+          }
+          label="Did you warm-up with a 10 minutes walk on a loose rein?"
+        />
       </Grid>
 
       <Grid item xs className={classes.textfield}>  
@@ -125,12 +134,12 @@ export default function AddReportForm(props) {
       </Grid>
       
       <Grid item xs className={classes.textfield}>
-      {/* <StyledInputLabel htmlFor="answer3">Please detail the exercises you worked on:</StyledInputLabel> */}
+  
       <TextField id="filled-multiline-static" label="Please detail the exercises you worked on" variant="outlined" name="answer3" style={stylesTitle} type="text" rows={5}
       InputLabelProps={{
         shrink: true,
       }}/>
-      <ErrorMessage name="answer3" />
+ 
       </Grid>
       
       <Grid item xs className={classes.textfield}>
@@ -139,14 +148,15 @@ export default function AddReportForm(props) {
       InputLabelProps={{
         shrink: true,
       }}/>
-      <ErrorMessage name="answer4" />
+     
       </Grid>
 
       <Grid item xs className={classes.textfield}>
       <Button variant="contained" color="secondary" type="submit">SUBMIT</Button>
       </Grid>
       
+    </form>
     
-    </Grid>
-  </Formik>
+  </Grid>
+ 
   )};
