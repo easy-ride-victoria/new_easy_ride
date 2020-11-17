@@ -2,6 +2,7 @@ module Api
   module V1
     class BookingsController < ApplicationController
       protect_from_forgery with: :null_session
+      before_action :authenticate_user!
       def index
         bookings = Booking.all
 

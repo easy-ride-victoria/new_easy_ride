@@ -2,6 +2,7 @@ module Api
   module V1
     class RidesController < ApplicationController
       protect_from_forgery with: :null_session
+      before_action :authenticate_user!
       def index
         rides = Ride.all
         render json: RideSerializer.new(rides).serializable_hash.to_json
