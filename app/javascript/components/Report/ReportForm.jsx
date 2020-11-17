@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Grid, TextField, InputLabel,  FormControlLabel, Typography, Checkbox } from '@material-ui/core';
+import { Button, Grid, TextField, InputLabel,  FormControlLabel, Typography, Checkbox, FormControl, Select, MenuItem } from '@material-ui/core';
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Axios from "axios";
 import { SettingsPowerRounded } from "@material-ui/icons";
@@ -14,7 +14,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginLeft: "25px",
     marginRight: "25px",
-  }
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 }));
 
 // Set State
@@ -23,8 +27,8 @@ const initialState = {
   last_name: "", 
   horse: "", 
   activity_date: "", 
-  answer1: "true", 
-  answer2: "", 
+  answer1: true, 
+  answer2: "10", 
   answer3: "", 
   answer4: ""
 }
@@ -44,8 +48,9 @@ export default function AddReportForm(props) {
   }
   
   // form functionality
-  const [open, setopen] = useState(false)
-  const [state, setstate] = useState(initialState)
+  const [open, setOpen] = useState(false)
+  const [state, setState] = useState(initialState)
+
 
 
   const handleSubmit = event => {
@@ -64,8 +69,18 @@ export default function AddReportForm(props) {
   const handleChecked = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
+  const handleSelect = (event => {
+    setState({...state, answer2: event.target.value})
+  })
+  const handleClose = () => {
+    setOpen(false);
+    };
   
-  console.log ("props are:", props)
+  const handleOpen = () => {
+    setOpen(true);
+    };
+  
+  console.log ("state:", state.answer2)
   
   // rendering
   return (
@@ -79,7 +94,7 @@ export default function AddReportForm(props) {
         </Typography>
       </Grid>
       
-      <form>
+      <form onSubmit={handleSubmit}>
 
         <Grid item xs className={classes.textfield}>
           <TextField id="filled-multiline-static" label="First Name" variant="outlined" name="first_name" style={stylesTextArea} type="text" rows={5}
@@ -119,18 +134,29 @@ export default function AddReportForm(props) {
         />
       </Grid>
 
-      <Grid item xs className={classes.textfield}>  
-      <InputLabel > Select the type of activity you did on that occasion</InputLabel>
-        <Field name="answer2" as="select" className="answer2">
-        <option value="lunge"></option>
-
-        <option value="lunge">Lunge</option>
-        <option value="free_lunge">Free lunge</option>
-        <option value="trail_ride">Trail ride</option>
-        <option value="ride">Ride in the ring</option>
-        <option value="play">Structured play</option>
-        <option value="handwalk">Handwalk</option>
-      </Field>
+      <Grid item xs className={classes.textfield}>
+      <Button className={classes.button} onClick={handleOpen}>
+        Open the select
+      </Button>
+        <FormControl>
+        <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          value={state.answer2}
+          onChange={handleSelect}
+        >
+          <MenuItem value=""> </MenuItem>
+          <MenuItem value={"lunge"}>Lunge</MenuItem>
+          <MenuItem value={"free-lunge"}>Free Lunge</MenuItem>
+          <MenuItem value={"lesson"}>Lesson</MenuItem>
+          <MenuItem value={"ride"}>Ride</MenuItem>
+          <MenuItem value={"play"}>Structured Play</MenuItem>
+          <MenuItem value={"handwalk"}>Handwalk</MenuItem>
+        </Select>
+        </FormControl>  
       </Grid>
       
       <Grid item xs className={classes.textfield}>
