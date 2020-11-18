@@ -11,12 +11,13 @@ import UsersPage from "./Admin/UsersPage";
 import ReportPage from "./Report/ReportPage";
 import ReportsPage from "./Admin/ReportsPage";
 import Cancellation from "./Cancellation/Cancellation";
+import AnnouncementPage from "./Admin/Announcements/AnnouncementPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("currentUser"))
   );
-  const setCurrentUserInStorage = function(user) {
+  const setCurrentUserInStorage = function (user) {
     if (user) {
       sessionStorage.setItem("currentUser", JSON.stringify(user));
     } else {
@@ -43,7 +44,10 @@ const App = () => {
         <ReportPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </RiderRoute>
       <RiderRoute currentUser={currentUser} exact path="/cancellation">
-        <Cancellation currentUser={currentUser} setCurrentUser={setCurrentUser} />
+        <Cancellation
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
       </RiderRoute>
       {/* Admin Routes */}
       <AdminRoute currentUser={currentUser} exact path="/admin">
@@ -56,7 +60,16 @@ const App = () => {
         <UsersPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </AdminRoute>
       <AdminRoute currentUser={currentUser} exact path="/admin/reports">
-        <ReportsPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
+        <ReportsPage
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
+      </AdminRoute>
+      <AdminRoute currentUser={currentUser} exact path="/admin/announcements">
+        <AnnouncementPage
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
       </AdminRoute>
     </Switch>
   );

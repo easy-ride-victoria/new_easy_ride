@@ -13,12 +13,13 @@ import MenuAppBar from "../Layout/NavBar";
 import { Dialog, Button, Grid } from "@material-ui/core";
 import Weather from "./Weather/Weather";
 import { useStyles } from "./styles";
+import Announcement from "../Admin/Announcements/Announcement";
 
 // TODO: display validation errors for all of the fields
 // TODO: create popout from lessons/rides to add more riders
 const styledGrid = {
   marginRight: "45px",
-}
+};
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
@@ -225,7 +226,7 @@ const MyCalendar = (props) => {
           ></RiderEditForm>
         </Dialog>
       )}
-      <Grid container justify="flex-end" spacing={2} >
+      <Grid container justify="flex-end" spacing={2}>
         <Button
           size="medium"
           color="primary"
@@ -238,6 +239,9 @@ const MyCalendar = (props) => {
         </Button>
       </Grid>
       {openWeather && <Weather />}
+      {/* <Grid container justify="flex-start" spacing={2}>
+        <Announcement />
+      </Grid> */}
       <Calendar
         eventPropGetter={getEventStyle}
         className={styles.calendar}
