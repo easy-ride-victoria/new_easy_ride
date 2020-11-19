@@ -3,6 +3,7 @@ import { Button, Avatar, Paper, TableContainer, Table, TableHead, TableRow, Tabl
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import moment from "moment";
 
 const useStyles = makeStyles({
   
@@ -48,7 +49,9 @@ const AnnouncementTable = (props) => {
   const { announcements, setAnnouncements } = props;
   const classes = useStyles();
   console.log(Object.values(announcements));
-  let today = new Date().toLocaleString();
+  console.log(announcements);
+  let today = new Date().toLocaleDateString();
+
   return (
     <>
       <TableContainer>
@@ -64,15 +67,14 @@ const AnnouncementTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.values(announcements).map((i) => {
+            {announcements.map((i, index) => {
               const { title, start_date, end_date } = i;
               // console.log(i.key);
               return (
-                <TableRow key={i.key}>
+                <TableRow key={index}>
                   <TableCell className={classes.tableCellBody} align="center">
                     {title}
                   </TableCell>
-              
                   <TableCell className={classes.tableCellBody} align="center">
                     {start_date}
                   </TableCell>
@@ -80,7 +82,11 @@ const AnnouncementTable = (props) => {
                     {end_date}
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="center">
-                    <Button disabled variant="contained" color="primary" >Active</Button>
+                    {/* {const checking = moment(start_date).isBefore(today);
+                    today } */}
+                    {today === start_date || today === end_date ?
+                      (<Button variant="contained" color="primary" >Active</Button>)
+                      : (<Button disabled variant="contained" >Inactive</Button>) }
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="right">
                     <Avatar className={classes.avatar}>

@@ -15,13 +15,18 @@ const formReducer = (state, event) => {
 const AnnouncementPage = (props) => {
   const { currentUser, setCurrentUser } = props;
   const [announcements, setAnnouncements] = useState([]);
-  const [formData, setFormData] = useReducer(formReducer, {});
+  // const [formData, setFormData] = useReducer(formReducer, {});
+  const [formData, setFormData] = useState({
+    title: "",
+    start_date: null,
+    end_date: null,
+  });
 
   
   const handleSubmit = () => {
    
   };
-  console.log(announcements);
+  console.log("announcements array: ", announcements);
   return (
     <>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />

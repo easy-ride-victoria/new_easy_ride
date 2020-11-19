@@ -17,6 +17,7 @@ import {
 } from '@material-ui/pickers';
 import MomentUtils from "@date-io/moment";
 import moment from "moment";
+
 const useStyles = makeStyles({
   addButton: {
     marginBottom: "40px",
@@ -24,6 +25,9 @@ const useStyles = makeStyles({
     alignContent: "centre"
   }
 });
+const convertDate = (date) => {
+  return moment(date).format("MM/DD/yyyy").toString();
+};
 
 const defaultState = {
   title: "",
@@ -44,16 +48,13 @@ const AddAnnouncement = (props) => {
   const { announcements, setAnnouncements, formData, setFormData } = props;
   // const [selectedDate, handleDateChange] = useState(new Date());
   const [selectedDate, setDate] = useState(moment());
-  const [inputValue, setInputValue] = useState(moment().format("YYYY-MM-DD"));
+  const [inputValue, setInputValue] = useState(moment().format("DD-MM-YYYY"));
   // const [formData, setFormData] = useReducer(formReducer, {});
   const [open, setOpen] = useState(false);
-  // const [state, setState] = useState(defaultState);
-  // const [announcements, setAnnouncements] = useState([]);
 
-  const onDateChange = (date, value) => {
-    setDate(date);
-    setInputValue(value);
-  };
+  console.log("inoutvalue:", inputValue);
+  console.log("inoutvalue:", selectedDate);
+
 
   const handleSubmit = (e) => {
     event.preventDefault();
@@ -63,16 +64,28 @@ const AddAnnouncement = (props) => {
   };
   console.log(announcements);
 
-  // const handleChange = (event) => {
-  // setState({ ...state, [event.target.name]: event.target.value });
-  // };
 
-  const handleChange = event => {
-    date => handleDateChange(date);
-    setFormData({
-      name: event.target.name,
-      value: event.target.value,
-    });
+  const handleChangeTitle = event => {
+    // date => handleDateChange(date);
+    console.log(event);
+    setFormData((prev) => ({ ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+  
+  const handleStartDate = (event, date) => {
+    // date => handleDateChange(date);
+    setDate(date);
+    console.log(event);
+    
+    setFormData((prev) => ({ ...prev, start_date: convertDate(event._d) }));
+  };
+  const handleEndDate = (event, date) => {
+    // date => handleDateChange(date);
+    setDate(date);
+    console.log(event);
+    
+    setFormData((prev) => ({ ...prev, end_date: convertDate(event._d) }));
   };
 
   const handleClickOpen = () => {
@@ -83,13 +96,14 @@ const AddAnnouncement = (props) => {
     setOpen(false);
     // setState(defaultState);
   };
-  console.log(formData);
-  const dateFormatter = str => {
-    return str;
-  };
+
+  console.log("Form Data is: ", formData);
+
+
+
   return (
     <div>
-      <Button className={classes.addButton} onClick={handleClickOpen}>
+      <Button className={classes.addButton} onClick={handleClickOpen} color="primary">
         Add Announcement
       </Button>
       <Dialog
@@ -97,62 +111,53 @@ const AddAnnouncement = (props) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add Announcement</DialogTitle>
+        <DialogTitle id="form-dialog-title" color="primary">Add Announcement</DialogTitle>
         <DialogContent >
           <TextField
+            required={true}
             autoFocus
             margin="dense"
             name="title"
             label="Title"
             type="text"
-            onChange={handleChange}
-            // value={state.title}
+            onChange={handleChangeTitle}
+            value={formData.title}
             fullWidth
           />
-          {/* <TextField
-            margin="dense"
-            name="start_date"
-            label="Start Date"
-            type="text"
-            onChange={handleChange}
-            // value={state.start_date}
-            fullWidth
-          /> */}
-          <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
-            {/* <DatePicker
-              variant="inline"
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <DatePicker
+              margin="dense"
+              id="start-date-picker-dialog"
+              name="start_date"
               label="Start Date"
-              value={selectedDate}
-              onChange={handleDateChange}
-            /> */}
-            <KeyboardDatePicker
-              // clearable
-              // name="start_date"
-              // value={selectedDate}
-              // label="Start Date"
-              // placeholder="MM/DD/YY"
-              // onChange={handleChange}
-
-              // minDate={new Date()}
-              // format="MM/DD/YY"
-              // rifmFormatter={dateFormatter}
-              autoOk={true}
-              showTodayButton={true}
-              value={selectedDate}
-              format="YYYY-MM-DD"
-              inputValue={inputValue}
-              onChange={onDateChange}
-              rifmFormatter={dateFormatter}
+              // type="date"
+              format="DD-MM-YYYY"
+              onChange={handleStartDate}
+              value={formData.start_date}
+              fullWidth
+              autoOk
             />
-            <TextField
+            <DatePicker
+              margin="dense"
+              id="end-date-picker-dialog"
+              name="end_date"
+              label="End Date"
+              // type="date"
+              format="DD-MM-YYYY"
+              onChange={handleEndDate}
+              value={formData.end_date}
+              fullWidth
+              autoOk
+            />
+            {/* <TextField
               margin="dense"
               name="end_date"
               label="End Date"
               type="text"
-              onChange={handleChange}
+              // onChange={handleChange}
               // value={state.end_date}
               fullWidth
-            />
+            /> */}
           </MuiPickersUtilsProvider>
         </DialogContent>
         <DialogActions>
