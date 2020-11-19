@@ -437,10 +437,28 @@ rides = Ride.create ([
 #   }
 # ])
 
+# announcements = Announcement.create ([
+#   {
+#     title: "Parking lot will be closed for Christmas events in December",
+#     start_date: DateTime.strptime("11/24/2020 18:00", "%m/%d/%Y %H:%M"),
+#     end_date: DateTime.strptime("11/25/2020 18:00", "%m/%d/%Y %H:%M"),
+#   },
+#   {
+#     title: "Free hoodies today for early birds!",
+#     start_date: DateTime.strptime("11/18/2020 18:00", "%m/%d/%Y %H:%M"),
+#     end_date: DateTime.strptime("11/19/2020 18:00", "%m/%d/%Y %H:%M"),
+#   }
+# ])
+
 announcements = Announcement.create ([
   {
     title: "Parking lot will be closed for Christmas events in December",
-    start_date: DateTime.strptime("11/24/2020 18:00", "%m/%d/%Y %H:%M"),
-    end_date: DateTime.strptime("11/25/2020 18:00", "%m/%d/%Y %H:%M"),
+    start_date: Date.new(2020,11,21),
+    end_date: Date.new(2020,11,21),
+  },
+  {
+    title: "Free hoodies today for early birds!",
+    start_date: Date.new(2020,11,18),
+    end_date: Date.new(2020,11,19),
   }
 ])
