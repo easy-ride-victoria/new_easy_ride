@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Avatar, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core";
+import { Button, TableContainer, Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import EditIcon from '@material-ui/icons/Edit';
+
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import moment from "moment";
+import EditAnnouncement from './EditAnnouncement';
 
 const useStyles = makeStyles({
   
@@ -46,11 +47,19 @@ const useStyles = makeStyles({
 });
 
 const AnnouncementTable = (props) => {
-  const { announcements, setAnnouncements } = props;
   const classes = useStyles();
+  const { announcements, onChange } = props;
+
   console.log(Object.values(announcements));
   console.log("announcements array:", announcements);
+
   let today = new Date().toLocaleDateString();
+  console.log("today is:",today);
+
+  const convertDate = (date) => {
+    console.log("date", date);
+    return moment.utc(date).format("MM/DD/yyyy").toString();
+  };
 
   return (
     <>
@@ -67,36 +76,37 @@ const AnnouncementTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {announcements.map((i, index) => {
-              const { title, start_date, end_date } = i;
-              // console.log(i.key);
+            {announcements.map((announcement) => {
+              console.log(announcement);
+              const { title, start_date, end_date } = announcement.attributes;
               return (
-                <TableRow key={index}>
-                  <TableCell className={classes.tableCellBody} align="center">
+                <TableRow key={announcement.id}>
+                  <TableCell className={classes.tableCellBody} align="center" component="th" scope="row">
                     {title}
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="center">
-                    {start_date}
+                    {convertDate(start_date)}
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="center">
-                    {end_date}
+                    {convertDate(end_date)}
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="center">
                     {/* {const checking = moment(start_date).isBefore(today);
                     today } */}
-                    {today === start_date || today === end_date ?
+                    {today === convertDate(start_date) || today === convertDate(end_date) ?
                       (<Button variant="contained" color="primary" >Active</Button>)
                       : (<Button disabled variant="contained" >Inactive</Button>) }
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="right">
-                    <Avatar className={classes.avatar}>
-                      <EditIcon className={classes.icons} />
-                    </Avatar>
+                    <EditAnnouncement
+                      announcement={announcement}
+                      onSubmit={onChange}
+                    />
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="right">
-                    <Avatar className={classes.avatarDelete}>
+                    {/* <Avatar className={classes.avatarDelete}>
                       <DeleteOutlineIcon className={classes.icons} />
-                    </Avatar>
+                    </Avatar> */}
                   </TableCell>
                 </TableRow>
               );

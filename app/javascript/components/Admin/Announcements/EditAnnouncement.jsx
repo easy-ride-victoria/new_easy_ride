@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Button, Avatar, TextField, Dialog, DialogActions, DialogContent, DialogTitle   } from "@material-ui/core";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
+import EditIcon from '@material-ui/icons/Edit';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from "@date-io/moment";
 
@@ -10,7 +11,16 @@ const useStyles = makeStyles({
     marginBottom: "40px",
     marginLeft: "63px",
     alignContent: "centre"
-  }
+  },
+  icons: {
+    width: "25px",
+    height: "25px"
+  },
+  avatar: {
+    backgroundColor: "#004578",
+    width: "35px",
+    height:"35px"
+  },
 });
 
 const defaultState = {
@@ -19,15 +29,15 @@ const defaultState = {
   end_date: null,
 };
  
-const AddAnnouncement = (props) => {
+const EditAnnouncement = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState(defaultState);
-  
+  const [formData, setFormData] = useState(props.announcement.attributes);
+
   const handleSubmit = (e) => {
     event.preventDefault();
     console.log(e);
-    axios.post("/api/v1/announcements", formData)
+    axios.put(`/api/v1/announcements/${props.announcement.id}`, formData)
       .then(response => {
         console.log(response);
         console.log(formData);
@@ -63,12 +73,14 @@ const AddAnnouncement = (props) => {
     setFormData(defaultState);
   };
 
-  console.log("FormData is: ", formData);
+  console.log("Form Data is: ", formData);
 
   return (
     <div>
       <Button className={classes.addButton} onClick={handleClickOpen} color="primary">
-        Add Announcement
+        <Avatar className={classes.avatar}>
+          <EditIcon className={classes.icons} />
+        </Avatar>
       </Button>
       <Dialog
         open={open}
@@ -121,12 +133,11 @@ const AddAnnouncement = (props) => {
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Add
+            Save
           </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 };
-
-export default AddAnnouncement;
+export default EditAnnouncement;

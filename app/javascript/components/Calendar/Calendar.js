@@ -13,7 +13,7 @@ import MenuAppBar from "../Layout/NavBar";
 import { Dialog, Button, Grid } from "@material-ui/core";
 import Weather from "./Weather/Weather";
 import { useStyles } from "./styles";
-import Announcement from "../Admin/Announcements/Announcement";
+import AnnouncementPage from "../Admin/Announcements/AnnouncementPage";
 
 // TODO: display validation errors for all of the fields
 // TODO: create popout from lessons/rides to add more riders
@@ -29,6 +29,7 @@ const convertDate = (date) => {
 };
 
 const updatedEv = (appointments) => {
+  console.log(appointments);
   const newArr = appointments.map((item) => ({
     title: item.attributes.event_type,
     id: `${item.id}`,
@@ -36,6 +37,7 @@ const updatedEv = (appointments) => {
     start_time: convertDate(item.attributes.start_time),
     end_time: convertDate(item.attributes.end_time),
   }));
+  console.log(newArr);
   return newArr;
 };
 

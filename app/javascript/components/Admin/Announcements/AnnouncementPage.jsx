@@ -1,49 +1,37 @@
 import React from 'react';
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import MenuAppBar from "../../Layout/NavBar";
 import AnnouncementTable from "./AnnouncementTable";
-import { Grid, Button } from "@material-ui/core";
 import AddAnnouncement from './AddAnnouncement';
+import axios from "axios";
 
-const formReducer = (state, event) => {
-  return {
-    ...state,
-    [event.name]: event.value
-  };
-};
+// const formReducer = (state, event) => {
+//   return {
+//     ...state,
+//     [event.name]: event.value
+//   };
+// };
 
 const AnnouncementPage = (props) => {
   const { currentUser, setCurrentUser } = props;
   const [announcements, setAnnouncements] = useState([]);
   // const [formData, setFormData] = useReducer(formReducer, {});
-  const [formData, setFormData] = useState({
-    title: "",
-    start_date: null,
-    end_date: null,
-  });
 
-  
-  const handleSubmit = () => {
-   
+  const loadAnnouncements = () => {
+    axios.get("/api/v1/announcements")
+      .then(response => {
+        setAnnouncements(response.data.data);
+      });
   };
+  useEffect(loadAnnouncements, []);
+
+
   console.log("announcements array: ", announcements);
   return (
     <>
       <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      {/* <Grid container justify="flex-start" spacing={2}>
-        <Button
-          size="medium"
-          color="primary"
-          onClick={() => {
-            setAnnouncements(!announcements);
-            loadAnnouncements();
-          }}
-        >
-          Add Announcement
-        </Button>
-      </Grid> */}
-      <AddAnnouncement formData={formData} setFormData={setFormData} announcements={announcements} setAnnouncements={setAnnouncements} onSubmit={handleSubmit}/>
-      <AnnouncementTable announcements={announcements} setAnnouncements={setAnnouncements}/>
+      <AddAnnouncement onSubmit={loadAnnouncements}/>
+      <AnnouncementTable announcements={announcements} onChange={loadAnnouncements}/>
     </>
   );
 };
