@@ -49,7 +49,7 @@ const AnnouncementTable = (props) => {
   const { announcements, setAnnouncements } = props;
   const classes = useStyles();
   console.log(Object.values(announcements));
-  console.log(announcements);
+  console.log("announcements array:", announcements);
   let today = new Date().toLocaleDateString();
 
   return (

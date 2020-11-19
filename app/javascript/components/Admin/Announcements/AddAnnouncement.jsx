@@ -31,8 +31,8 @@ const convertDate = (date) => {
 
 const defaultState = {
   title: "",
-  start_date: "",
-  end_date: "",
+  start_date: null,
+  end_date: null,
 };
 
 // const formReducer = (state, event) => {
@@ -59,8 +59,9 @@ const AddAnnouncement = (props) => {
   const handleSubmit = (e) => {
     event.preventDefault();
     console.log(e);
-    
     props.onSubmit(setAnnouncements([...announcements, formData]));
+    setFormData(defaultState);
+    setOpen(false);
   };
   console.log(announcements);
 
