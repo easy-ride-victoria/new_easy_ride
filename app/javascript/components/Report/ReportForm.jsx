@@ -55,13 +55,15 @@ export default function AddReportForm(props) {
 
 
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    // Axios.post("/api/v1/reports", values)
-    //     .then( () => {
-          console.log ("sent!")
-       
-      // })
+    Axios.post("/api/v1/reports", state)
+    .then( () => {
+        console.log ("sent!")
+      })
+      .catch ((error) => {
+        console.log(error)
+      })
   }
 
   const handleChange = (event) => {
@@ -96,7 +98,7 @@ export default function AddReportForm(props) {
           </Typography>
         </Grid>
         
-        <form onSubmit={handleSubmit}>
+        <form >
 
           <Grid item xs className={classes.textfield}>
             <TextField id="filled-multiline-static" label="First Name" variant="outlined" name="first_name" 
@@ -220,7 +222,7 @@ export default function AddReportForm(props) {
         </Grid>
 
         <Grid item xs className={classes.textfield}>
-        <Button variant="contained" color="secondary" type="submit" onSubmit={handleSubmit}>SUBMIT</Button>
+        <Button variant="contained" color="secondary" type="submit" onClick={handleSubmit}>SUBMIT</Button>
         </Grid>
         
       </form>
