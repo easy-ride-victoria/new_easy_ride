@@ -29,14 +29,9 @@ export default function EditReportForm(props) {
   const [state, setState] = React.useState(props.report.attributes);
 
   const handleSubmit = () => {
-    console.log (state)
-    console.log("report id:", props.report.id)
     Axios.put(`/api/v1/reports/${props.report.id}`, state)
       .then(() => {
         handleClose();
-        // setTimeout(() => {
-        //   alert("changes registered");
-        // }, 400);
       if (props.onSubmit) {
         props.onSubmit();
        }
