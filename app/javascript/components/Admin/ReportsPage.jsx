@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import MenuAppBar from "../Layout/NavBar";
 import ReportsTable from "./ReportTable";
 import Axios from "axios";
 
-
-export default function ReportsPage(props) {
-  const { currentUser, setCurrentUser } = props;
+export default function ReportsPage() {
   const [reports, setReports] = useState([]);
 
   const getReports = () => {
@@ -14,10 +11,5 @@ export default function ReportsPage(props) {
     });
   };
   useEffect(getReports, []);
-  return (
-    <>
-      <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      <ReportsTable reports={reports} onChange={getReports} />
-    </>
-  );
+  return <ReportsTable reports={reports} onChange={getReports} />;
 }

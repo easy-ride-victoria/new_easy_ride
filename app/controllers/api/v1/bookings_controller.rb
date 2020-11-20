@@ -6,7 +6,7 @@ module Api
       def index
         bookings = Booking.all
 
-        render json: BookingSerializer.new(bookings,options).serializable_hash.to_json
+        render json: BookingSerializer.new(bookings, options).serializable_hash.to_json
       end
 
       def show

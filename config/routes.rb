@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # get '/calendar', to: "pages#calendar"
   root to: 'pages#app'
   # get '/test', to: "pages#test"
-  
+
   namespace :api do
     namespace :v1 do
       resources :bookings
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :horses
       resources :reports
       post "/payments", to: "payments#create"
+      get "/current_user", to: "current_user#index"
     end
   end
   # get path needs to be below the api to only render the index page

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Switch } from "react-router-dom";
+import NavBar from "./Layout/NavBar";
 import MyCalendar from "./Calendar/Calendar";
-import Home from "./Home/Home";
 import AdminRoute from "./Auth/AdminRoute";
-import GuestRoute from "./Auth/GuestRoute";
 import RiderRoute from "./Auth/RiderRoute";
 import ProfilePage from "./Profile/ProfilePage";
 import HorsesPage from "./Admin/HorsesPage";
@@ -11,54 +10,49 @@ import UsersPage from "./Admin/UsersPage";
 import ReportPage from "./Report/ReportPage";
 import ReportsPage from "./Admin/ReportsPage";
 import Cancellation from "./Cancellation/Cancellation";
+import Axios from "axios";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(sessionStorage.getItem("currentUser"))
-  );
-  const setCurrentUserInStorage = function(user) {
-    if (user) {
-      sessionStorage.setItem("currentUser", JSON.stringify(user));
-    } else {
-      sessionStorage.removeItem("currentUser");
-    }
-    setCurrentUser(user);
-  };
+  const [currentUser, setCurrentUser] = useState();
+
+  useEffect(async () => {
+    const response = await Axios.get("/api/v1/current_user");
+    setCurrentUser(response.data.data);
+  }, []);
+
+  if (!currentUser) {
+    return null;
+  }
+
   return (
-    <Switch>
-      <GuestRoute currentUser={currentUser} exact path="/">
-        <Home setCurrentUser={setCurrentUserInStorage} />
-      </GuestRoute>
-      {/* Rider Routes */}
-      <RiderRoute currentUser={currentUser} exact path="/calendar">
-        <MyCalendar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      </RiderRoute>
-      <RiderRoute currentUser={currentUser} exact path="/profile">
-        <ProfilePage
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
-        />
-      </RiderRoute>
-      <RiderRoute currentUser={currentUser} exact path="/report">
-        <ReportPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      </RiderRoute>
-      <RiderRoute currentUser={currentUser} exact path="/cancellation">
-        <Cancellation currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      </RiderRoute>
-      {/* Admin Routes */}
-      <AdminRoute currentUser={currentUser} exact path="/admin">
-        <MyCalendar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      </AdminRoute>
-      <AdminRoute currentUser={currentUser} exact path="/admin/horses">
-        <HorsesPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      </AdminRoute>
-      <AdminRoute currentUser={currentUser} exact path="/admin/users">
-        <UsersPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      </AdminRoute>
-      <AdminRoute currentUser={currentUser} exact path="/admin/reports">
-        <ReportsPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      </AdminRoute>
-    </Switch>
+    <>
+      <NavBar currentUser={currentUser} />
+      <Switch>
+        {/* Rider Routes */}
+        <RiderRoute currentUser={currentUser} exact path="/">
+          <MyCalendar currentUser={currentUser} />
+        </RiderRoute>
+        <RiderRoute currentUser={currentUser} exact path="/profile">
+          <ProfilePage currentUser={currentUser} />
+        </RiderRoute>
+        <RiderRoute currentUser={currentUser} exact path="/report">
+          <ReportPage />
+        </RiderRoute>
+        <RiderRoute currentUser={currentUser} exact path="/cancellation">
+          <Cancellation currentUser={currentUser} />
+        </RiderRoute>
+        {/* Admin Routes */}
+        <AdminRoute currentUser={currentUser} exact path="/admin/horses">
+          <HorsesPage />
+        </AdminRoute>
+        <AdminRoute currentUser={currentUser} exact path="/admin/users">
+          <UsersPage />
+        </AdminRoute>
+        <AdminRoute currentUser={currentUser} exact path="/admin/reports">
+          <ReportsPage />
+        </AdminRoute>
+      </Switch>
+    </>
   );
 };
 
