@@ -12,6 +12,7 @@ import DeleteAlert from "./DeleteAlert";
 import { Dialog, Button, Grid } from "@material-ui/core";
 import Weather from "./Weather/Weather";
 import { useStyles } from "./styles";
+import { getHeaders } from "../Utils/requests";
 
 // TODO: display validation errors for all of the fields
 // TODO: create popout from lessons/rides to add more riders
@@ -149,10 +150,14 @@ const MyCalendar = (props) => {
 
   const handleDestroyFromAlert = () => {
     const ID = selectedBooking.id;
-    axios.delete(`/api/v1/bookings/${ID}`, selectedBooking).then(() => {
-      updateAllBookings();
-      closeDialogs();
-    });
+    axios
+      .delete(`/api/v1/bookings/${ID}`, selectedBooking, {
+        headers: getHeaders(),
+      })
+      .then(() => {
+        updateAllBookings();
+        closeDialogs();
+      });
 
     // const handleOpenWeather = () => {
     //   setOpenWeather(!openWeather);

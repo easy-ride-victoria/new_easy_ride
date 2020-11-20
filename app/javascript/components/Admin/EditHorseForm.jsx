@@ -11,6 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import EditIcon from "@material-ui/icons/Edit";
 import Avatar from "@material-ui/core/Avatar";
 import Axios from "axios";
+import { getHeaders } from "../Utils/requests";
 import { FullscreenExit } from "@material-ui/icons";
 
 const useStyles = makeStyles({
@@ -40,7 +41,9 @@ export default function EditHorseForm(props) {
   const [state, setState] = React.useState(props.horse.attributes);
 
   const handleSubmit = () => {
-    Axios.put(`/api/v1/horses/${props.horse.id}`, state).then(() => {
+    Axios.put(`/api/v1/horses/${props.horse.id}`, state, {
+      headers: getHeaders(),
+    }).then(() => {
       handleClose();
       if (props.onSubmit) {
         props.onSubmit();

@@ -8,22 +8,23 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import EditIcon from '@material-ui/icons/Edit';
-import Avatar from '@material-ui/core/Avatar';
+import EditIcon from "@material-ui/icons/Edit";
+import Avatar from "@material-ui/core/Avatar";
 import Axios from "axios";
+import { getHeaders } from "../Utils/requests";
 
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: "#004578",
     width: "35px",
-    height:"35px"
+    height: "35px",
   },
 });
 
 const style = {
   width: "25px",
-  height: "25px"
-}
+  height: "25px",
+};
 
 export default function EditUserForm(props) {
   const classes = useStyles();
@@ -31,7 +32,9 @@ export default function EditUserForm(props) {
   const [state, setState] = React.useState(props.user.attributes);
 
   const handleSubmit = () => {
-    Axios.put(`/api/v1/users/${props.user.id}`, state).then(() => {
+    Axios.put(`/api/v1/users/${props.user.id}`, state, {
+      headers: getHeaders(),
+    }).then(() => {
       handleClose();
       if (props.onSubmit) {
         props.onSubmit();

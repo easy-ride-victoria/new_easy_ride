@@ -8,6 +8,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Axios from "axios";
+import { getHeaders } from "../Utils/requests";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,14 +40,13 @@ export default function SignIn() {
   const handleSubmit = async function (event) {
     event.preventDefault();
     try {
-      let token = document.querySelector('meta[name="csrf-token"]').content;
       console.log(token);
       const response = await Axios.post(
         "/users/sign_in",
         {
           user: { email, password },
         },
-        { headers: { "X-CSRF-Token": token } }
+        { headers: getHeaders() }
       );
       window.location.href = "/";
     } catch (error) {

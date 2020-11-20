@@ -7,17 +7,17 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Axios from "axios";
-
+import { getHeaders } from "../Utils/requests";
 
 // Material ui customization
 const useStyles = makeStyles({
   addButton: {
     marginBottom: "40px",
     marginLeft: "63px",
-    alignContent: "centre"
-  }
+    alignContent: "centre",
+  },
 });
 
 const defaultState = {
@@ -34,7 +34,9 @@ export default function AddHorseForm(props) {
   const [state, setState] = React.useState(defaultState);
 
   const handleSubmit = () => {
-    Axios.post("/api/v1/horses", state).then(() => {
+    Axios.post("/api/v1/horses", state, {
+      headers: getHeaders(),
+    }).then(() => {
       handleClose();
       if (props.onSubmit) {
         props.onSubmit();
@@ -69,7 +71,11 @@ export default function AddHorseForm(props) {
 
   return (
     <div>
-      <Button className={classes.addButton} color="primary" onClick={handleClickOpen}>
+      <Button
+        className={classes.addButton}
+        color="primary"
+        onClick={handleClickOpen}
+      >
         Add New Horse
       </Button>
       <Dialog

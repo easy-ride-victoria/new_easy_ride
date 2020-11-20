@@ -19,6 +19,7 @@ import LessonPaymentForm from "./LessonPaymentForm";
 import { useStyles } from "./styles";
 import Axios from "axios";
 import HorseSelect from "./HorseSelect";
+import { getHeaders } from "../Utils/requests";
 
 const JoinLessonAlert = (props) => {
   const { horses, currentUser, booking_id, onSubmit } = props;
@@ -41,7 +42,9 @@ const JoinLessonAlert = (props) => {
 
   const handleSubmitStep = () => {
     if (activeStep === 0) {
-      Axios.post("/api/v1/rides", rideData)
+      Axios.post("/api/v1/rides", rideData, {
+        headers: getHeaders(),
+      })
         .then((response) => {
           setActiveStep(activeStep + 1);
           console.log(response, "<<< response");
@@ -51,7 +54,9 @@ const JoinLessonAlert = (props) => {
           setErrors(error.response.data.error);
         });
     } else {
-      Axios.put(`/api/v1/rides/${rideId}`, rideData)
+      Axios.put(`/api/v1/rides/${rideId}`, rideData, {
+        headers: getHeaders(),
+      })
         .then(() => {
           setActiveStep(activeStep + 1);
           onSubmit();

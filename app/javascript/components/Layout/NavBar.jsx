@@ -48,6 +48,8 @@ export default function NavBar(props) {
 
   const handleLogout = () => {
     let token = document.querySelector('meta[name="csrf-token"]').content;
+    //  Using fetch request because Axios follows the redirect header from response
+    //  and tried to make an extra delete request to localhost:3000
     fetch("/users/sign_out", {
       headers: { "X-CSRF-Token": token },
       method: "delete",
