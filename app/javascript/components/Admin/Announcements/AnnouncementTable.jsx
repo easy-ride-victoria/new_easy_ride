@@ -107,9 +107,6 @@ const AnnouncementTable = (props) => {
                       announcement={announcement}
                       onSubmit={onChange}
                     />
-                    {/* <Avatar className={classes.avatarDelete}>
-                      <DeleteOutlineIcon className={classes.icons} />
-                    </Avatar> */}
                   </TableCell>
                 </TableRow>
               );

@@ -13,7 +13,7 @@ import MenuAppBar from "../Layout/NavBar";
 import { Dialog, Button, Grid } from "@material-ui/core";
 import Weather from "./Weather/Weather";
 import { useStyles } from "./styles";
-import AnnouncementPage from "../Admin/Announcements/AnnouncementPage";
+import Announcement from "../Admin/Announcements/Announcement";
 
 // TODO: display validation errors for all of the fields
 // TODO: create popout from lessons/rides to add more riders
@@ -228,22 +228,26 @@ const MyCalendar = (props) => {
           ></RiderEditForm>
         </Dialog>
       )}
-      <Grid container justify="flex-end" spacing={2}>
-        <Button
-          size="medium"
-          color="primary"
-          className={styles.weather}
-          onClick={() => {
-            setOpenWeather(!openWeather);
-          }}
-        >
-          Show Weather Forecast
-        </Button>
+      {/* <Grid container justify="flex-start" spacing={2}> */}
+      <Grid wrap="nowrap" container justify="space-between" spacing={2}>
+        <Grid className={styles.announcement}>
+          <Announcement />
+        </Grid>
+        <Grid>
+          <Button
+            size="medium"
+            color="primary"
+            className={styles.weather}
+            onClick={() => {
+              setOpenWeather(!openWeather);
+            }}
+          >
+            Show Weather Forecast
+          </Button>
+        </Grid>
       </Grid>
       {openWeather && <Weather />}
-      {/* <Grid container justify="flex-start" spacing={2}>
-        <Announcement />
-      </Grid> */}
+      {/* </Grid> */}
       <Calendar
         eventPropGetter={getEventStyle}
         className={styles.calendar}

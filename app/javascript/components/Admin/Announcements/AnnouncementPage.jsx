@@ -5,17 +5,9 @@ import AnnouncementTable from "./AnnouncementTable";
 import AddAnnouncement from './AddAnnouncement';
 import axios from "axios";
 
-// const formReducer = (state, event) => {
-//   return {
-//     ...state,
-//     [event.name]: event.value
-//   };
-// };
-
 const AnnouncementPage = (props) => {
   const { currentUser, setCurrentUser } = props;
   const [announcements, setAnnouncements] = useState([]);
-  // const [formData, setFormData] = useReducer(formReducer, {});
 
   const loadAnnouncements = () => {
     axios.get("/api/v1/announcements")
@@ -24,7 +16,6 @@ const AnnouncementPage = (props) => {
       });
   };
   useEffect(loadAnnouncements, []);
-
 
   console.log("announcements array: ", announcements);
   return (

@@ -15,11 +15,9 @@ const useStyles = makeStyles({
 const DeleteAnnouncement = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  // const [formData, setFormData] = useState(props.announcement.attributes);
   const { announcement } = props;
 
   console.log(announcement);
-  // console.log(formData);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -34,7 +32,6 @@ const DeleteAnnouncement = (props) => {
     axios.delete(`/api/v1/announcements/${announcement.id}`, announcement)
       .then(response => {
         console.log(response);
-        //     console.log(formData);
         if (props.onSubmit) {
           props.onSubmit();
         }
