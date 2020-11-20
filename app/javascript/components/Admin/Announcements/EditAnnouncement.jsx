@@ -70,14 +70,14 @@ const EditAnnouncement = (props) => {
 
   const handleClose = () => {
     setOpen(false);
-    setFormData(defaultState);
+    // setFormData(defaultState);
   };
 
   console.log("Form Data is: ", formData);
 
   return (
     <div>
-      <Button className={classes.addButton} onClick={handleClickOpen} color="primary">
+      <Button onClick={handleClickOpen} color="primary">
         <Avatar className={classes.avatar}>
           <EditIcon className={classes.icons} />
         </Avatar>

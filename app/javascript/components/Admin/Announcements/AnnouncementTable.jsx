@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button, TableContainer, Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import moment from "moment";
 import EditAnnouncement from './EditAnnouncement';
+import DeleteAnnouncement from './DeleteAnnouncement';
 
 const useStyles = makeStyles({
   
@@ -104,6 +103,10 @@ const AnnouncementTable = (props) => {
                     />
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="right">
+                    <DeleteAnnouncement
+                      announcement={announcement}
+                      onSubmit={onChange}
+                    />
                     {/* <Avatar className={classes.avatarDelete}>
                       <DeleteOutlineIcon className={classes.icons} />
                     </Avatar> */}
