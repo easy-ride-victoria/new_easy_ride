@@ -135,6 +135,7 @@ export default function AddReportForm(props) {
               style={stylesTextArea} 
               type="text" 
               label="Horse Name"
+              autoCapitalize = 'none'
               onChange={handleChange}
               value={state.horse}
               InputLabelProps={{shrink: true,}} 
