@@ -11,7 +11,7 @@ export default function AdminRoute({ currentUser, children, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: "/",
+              pathname: "/users/sign_in",
               state: { from: location },
             }}
           />

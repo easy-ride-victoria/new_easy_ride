@@ -2,10 +2,11 @@ module Api
   module V1
     class BookingsController < ApplicationController
       protect_from_forgery with: :null_session
+      before_action :authenticate_user!
       def index
         bookings = Booking.all
 
-        render json: BookingSerializer.new(bookings,options).serializable_hash.to_json
+        render json: BookingSerializer.new(bookings, options).serializable_hash.to_json
       end
 
       def show

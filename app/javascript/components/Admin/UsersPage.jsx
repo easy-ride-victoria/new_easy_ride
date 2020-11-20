@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import UsersTable from "./UsersTable";
-import MenuAppBar from "../Layout/NavBar";
 import AddUserForm from "./AddUserForm";
 import Axios from "axios";
 
-export default function UsersPage(props) {
-  const { currentUser, setCurrentUser } = props;
+export default function UsersPage() {
   const [users, setUsers] = useState([]);
   const loadUsers = () => {
     Axios.get("/api/v1/users").then((response) => {
@@ -17,7 +15,6 @@ export default function UsersPage(props) {
 
   return (
     <>
-      <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <AddUserForm onSubmit={loadUsers} />
       <UsersTable users={users} onChange={loadUsers} />
     </>
