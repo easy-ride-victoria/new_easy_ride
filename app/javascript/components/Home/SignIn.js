@@ -40,8 +40,8 @@ export default function SignIn() {
   const handleSubmit = async function (event) {
     event.preventDefault();
     try {
-      console.log(token);
-      const response = await Axios.post(
+      // console.log(token);
+      await Axios.post(
         "/users/sign_in",
         {
           user: { email, password },
