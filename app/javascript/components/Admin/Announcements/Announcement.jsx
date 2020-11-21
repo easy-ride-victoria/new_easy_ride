@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Grid, Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -23,26 +23,22 @@ const Announcement = () => {
   };
   useEffect(loadAnnouncements, []);
 
-  console.log(announcements);
-  let today = new Date().toLocaleDateString();
+  let today = new Date().toLocaleDateString('en-CA');
 
-  console.log(announcements);
-
-  const convertDate = (date) => {
-    console.log("date", date);
-    return moment.utc(date).format("MM/DD/yyyy").toString();
+  const isActive = (start, end) => {
+    return moment(today).isBetween(start, end) || today === start || today === end;
   };
+
   return (
     <>
       {announcements.map((announcement) => {
-  
         const { title, start_date, end_date } = announcement.attributes;
         return (
           <Grid key={announcement.id} container direction="column">
-            {(today === convertDate(start_date) || today === convertDate(end_date)) &&
-              (<Button className={classes.margin} size="medium" variant="contained" color="secondary" fullWidth>
-                {title}
-              </Button>)}
+            {isActive(start_date, end_date) &&
+            <Button className={classes.margin} size="medium" variant="contained" color="secondary" fullWidth>
+              {title}
+            </Button>}
           </Grid>
         );
       })}

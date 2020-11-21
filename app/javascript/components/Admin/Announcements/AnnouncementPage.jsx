@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useReducer, useEffect } from "react";
+import { useState, useEffect } from "react";
 import MenuAppBar from "../../Layout/NavBar";
 import AnnouncementTable from "./AnnouncementTable";
 import AddAnnouncement from './AddAnnouncement';

@@ -22,12 +22,6 @@ const useStyles = makeStyles({
     height:"35px"
   },
 });
-
-const defaultState = {
-  title: "",
-  start_date: null,
-  end_date: null,
-};
  
 const EditAnnouncement = (props) => {
   const classes = useStyles();
@@ -36,7 +30,6 @@ const EditAnnouncement = (props) => {
 
   const handleSubmit = (e) => {
     event.preventDefault();
-    console.log(e);
     axios.put(`/api/v1/announcements/${props.announcement.id}`, formData)
       .then(response => {
         console.log(response);
@@ -70,10 +63,7 @@ const EditAnnouncement = (props) => {
 
   const handleClose = () => {
     setOpen(false);
-    // setFormData(defaultState);
   };
-
-  console.log("Form Data is: ", formData);
 
   return (
     <div>

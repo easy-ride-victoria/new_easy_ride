@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, TableContainer, Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import EditAnnouncement from './EditAnnouncement';
 import DeleteAnnouncement from './DeleteAnnouncement';
@@ -13,7 +13,6 @@ const useStyles = makeStyles({
   },
   tableHead: {
     backgroundColor: "#a47638",
-    
   },
   tableCellHead: {
     color: "white",
@@ -49,15 +48,19 @@ const AnnouncementTable = (props) => {
   const classes = useStyles();
   const { announcements, onChange } = props;
 
-  console.log(Object.values(announcements));
-  console.log("announcements array:", announcements);
-
-  let today = new Date().toLocaleDateString();
-  console.log("today is:",today);
+  let today = new Date().toLocaleDateString('en-CA');
+  console.log("today is:", today); //today is: 11/21/2020 -- AnnouncementTable.jsx:56 today is: 2020-11-21
 
   const convertDate = (date) => {
-    console.log("date", date);
-    return moment.utc(date).format("MM/DD/yyyy").toString();
+    return moment.utc(date).format("MMM/DD/yyyy").toString();
+  };
+
+  const isActive = (start, end) => {
+    return moment(today).isBetween(start, end) || today === start || today === end;
+  };
+  
+  const isFinished = (date) => {
+    return moment(date).isBefore(today);
   };
 
   return (
@@ -76,7 +79,6 @@ const AnnouncementTable = (props) => {
           </TableHead>
           <TableBody>
             {announcements.map((announcement) => {
-              console.log(announcement);
               const { title, start_date, end_date } = announcement.attributes;
               return (
                 <TableRow key={announcement.id}>
@@ -90,11 +92,8 @@ const AnnouncementTable = (props) => {
                     {convertDate(end_date)}
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="center">
-                    {/* {const checking = moment(start_date).isBefore(today);
-                    today } */}
-                    {today === convertDate(start_date) || today === convertDate(end_date) ?
-                      (<Button variant="contained" color="primary" >Active</Button>)
-                      : (<Button disabled variant="contained" >Inactive</Button>) }
+                    {isActive(start_date, end_date) ? <Button variant="contained" color="primary" >Active</Button> :
+                      (isFinished(end_date) ? <Button disabled variant="contained" >Finished</Button> : <Button variant="contained" color="secondary" >Upcoming</Button>)}
                   </TableCell>
                   <TableCell className={classes.tableCellBody} align="right">
                     <EditAnnouncement

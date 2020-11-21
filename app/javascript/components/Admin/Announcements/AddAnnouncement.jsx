@@ -26,10 +26,8 @@ const AddAnnouncement = (props) => {
   
   const handleSubmit = (e) => {
     event.preventDefault();
-    console.log(e);
     axios.post("/api/v1/announcements", formData)
-      .then(response => {
-        console.log(response);
+      .then(() => {
         console.log(formData);
         if (props.onSubmit) {
           props.onSubmit();
@@ -62,8 +60,6 @@ const AddAnnouncement = (props) => {
     setOpen(false);
     setFormData(defaultState);
   };
-
-  console.log("FormData is: ", formData);
 
   return (
     <div>

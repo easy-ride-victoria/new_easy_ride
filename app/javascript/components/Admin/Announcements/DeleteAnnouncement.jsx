@@ -17,7 +17,6 @@ const DeleteAnnouncement = (props) => {
   const [open, setOpen] = useState(false);
   const { announcement } = props;
 
-  console.log(announcement);
   const handleClickOpen = () => {
     setOpen(true);
   };
