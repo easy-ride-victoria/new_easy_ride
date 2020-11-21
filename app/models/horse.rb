@@ -2,6 +2,11 @@ class Horse < ApplicationRecord
   has_many :rides
   has_many :reports
   has_many :bookings, through: :rides
+  before_save :downcase_fields
+
+  def downcase_fields
+    self.name = name.downcase
+ end
 
   def has_ride_on_day?(day)
     !bookings.where("start_time::date = ?", day).empty?

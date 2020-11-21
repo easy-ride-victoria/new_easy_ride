@@ -26,6 +26,8 @@ gem 'jsonapi-serializer'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'http'
+# User login
+gem 'devise'
 
 #Reat-big-calendar
 gem "bootstrap-sass"

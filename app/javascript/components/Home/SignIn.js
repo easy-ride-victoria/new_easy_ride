@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import Axios from "axios";
+import { getHeaders } from "../Utils/requests";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,43 +32,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn(props) {
+export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const classes = useStyles();
 
-  const handleSubmit = function (event) {
+  const handleSubmit = async function (event) {
     event.preventDefault();
-    if (email === "nicole@easyride.ca") {
-      props.setCurrentUser({
-        id: 1,
-        type: "user",
-        attributes: {
-          first_name: "Nicole",
-          last_name: "Woodcock",
-          hcbc_number: "12",
-          hcbc_active: false,
-          is_admin: true,
-          active: true,
-          email: "nicole@easyride.ca",
+    try {
+      // console.log(token);
+      await Axios.post(
+        "/users/sign_in",
+        {
+          user: { email, password },
         },
-        relationships: { rides: { data: [{ id: "1", type: "ride" }] } },
-      });
-    } else {
-      props.setCurrentUser({
-        id: 2,
-        type: "user",
-        attributes: {
-          first_name: "Iyris",
-          last_name: "Vigil",
-          hcbc_number: "123",
-          hcbc_active: false,
-          is_admin: false,
-          active: true,
-          email: "iyris@easyride.ca",
-        },
-        relationships: { rides: { data: [{ id: "2", type: "ride" }] } },
-      });
+        { headers: getHeaders() }
+      );
+      window.location.href = "/";
+    } catch (error) {
+      console.log(error);
     }
   };
 

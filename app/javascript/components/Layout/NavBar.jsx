@@ -5,10 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { Link } from "react-router-dom";
@@ -36,16 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuAppBar(props) {
-  const { currentUser, setCurrentUser } = props;
+export default function NavBar(props) {
+  const { currentUser } = props;
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,6 +44,16 @@ export default function MenuAppBar(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    let token = document.querySelector('meta[name="csrf-token"]').content;
+    //  Using fetch request because Axios follows the redirect header from response
+    //  and tried to make an extra delete request to localhost:3000
+    fetch("/users/sign_out", {
+      headers: { "X-CSRF-Token": token },
+      method: "delete",
+    }).then(() => (window.location.href = "/"));
   };
 
   return (
@@ -68,7 +69,7 @@ export default function MenuAppBar(props) {
           <Typography variant="h4" className={classes.title}>
             Welcome {currentUser && currentUser.attributes.first_name}
           </Typography>
-          {auth && (
+          {currentUser && (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -123,7 +124,7 @@ export default function MenuAppBar(props) {
                 <Link to={"/cancellation"}>
                   <MenuItem onClick={handleClose}>Cancellation</MenuItem>
                 </Link>
-                <MenuItem onClick={() => setCurrentUser(null)}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           )}
