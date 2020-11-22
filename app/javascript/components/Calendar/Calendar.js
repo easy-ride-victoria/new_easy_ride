@@ -12,6 +12,7 @@ import DeleteAlert from "./DeleteAlert";
 import { Dialog, Button, Grid } from "@material-ui/core";
 import Weather from "./Weather/Weather";
 import { useStyles } from "./styles";
+import Announcement from "../Admin/Announcements/Announcement";
 import { getHeaders } from "../Utils/requests";
 
 // TODO: display validation errors for all of the fields
@@ -25,6 +26,7 @@ const convertDate = (date) => {
 };
 
 const updatedEv = (appointments) => {
+  console.log(appointments);
   const newArr = appointments.map((item) => ({
     title: item.attributes.event_type,
     id: `${item.id}`,
@@ -32,6 +34,7 @@ const updatedEv = (appointments) => {
     start_time: convertDate(item.attributes.start_time),
     end_time: convertDate(item.attributes.end_time),
   }));
+  console.log(newArr);
   return newArr;
 };
 
@@ -225,19 +228,26 @@ const MyCalendar = (props) => {
           ></RiderEditForm>
         </Dialog>
       )}
-      <Grid container justify="flex-end" spacing={2}>
-        <Button
-          size="medium"
-          color="primary"
-          className={styles.weather}
-          onClick={() => {
-            setOpenWeather(!openWeather);
-          }}
-        >
-          Show Weather Forecast
-        </Button>
+      {/* <Grid container justify="flex-start" spacing={2}> */}
+      <Grid wrap="nowrap" container justify="space-between" spacing={2}>
+        <Grid className={styles.announcement}>
+          <Announcement />
+        </Grid>
+        <Grid>
+          <Button
+            size="medium"
+            color="primary"
+            className={styles.weather}
+            onClick={() => {
+              setOpenWeather(!openWeather);
+            }}
+          >
+            Show Weather Forecast
+          </Button>
+        </Grid>
       </Grid>
       {openWeather && <Weather />}
+      {/* </Grid> */}
       <Calendar
         eventPropGetter={getEventStyle}
         className={styles.calendar}

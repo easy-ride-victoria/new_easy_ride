@@ -445,3 +445,16 @@ reports = Report.create ([
     answer4: "Trigger is the best",
   }
 ])
+
+announcements = Announcement.create ([
+  {
+    title: "Parking lot will be closed for Christmas events in December",
+    start_date: Date.new(2020,11,21),
+    end_date: Date.new(2020,11,21),
+  },
+  {
+    title: "Free hoodies today for early birds!",
+    start_date: Date.new(2020,11,18),
+    end_date: Date.new(2020,11,19),
+  }
+])

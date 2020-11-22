@@ -10,6 +10,7 @@ import UsersPage from "./Admin/UsersPage";
 import ReportPage from "./Report/ReportPage";
 import ReportsPage from "./Admin/ReportsPage";
 import Cancellation from "./Cancellation/Cancellation";
+import AnnouncementPage from "./Admin/Announcements/AnnouncementPage";
 import Axios from "axios";
 
 const App = () => {
@@ -51,6 +52,12 @@ const App = () => {
         <AdminRoute currentUser={currentUser} exact path="/admin/reports">
           <ReportsPage />
         </AdminRoute>
+      <AdminRoute currentUser={currentUser} exact path="/admin/announcements">
+        <AnnouncementPage
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
+      </AdminRoute>
       </Switch>
     </>
   );
