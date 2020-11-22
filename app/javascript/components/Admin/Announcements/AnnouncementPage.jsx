@@ -20,7 +20,6 @@ const AnnouncementPage = (props) => {
   console.log("announcements array: ", announcements);
   return (
     <>
-      <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <AddAnnouncement onSubmit={loadAnnouncements}/>
       <AnnouncementTable announcements={announcements} onChange={loadAnnouncements}/>
     </>
