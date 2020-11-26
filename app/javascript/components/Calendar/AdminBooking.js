@@ -101,90 +101,93 @@ const BookingForm = (props) => {
       </DialogTitle>
       <DialogContent>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <FormControl className={styles.formControl}>
-            <InputLabel id="booking-type-label">Booking Type</InputLabel>
-            <Select
-              labelId="booking-type-label"
-              name="event_type"
-              value={bookingData.event_type}
-              onChange={handleBookingChange}
-            >
-              <MenuItem value={"lesson"}>Lesson</MenuItem>
-              <MenuItem value={"ride"}>Ride</MenuItem>
-              <MenuItem value={"other_arena"}>Other Arena Booking</MenuItem>
-            </Select>
-          </FormControl>
-          <div className={styles.dateTimePickerContainer}>
-            <DateTimePicker
-              label="Start Time"
-              name="start_time"
-              inputVariant="outlined"
-              className={styles.dateTimePicker}
-              autoOk
-              openTo="hours"
-              value={bookingData.start_time}
-              onChange={handleStartTimeChange}
-            />
-            <DateTimePicker
-              label="End Time"
-              name="end_time"
-              inputVariant="outlined"
-              className={styles.dateTimePicker}
-              autoOk
-              openTo="hours"
-              value={bookingData.end_time}
-              onChange={handleEndTimeChange}
-            />
-          </div>
-          {bookingData.event_type === "lesson" && (
-            <>
-              <TextField
-                margin="dense"
-                name="lesson_price_cad"
-                label="Lesson Price"
-                type="number"
+          <>
+            <FormControl className={styles.formControl}>
+              <InputLabel id="booking-type-label">Booking Type</InputLabel>
+              <Select
+                labelId="booking-type-label"
+                name="event_type"
+                value={bookingData.event_type}
                 onChange={handleBookingChange}
-                value={bookingData.lesson_price_cad}
-                fullWidth
+              >
+                <MenuItem value={"lesson"}>Lesson</MenuItem>
+                <MenuItem value={"ride"}>Ride</MenuItem>
+                <MenuItem value={"other_arena"}>Other Arena Booking</MenuItem>
+              </Select>
+            </FormControl>
+            <div className={styles.dateTimePickerContainer}>
+              <DateTimePicker
+                label="Start Time"
+                name="start_time"
+                inputVariant="outlined"
+                className={styles.dateTimePicker}
+                autoOk
+                openTo="hours"
+                value={bookingData.start_time}
+                onChange={handleStartTimeChange}
               />
-              <TextField
-                margin="dense"
-                name="lesson_total_spots"
-                label="Lesson Spots"
-                type="number"
-                onChange={handleBookingChange}
-                value={bookingData.lesson_total_spots}
-                fullWidth
+              <DateTimePicker
+                label="End Time"
+                name="end_time"
+                inputVariant="outlined"
+                className={styles.dateTimePicker}
+                autoOk
+                openTo="hours"
+                value={bookingData.end_time}
+                onChange={handleEndTimeChange}
               />
-            </>
-          )}
-          {bookingData.event_type === "ride" && (
-            <>
-              <FormControl className={styles.formControl}>
-                <InputLabel id="rider-select-label">Rider</InputLabel>
-                <Select
-                  labelId="rider-select-label"
-                  id="rider-select"
-                  value={rideData.user_id}
-                  onChange={handleRiderChange}
-                >
-                  {users.map((user) => {
-                    return (
-                      <MenuItem value={user.id}>
-                        {user.attributes.first_name} {user.attributes.last_name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-              <HorseSelect
-                rideData={rideData}
-                setRideData={setRideData}
-                errors={errors}
-                horses={horses}
-              />
-            </>
-          )}
+            </div>
+            {bookingData.event_type === "lesson" && (
+              <>
+                <TextField
+                  margin="dense"
+                  name="lesson_price_cad"
+                  label="Lesson Price"
+                  type="number"
+                  onChange={handleBookingChange}
+                  value={bookingData.lesson_price_cad}
+                  fullWidth
+                />
+                <TextField
+                  margin="dense"
+                  name="lesson_total_spots"
+                  label="Lesson Spots"
+                  type="number"
+                  onChange={handleBookingChange}
+                  value={bookingData.lesson_total_spots}
+                  fullWidth
+                />
+              </>
+            )}
+            {bookingData.event_type === "ride" && (
+              <>
+                <FormControl className={styles.formControl}>
+                  <InputLabel id="rider-select-label">Rider</InputLabel>
+                  <Select
+                    labelId="rider-select-label"
+                    id="rider-select"
+                    value={rideData.user_id}
+                    onChange={handleRiderChange}
+                  >
+                    {users.map((user) => {
+                      return (
+                        <MenuItem value={user.id}>
+                          {user.attributes.first_name}{" "}
+                          {user.attributes.last_name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+                <HorseSelect
+                  rideData={rideData}
+                  setRideData={setRideData}
+                  errors={errors}
+                  horses={horses}
+                />
+              </>
+            )}
+          </>
         </MuiPickersUtilsProvider>
       </DialogContent>
       <DialogActions>
