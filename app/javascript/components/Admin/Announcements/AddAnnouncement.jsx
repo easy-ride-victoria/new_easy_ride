@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -23,8 +23,15 @@ const AddAnnouncement = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState(defaultState);
+  const [errors, setErrors] = useState(false);
   
   const handleSubmit = (e) => {
+    console.log("empty?", e);
+    console.log("empty?", formData);
+    const {title, start_date, end_date } = formData;
+    if (!title || !start_date || !end_date) {
+      setErrors(true);
+    }
     event.preventDefault();
     axios.post("/api/v1/announcements", formData)
       .then(() => {
@@ -75,6 +82,7 @@ const AddAnnouncement = (props) => {
         <DialogContent >
           <TextField
             autoFocus
+            required
             margin="dense"
             name="title"
             label="Title"
@@ -85,6 +93,7 @@ const AddAnnouncement = (props) => {
           />
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <DatePicker
+              required
               margin="dense"
               id="start-date-picker-dialog"
               name="start_date"
@@ -98,6 +107,7 @@ const AddAnnouncement = (props) => {
               disablePast
             />
             <DatePicker
+              required
               margin="dense"
               id="end-date-picker-dialog"
               name="end_date"
@@ -118,6 +128,25 @@ const AddAnnouncement = (props) => {
           </Button>
           <Button onClick={handleSubmit} color="primary">
             Add
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={errors}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            ⚠️ Please complete all required fields.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => {
+            setErrors(false);
+          }} color="secondary">
+            Close
           </Button>
         </DialogActions>
       </Dialog>
