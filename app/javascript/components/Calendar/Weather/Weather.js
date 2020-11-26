@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 
 const weatherStyle = {
   marginRight: "65px",
-}
+};
 
 import ForecastCard from "./ForecastCard";
 
@@ -12,18 +12,22 @@ const Weather = () => {
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=48.612128&lon=-123.401191&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_OPEN_WEATHER}`)
-      .then(response => {
-        let weatherData = response.data.list.filter(entry => entry.dt_txt.includes("21:00:00"));
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=48.612128&lon=-123.401191&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_OPEN_WEATHER}`
+      )
+      .then(({ data }) => {
+        let weatherData = data.list.filter((entry) =>
+          entry.dt_txt.includes("21:00:00")
+        );
         let forecasts = [];
-        // console.log("weather data", weatherData);
+        console.log("weatherData is:", weatherData);
         weatherData.forEach((element, index) => {
           let day = new Date(element.dt_txt).getDay();
-          // console.log("day", day);
-          let currentElementWeather = element.weather[0];
-          let temp = Math.trunc(element.main.temp) + "°C";
+          let currentElementWeather = element.weather[0]; //object
+          let temp = Math.round(element.main.temp) + "°C";
           // console.log(temp);
-          // console.log("current e weather CIONS", currentElementWeather.icon);
+          // console.log("current e weather ICONS", currentElementWeather.icon);
           let dailyForecast = {
             key: index,
             day: day,
@@ -32,18 +36,22 @@ const Weather = () => {
             temp: temp,
           };
           forecasts.push(dailyForecast);
-          console.log(forecasts);
         });
-        console.log(forecasts);
+        // console.log(forecasts);
         setWeather(forecasts);
       });
   }, []);
-  console.log("WEATHER IS", weather);
 
   return (
     <div>
       <Grid container item xs={12} justify="flex-end">
-        <Grid container justify-items="end" spacing={2} justify="flex-end" style={weatherStyle}>
+        <Grid
+          container
+          justify-items="end"
+          spacing={2}
+          justify="flex-end"
+          style={weatherStyle}
+        >
           {weather.map((value) => {
             return (
               <Grid key={value.key} item>

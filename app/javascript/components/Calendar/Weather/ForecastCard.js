@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
   root: {
@@ -20,18 +19,25 @@ const useStyles = makeStyles({
     justifyContent: "space-around",
     margin: "auto",
     textAlign: "center",
-   
   },
   forecastImage: {
     padding: 2,
-  }});
-
+  },
+});
 
 const ForecastCard = (props) => {
   const classes = useStyles();
 
   const retrieveDayName = (dayNumber) => {
-    let dayArray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    let dayArray = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
     return dayArray[dayNumber];
   };
 
@@ -47,19 +53,22 @@ const ForecastCard = (props) => {
     case "02d":
     case "02n": {
       // return "https://vtra.smugmug.com/Weathericons/n-bFxtHL/i-Mgr3C75/A";
-      showIcon = "https://raw.githubusercontent.com/easy-ride-victoria/new_easy_ride/add-weather/docs/weatherIcons/02d.png";
+      showIcon =
+        "https://raw.githubusercontent.com/easy-ride-victoria/new_easy_ride/add-weather/docs/weatherIcons/02d.png";
       break;
     }
     case "03d":
     case "03n": {
       // return "https://vtra.smugmug.com/Weathericons/n-bFxtHL/i-htWNHsc/A";
-      showIcon = "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/03d.png?raw=true";
+      showIcon =
+        "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/03d.png?raw=true";
       break;
     }
     case "04d":
     case "04n": {
       // return "https://vtra.smugmug.com/Weathericons/n-bFxtHL/i-PZvg7pf/A";
-      showIcon = "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/04d.png?raw=true";
+      showIcon =
+        "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/04d.png?raw=true";
       break;
     }
     case "09d":
@@ -73,19 +82,22 @@ const ForecastCard = (props) => {
     case "11d":
     case "11n": {
       // return "https://vtra.smugmug.com/Weathericons/n-bFxtHL/i-BdkMbXW/A";
-      showIcon = "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/11d.png?raw=true";
+      showIcon =
+        "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/11d.png?raw=true";
       break;
     }
     case "13d":
     case "13n": {
       // return "https://vtra.smugmug.com/Weathericons/n-bFxtHL/i-vcLN9Xp/A";
-      showIcon = "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/13d.png?raw=true";
+      showIcon =
+        "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/13d.png?raw=true";
       break;
     }
     case "50d":
     case "50n": {
       // return "https://vtra.smugmug.com/Weathericons/n-bFxtHL/i-sZLRgwN/A";
-      showIcon = "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/50d.png?raw=true";
+      showIcon =
+        "https://github.com/easy-ride-victoria/new_easy_ride/blob/add-weather/docs/weatherIcons/50d.png?raw=true";
       break;
     }
     default:
@@ -96,26 +108,38 @@ const ForecastCard = (props) => {
 
   return (
     <>
-      <Paper elevation={2} className={classes.paper} >
-        <Grid justify="space-between" container className={classes.root} >
+      <Paper elevation={2} className={classes.paper}>
+        <Grid justify="space-between" container className={classes.root}>
           <Grid item xs={12} className={classes.dayHeading}>
-            <Typography variant="subheading" align="center" >  {retrieveDayName(props.day)} </Typography>
+            <Typography variant="subtitle1" align="center">
+              {" "}
+              {retrieveDayName(props.day)}{" "}
+            </Typography>
           </Grid>
           <Grid item xs={12} className={classes.forecastImage}>
-            <Grid
-              container
-              justify="center">
-              <img src={retrieveIconURL(props.icon)} alt={props.weather} height="30" width="30" />
+            <Grid container justify="center">
+              <img
+                src={retrieveIconURL(props.icon)}
+                alt={props.weather}
+                height="30"
+                width="30"
+              />
             </Grid>
           </Grid>
           <Grid item xs={12} container justify="space-between">
-            <Typography inline variant="subheading" align="left"> {props.weather} </Typography>
-            <Typography inline variant="subheading" align="right" > {props.temp} </Typography>
+            <Typography variant="subtitle1" align="left">
+              {" "}
+              {props.weather}{" "}
+            </Typography>
+            <Typography variant="subtitle1" align="right">
+              {" "}
+              {props.temp}{" "}
+            </Typography>
           </Grid>
         </Grid>
       </Paper>
     </>
   );
 };
-             
+
 export default ForecastCard;
