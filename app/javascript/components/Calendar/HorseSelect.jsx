@@ -21,7 +21,7 @@ const HorseSelect = (props) => {
       error={errors && errors.horse ? true : false}
       fullWidth
       readOnly={readOnly}
-      Disabled={disabled}
+      disabled={disabled}
     >
       <InputLabel id="horse-select-label">Horse</InputLabel>
       <Select

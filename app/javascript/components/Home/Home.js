@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
-    backgroundImage: "url(https://photos.smugmug.com/2016-Annual-Horse-Show/Gabriela-Prep-Day/i-mTcWhd4/0/c79e9e4b/L/IMG_4766-L.jpg)",
+    backgroundImage:
+      "url(https://photos.smugmug.com/2016-Annual-Horse-Show/Gabriela-Prep-Day/i-mTcWhd4/0/c79e9e4b/L/IMG_4766-L.jpg)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -46,8 +47,7 @@ export default function Home(props) {
               information about this organization, click{" "}
               <Link
                 target="_blank"
-                rel="noopener"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 href="https://vtra.ca"
               >
                 here.
