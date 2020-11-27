@@ -63,15 +63,21 @@ const MyCalendar = (props) => {
   const [selectedSlot, setSelectedSlot] = useState({});
   const [errors, setErrors] = useState(null);
   const [openWeather, setOpenWeather] = useState(false);
+
   const handleSelectSlot = ({ start, end }) => {
-    setSelectedSlot({ start_time: moment(start), end_time: moment(end) });
-    setModal(true);
+    const today = new Date().toLocaleDateString("en-CA");
+    if (moment(start).isSameOrAfter(today)) {
+      setSelectedSlot({ start_time: start, end_time: end });
+      setModal(true);
+    } else {
+      console.log("Date before today");
+    }
   };
 
   const updateAllBookings = () => {
     const URLbookings = "/api/v1/bookings";
-    axios.get(URLbookings).then((response) => {
-      let bookingAppointments = response.data.data;
+    axios.get(URLbookings).then(({ data }) => {
+      let bookingAppointments = data.data;
       let formattedBookings = updatedEv(bookingAppointments);
       setEvents(formattedBookings);
     });
@@ -160,10 +166,6 @@ const MyCalendar = (props) => {
       updateAllBookings();
       closeDialogs();
     });
-
-    // const handleOpenWeather = () => {
-    //   setOpenWeather(!openWeather);
-    // };
   };
 
   const closeDialogs = () => {
@@ -228,7 +230,6 @@ const MyCalendar = (props) => {
           ></RiderEditForm>
         </Dialog>
       )}
-      {/* <Grid container justify="flex-start" spacing={2}> */}
       <Grid wrap="nowrap" container justify="space-between" spacing={2}>
         <Grid className={styles.announcement}>
           <Announcement />
@@ -247,7 +248,6 @@ const MyCalendar = (props) => {
         </Grid>
       </Grid>
       {openWeather && <Weather />}
-      {/* </Grid> */}
       <Calendar
         eventPropGetter={getEventStyle}
         className={styles.calendar}
