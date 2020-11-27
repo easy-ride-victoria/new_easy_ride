@@ -120,6 +120,7 @@ const RiderEditForm = (props) => {
                 openTo="hours"
                 value={slotInfo.start_time}
                 onChange={handleStartTimeChange}
+                disablePast
               />
               <DateTimePicker
                 readOnly={!canEditBooking}
@@ -132,6 +133,7 @@ const RiderEditForm = (props) => {
                 openTo="hours"
                 value={slotInfo.end_time}
                 onChange={handleEndTimeChange}
+                disablePast
               />
             </div>
             {slotInfo.event_type === "lesson" && (

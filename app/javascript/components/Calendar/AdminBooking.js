@@ -125,6 +125,7 @@ const BookingForm = (props) => {
                 openTo="hours"
                 value={bookingData.start_time}
                 onChange={handleStartTimeChange}
+                disablePast
               />
               <DateTimePicker
                 label="End Time"
@@ -135,6 +136,7 @@ const BookingForm = (props) => {
                 openTo="hours"
                 value={bookingData.end_time}
                 onChange={handleEndTimeChange}
+                disablePast
               />
             </div>
             {bookingData.event_type === "lesson" && (
