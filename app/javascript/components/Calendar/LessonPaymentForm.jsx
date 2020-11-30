@@ -10,6 +10,7 @@ import {
 } from "react-square-payment-form";
 import Axios from "axios";
 // import { useStyles } from "./styles";
+import { getHeaders } from "../Utils/requests";
 
 const LessonPaymentForm = (props) => {
   const [errorMessages, setErrorMessages] = useState([]);
@@ -28,12 +29,18 @@ const LessonPaymentForm = (props) => {
 
     setErrorMessages([]);
 
-    Axios.post("/api/v1/payments", {
-      nonce: nonce,
-      amount,
-      currency,
-      token: buyerVerificationToken,
-    }).then((response) => {
+    Axios.post(
+      "/api/v1/payments",
+      {
+        nonce: nonce,
+        amount,
+        currency,
+        token: buyerVerificationToken,
+      },
+      {
+        headers: getHeaders(),
+      }
+    ).then((response) => {
       console.log(response, "<<<put response");
       onPaymentComplete(JSON.parse(response.data[0]).payment.id);
       setPaymentComplete(true);

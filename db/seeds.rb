@@ -132,6 +132,7 @@ users = User.create ([
     first_name: "Nicole",
     last_name: "Woodcock",
     email: "nicole@easyride.ca",
+    password: "password",
     hcbc_number: "111",
     hcbc_active: false,
     is_admin: true,
@@ -140,20 +141,24 @@ users = User.create ([
     first_name: "Iyris",
     last_name: "Vigil",
     email: "iyris@easyride.ca",
+    password: "password",
     hcbc_number: "112",
     hcbc_active: false,
-  },  
+  },
   {
     first_name: "Audrey",
     last_name: "Cooper",
-    email: "3@3.ca",
+    email: "audrey@easyride.ca",
+    password: "password",
     hcbc_number: "113",
     hcbc_active: false,
+    is_admin: true,
   },
   {
     first_name: "Michael",
     last_name: "Cheetah",
     email: "m.cheetah@fast.com",
+    password: "password",
     hcbc_number: "114",
     hcbc_active: false,
   },
@@ -161,6 +166,7 @@ users = User.create ([
     first_name: "Kaitlyn",
     last_name: "Brimham",
     email: "kbrimham2@g.co",
+    password: "password",
     hcbc_number: "115",
     hcbc_active: false,
   },
@@ -168,6 +174,7 @@ users = User.create ([
     first_name: "Charlotte",
     last_name: "Bear",
     email: "cece@me.ca",
+    password: "password",
     hcbc_number: "116",
     hcbc_active: false,
   },
@@ -175,6 +182,7 @@ users = User.create ([
     first_name: "Hannah",
     last_name: "Woods",
     email: "hwoods@g.co",
+    password: "password",
     hcbc_number: "117",
     hcbc_active: false,
   },
@@ -182,6 +190,7 @@ users = User.create ([
     first_name: "Mary",
     last_name: "Smith",
     email: "smithy.m@email.com",
+    password: "password",
     hcbc_number: "118",
     hcbc_active: false,
   },
@@ -407,35 +416,35 @@ rides = Ride.create ([
 ])
 
 
-# reports = Report.create ([
-#   {
-#     user: users.first,
-#     horse: horses.first,
-#     activity_date: "October 26, 2020",
-#     answer1: true,
-#     answer2: "lunge",
-#     answer3: "we worked on transitions, up and down",
-#     answer4: "Cisco was in a great mood today!",
-#   },
-#   {
-#     user: users[2],
-#     horse: horses.last,
-#     activity_date: "October 27, 2020",
-#     answer1: true,
-#     answer2: "ring-ride",
-#     answer3: "figure 8 in walk and trot. Canter at the end",
-#     answer4: "Trigger felt very stiff on his left hind",
-#   },
-#   {
-#     user: users[1],
-#     horse: horses[2],
-#     activity_date: "October 20, 2020",
-#     answer1: true,
-#     answer2: "trail-ride",
-#     answer3: "We worked on all 3 gaits.",
-#     answer4: "Trigger is the best",
-#   }
-# ])
+reports = Report.create ([
+  {
+    user: users.first,
+    horse: horses.first,
+    activity_date: "October 26, 2020",
+    answer1: true,
+    answer2: "lunge",
+    answer3: "we worked on transitions, up and down",
+    answer4: "Cisco was in a great mood today!",
+  },
+  {
+    user: users[2],
+    horse: horses.last,
+    activity_date: "October 27, 2020",
+    answer1: true,
+    answer2: "ring-ride",
+    answer3: "figure 8 in walk and trot. Canter at the end",
+    answer4: "Trigger felt very stiff on his left hind",
+  },
+  {
+    user: users[1],
+    horse: horses[2],
+    activity_date: "October 20, 2020",
+    answer1: true,
+    answer2: "trail-ride",
+    answer3: "We worked on all 3 gaits.",
+    answer4: "Trigger is the best",
+  }
+])
 
 announcements = Announcement.create ([
   {

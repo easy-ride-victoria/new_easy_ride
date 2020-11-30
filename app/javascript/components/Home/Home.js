@@ -7,7 +7,6 @@ import Typography from "@material-ui/core/Typography";
 import SignIn from "./SignIn";
 import Link from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
-import LaunchIcon from "@material-ui/icons/Launch";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home(props) {
+export default function Home() {
   const classes = useStyles();
   return (
     <Grid container component="main" className={classes.root}>
@@ -40,7 +39,7 @@ export default function Home(props) {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <SignIn setCurrentUser={props.setCurrentUser} />
+          <SignIn />
           <Box mt={5}>
             <Typography color="textSecondary" align="center">
               This Website is for the exclusive use of VTRA member. For more

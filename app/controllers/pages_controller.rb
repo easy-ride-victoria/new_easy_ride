@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
-  def index
-  end
-  def calendar
+  before_action :authenticate_user!
+  
+  def app
   end
 end

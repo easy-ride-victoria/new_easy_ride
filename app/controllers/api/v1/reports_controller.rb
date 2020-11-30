@@ -2,6 +2,7 @@ module Api
   module V1
     class ReportsController < ApplicationController
       protect_from_forgery with: :null_session
+      before_action :authenticate_user!
       
       def index
         reports = Report.all

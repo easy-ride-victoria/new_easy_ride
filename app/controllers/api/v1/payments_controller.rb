@@ -2,6 +2,7 @@ module Api
   module V1
     class PaymentsController < ApplicationController
       protect_from_forgery with: :null_session
+      before_action :authenticate_user!
       # endpoint: POST /api/v1/payments
       def create
         payload = {

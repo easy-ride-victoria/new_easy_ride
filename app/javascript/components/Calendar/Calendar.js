@@ -9,17 +9,14 @@ import RiderBookingForm from "./RiderBooking";
 import EditForm from "./EditForm";
 import RiderEditForm from "./RiderEditForm";
 import DeleteAlert from "./DeleteAlert";
-import MenuAppBar from "../Layout/NavBar";
 import { Dialog, Button, Grid } from "@material-ui/core";
 import Weather from "./Weather/Weather";
 import { useStyles } from "./styles";
 import Announcement from "../Admin/Announcements/Announcement";
+import { getHeaders } from "../Utils/requests";
 
 // TODO: display validation errors for all of the fields
 // TODO: create popout from lessons/rides to add more riders
-const styledGrid = {
-  marginRight: "45px",
-};
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
@@ -56,7 +53,7 @@ const getEventStyle = (event) => {
 
 const MyCalendar = (props) => {
   const styles = useStyles();
-  const { currentUser, setCurrentUser } = props;
+  const { currentUser } = props;
   const [events, setEvents] = useState([]);
   const [modal, setModal] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
@@ -162,10 +159,18 @@ const MyCalendar = (props) => {
 
   const handleDestroyFromAlert = () => {
     const ID = selectedBooking.id;
-    axios.delete(`/api/v1/bookings/${ID}`, selectedBooking).then(() => {
-      updateAllBookings();
-      closeDialogs();
-    });
+    axios
+      .delete(`/api/v1/bookings/${ID}`, selectedBooking, {
+        headers: getHeaders(),
+      })
+      .then(() => {
+        updateAllBookings();
+        closeDialogs();
+      });
+
+    // const handleOpenWeather = () => {
+    //   setOpenWeather(!openWeather);
+    // };
   };
 
   const closeDialogs = () => {
@@ -177,7 +182,6 @@ const MyCalendar = (props) => {
 
   return (
     <div>
-      <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Dialog open={modal} onClose={closeDialogs}>
         {currentUser.attributes.is_admin && (
           <BookingForm

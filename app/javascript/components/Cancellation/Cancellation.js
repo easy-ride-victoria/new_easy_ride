@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+
 import emailjs from "emailjs-com";
-import MenuAppBar from "../Layout/NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: "30px",
-    // alignItems: "center",
-    // textAlign: "start",
+    alignItems: "center",
+    textAlign: "start",
   },
   image: {
     backgroundImage:
@@ -47,14 +47,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Cancellation = (props) => {
-  const { currentUser, setCurrentUser } = props;
+  const { currentUser } = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log(e);
     emailjs
       .sendForm(
         "gmail",
@@ -86,12 +85,15 @@ const Cancellation = (props) => {
 
   return (
     <div>
-      <MenuAppBar currentUser={currentUser} setCurrentUser={setCurrentUser} />
-
       <Grid container spacing={2}>
         <Grid item xs={6} className={classes.image} />
         <Grid item xs={6}>
-          <Grid container justify="space-around" direction="column">
+          <Grid
+            container
+            alignItems="flex-start"
+            justify="space-around"
+            direction="column"
+          >
             <Grid item xs className={classes.titles}>
               <Typography gutterBottom variant="h4">
                 Cancellation request
@@ -107,12 +109,32 @@ const Cancellation = (props) => {
 
             <form onSubmit={handleSubmit} className={classes.form}>
               <div>
-                <input type="hidden" className="form-control" name="first_name" value={currentUser.attributes.first_name}/>
-                <input type="hidden" className="form-control" name="last_name" value={currentUser.attributes.last_name} />
-                <input type="hidden" className="form-control" name="email" value={currentUser.attributes.email} />
+                <input
+                  type="hidden"
+                  className="form-control"
+                  name="first_name"
+                  value={currentUser.attributes.first_name}
+                />
+                <input
+                  type="hidden"
+                  className="form-control"
+                  name="last_name"
+                  value={currentUser.attributes.last_name}
+                />
+                <input
+                  type="hidden"
+                  className="form-control"
+                  name="email"
+                  value={currentUser.attributes.email}
+                />
               </div>
 
-              <Grid container justify="space-around" direction="column">
+              <Grid
+                container
+                alignItems="start"
+                justify="space-around"
+                direction="column"
+              >
                 <Grid item xs>
                   <TextField
                     className={classes.textfield}

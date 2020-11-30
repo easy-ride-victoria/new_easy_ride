@@ -7,8 +7,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import {  makeStyles } from "@material-ui/core/styles";
 import Axios from "axios";
+import {getHeaders} from "../Utils/requests";
 
 // Material ui customization
 const useStyles = makeStyles({
@@ -35,7 +36,9 @@ export default function AddUserForm(props) {
   const [state, setState] = React.useState(defaultState);
 
   const handleSubmit = () => {
-    Axios.post("/api/v1/users", state).then(() => {
+    Axios.post("/api/v1/users", state, {
+      headers: getHeaders(),
+    }).then(() => {
       handleClose();
       if (props.onSubmit) {
         props.onSubmit();

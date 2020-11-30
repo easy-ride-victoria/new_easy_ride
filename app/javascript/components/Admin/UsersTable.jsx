@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -11,14 +11,12 @@ import EditUserForm from "./EditUserForm";
 
 // Material ui customization
 const useStyles = makeStyles({
-  
   table: {
     width: "90%",
     margin: "auto",
   },
   tableHead: {
     backgroundColor: "#a47638",
-    
   },
   tableCellHead: {
     color: "white",
@@ -37,7 +35,7 @@ const useStyles = makeStyles({
   avatar: {
     backgroundColor: "#004578",
     width: "35px",
-    height:"35px"
+    height: "35px",
   },
 });
 
@@ -50,13 +48,25 @@ export default function UsersTable(props) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow className={classes.tableHead}>
-            <TableCell className={classes.tableCellHead} >Name</TableCell>
-            <TableCell className={classes.tableCellHead} align="right">Email</TableCell>
-            <TableCell className={classes.tableCellHead} align="right">HCBC Number</TableCell>
-            <TableCell className={classes.tableCellHead} align="right">HCBC Status</TableCell>
-            <TableCell className={classes.tableCellHead} align="right">Admin</TableCell>
-            <TableCell className={classes.tableCellHead} align="right">Active Rider</TableCell>
-            <TableCell className={classes.tableCellHead} align="center">Edit</TableCell>
+            <TableCell className={classes.tableCellHead}>Name</TableCell>
+            <TableCell className={classes.tableCellHead} align="right">
+              Email
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="right">
+              HCBC Number
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="right">
+              HCBC Status
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="right">
+              Admin
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="right">
+              Active Rider
+            </TableCell>
+            <TableCell className={classes.tableCellHead} align="center">
+              Edit
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -72,11 +82,19 @@ export default function UsersTable(props) {
             } = user.attributes;
             return (
               <TableRow key={user.id}>
-                <TableCell className={classes.tableCellBody} component="th" scope="row">
+                <TableCell
+                  className={classes.tableCellBody}
+                  component="th"
+                  scope="row"
+                >
                   {`${first_name} ${last_name}`}
                 </TableCell>
-                <TableCell className={classes.tableCellBody} align="right">{email}</TableCell>
-                <TableCell className={classes.tableCellBody} align="right">{hcbc_number}</TableCell>
+                <TableCell className={classes.tableCellBody} align="right">
+                  {email}
+                </TableCell>
+                <TableCell className={classes.tableCellBody} align="right">
+                  {hcbc_number}
+                </TableCell>
                 <TableCell className={classes.tableCellBody} align="right">
                   {hcbc_active ? "Up to date" : "Needs confirmation"}
                 </TableCell>

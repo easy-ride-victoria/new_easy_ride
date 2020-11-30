@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Ride, type: :model do
   before do
-    @user = User.create!(first_name: "first", last_name: "last", email: "EMAIL@email.com")
+    @user = User.create!(first_name: "first", last_name: "last", email: "EMAIL@email.com", password: 'password')
     @horse = Horse.create!(name: "horse", breed: "horsey", date_of_birth: Date.new(2003, 1, 1))
     @booking = Booking.create!(event_type: "other", start_time: DateTime.new(2020, 10, 27, 10), end_time: DateTime.new(2020, 10, 27, 11))
   end
