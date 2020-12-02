@@ -79,7 +79,7 @@ const MyCalendar = (props) => {
   const doBooking = ({ bookingData, rideData }) => {
     if (bookingData.event_type === "ride") {
       axios
-        .post("/api/v1/rides", { ...rideData, booking: bookingData })
+        .post("/api/v1/rides", { ...rideData, booking: bookingData }, {headers: getHeaders()})
         .then((response) => {
           updateAllBookings();
           setModal(false);
@@ -91,7 +91,7 @@ const MyCalendar = (props) => {
         });
     } else {
       axios
-        .post("/api/v1/bookings", bookingData)
+        .post("/api/v1/bookings", bookingData, {headers: getHeaders()})
         .then((response) => {
           updateAllBookings();
           setModal(false);
