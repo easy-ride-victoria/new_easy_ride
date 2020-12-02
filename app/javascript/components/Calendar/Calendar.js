@@ -125,7 +125,7 @@ const MyCalendar = (props) => {
     //console.log(updateSlot);
     if (selectedBooking.event_type === "ride") {
       axios
-        .put(`/api/v1/rides/${selectedBooking.rides[0].id}`, updateSlot)
+        .put(`/api/v1/rides/${selectedBooking.rides[0].id}`, updateSlot, {headers: getHeaders()})
         .then(() => {
           updateAllBookings();
           closeDialogs();
@@ -135,7 +135,7 @@ const MyCalendar = (props) => {
         });
     } else {
       axios
-        .put(`/api/v1/bookings/${ID}`, selectedBooking)
+        .put(`/api/v1/bookings/${ID}`, selectedBooking, {headers: getHeaders()})
         .then(() => {
           updateAllBookings();
           closeDialogs();
