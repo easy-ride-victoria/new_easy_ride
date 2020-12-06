@@ -85,7 +85,7 @@ const MyCalendar = (props) => {
   const doBooking = ({ bookingData, rideData }) => {
     if (bookingData.event_type === "ride") {
       axios
-        .post("/api/v1/rides", { ...rideData, booking: bookingData })
+        .post("/api/v1/rides", { ...rideData, booking: bookingData }, {headers: getHeaders()})
         .then((response) => {
           updateAllBookings();
           setModal(false);
@@ -97,7 +97,7 @@ const MyCalendar = (props) => {
         });
     } else {
       axios
-        .post("/api/v1/bookings", bookingData)
+        .post("/api/v1/bookings", bookingData, {headers: getHeaders()})
         .then((response) => {
           updateAllBookings();
           setModal(false);
@@ -131,7 +131,7 @@ const MyCalendar = (props) => {
     //console.log(updateSlot);
     if (selectedBooking.event_type === "ride") {
       axios
-        .put(`/api/v1/rides/${selectedBooking.rides[0].id}`, updateSlot)
+        .put(`/api/v1/rides/${selectedBooking.rides[0].id}`, updateSlot, {headers: getHeaders()})
         .then(() => {
           updateAllBookings();
           closeDialogs();
@@ -141,7 +141,7 @@ const MyCalendar = (props) => {
         });
     } else {
       axios
-        .put(`/api/v1/bookings/${ID}`, selectedBooking)
+        .put(`/api/v1/bookings/${ID}`, selectedBooking, {headers: getHeaders()})
         .then(() => {
           updateAllBookings();
           closeDialogs();
