@@ -28,8 +28,8 @@ export default function ReportPage() {
   return (
     <>
       <Grid container spacing={4}>
-        <Grid item xs={6} className={classes.image} />
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6} className={classes.image} />
+        <Grid item xs={12} md={6}>
           <ReportForm />
         </Grid>
       </Grid>

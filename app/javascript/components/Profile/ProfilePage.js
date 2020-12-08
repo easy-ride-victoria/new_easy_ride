@@ -75,7 +75,7 @@ const ProfileRoute = (props) => {
   return (
     <div>
       <Grid container spacing={1}>
-        <Grid item xs={5} style={stylesTextArea}>
+        <Grid item xs={12} md={5} style={stylesTextArea}>
           <div className={classes.paper}>
             <form className={classes.form}>
               <Typography component="h4" variant="h4">
@@ -165,7 +165,7 @@ const ProfileRoute = (props) => {
             </form>
           </div>
         </Grid>
-        <Grid item xs={7} className={classes.image} />
+        <Grid item xs={12} md={7} className={classes.image} />
       </Grid>
     </div>
   );
