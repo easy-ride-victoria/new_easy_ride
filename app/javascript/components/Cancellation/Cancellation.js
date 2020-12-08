@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import emailjs, { sendForm } from "emailjs-com";
+
+import emailjs from "emailjs-com";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -45,15 +46,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Form functionality handling
 const Cancellation = (props) => {
   const { currentUser } = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [openError, setOpenError] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
-
     emailjs
       .sendForm(
         "gmail",
@@ -62,12 +62,13 @@ const Cancellation = (props) => {
         `${process.env.REACT_APP_EMAILJS}`
       )
       .then(
-        (result) => {
-          // console.log(result);
-          // console.log(e.target);
+        (res) => {
+          console.log(res);
+          setOpen(true);
         },
         (error) => {
-          alert(error.text);
+          console.log(error.text);
+          setOpenError(true);
         }
       );
     e.target.reset();
@@ -75,14 +76,13 @@ const Cancellation = (props) => {
 
   const handleSubmit = (e) => {
     sendEmail(e);
-    setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setOpenError(false);
   };
 
-  // Rendering
   return (
     <div>
       <Grid container spacing={2}>
@@ -195,6 +195,27 @@ const Cancellation = (props) => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             We will review your request and get back to you within 48 hours.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={openError}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"⚠️ Sorry, there was an error with your cancellation request."}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            We could not process your request, please try again later or contact
+            us at (778)-426-0506.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
