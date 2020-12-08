@@ -28,6 +28,8 @@ gem 'jsonapi-serializer'
 gem 'http'
 # User login
 gem 'devise'
+# loads environment files from .env
+gem 'dotenv-rails'
 
 #Reat-big-calendar
 gem "bootstrap-sass"
@@ -48,7 +50,6 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
-  gem 'dotenv-rails'
 end
 
 group :development do
