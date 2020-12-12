@@ -5,17 +5,29 @@ orbs:
   ruby: circleci/ruby@1.1.0
   node: circleci/node@2
 
+executors:
+  heroku: heroku/default
+
 workflows:
   heroku_deploy:
     jobs:
       - build
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+      - deploy: # Use the pre-configured job, deploy-via-git
           requires:
             - build
           filters:
             branches:
               only: master
 jobs:
+  deploy:
+    executor:
+      name: heroku
+    steps:
+      - heroku/install
+      - heroku/check-authentication
+      - checkout
+      - heroku/deploy-via-git:
+          force: true
   build:
     docker:
       - image: cimg/ruby:2.7.2-node
