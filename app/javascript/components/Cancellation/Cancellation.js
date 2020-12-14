@@ -56,7 +56,7 @@ const Cancellation = (props) => {
     e.preventDefault();
     emailjs
       .sendForm(
-        "gmail",
+        `${process.env.REACT_APP_EMAILJS_SERVICE_ID}`,
         "template_wrw8lum",
         e.target,
         `${process.env.REACT_APP_EMAILJS}`
@@ -86,8 +86,8 @@ const Cancellation = (props) => {
   return (
     <div>
       <Grid container spacing={2}>
-        <Grid item xs={6} className={classes.image} />
-        <Grid item xs={6}>
+        <Grid item xs={12} lg={6} className={classes.image} />
+        <Grid item xs={12} lg={6}>
           <Grid
             container
             alignItems="flex-start"
