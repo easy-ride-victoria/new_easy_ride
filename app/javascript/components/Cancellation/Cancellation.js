@@ -56,7 +56,7 @@ const Cancellation = (props) => {
     e.preventDefault();
     emailjs
       .sendForm(
-        "gmail",
+        `${process.env.REACT_APP_EMAILJS_SERVICE_ID}`,
         "template_wrw8lum",
         e.target,
         `${process.env.REACT_APP_EMAILJS}`
