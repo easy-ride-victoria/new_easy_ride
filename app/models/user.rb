@@ -5,12 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :rides
   has_many :reports
-  
+
   before_validation :strip_whitespace
-  
-  # uncomment when adding password validation
-  # has_secure_password
-  # validates :password, length: { minimum: 4 }
+
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :first_name, presence: true
   validates :last_name, presence: true
