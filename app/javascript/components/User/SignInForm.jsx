@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const classes = useStyles();
@@ -104,7 +104,7 @@ export default function SignIn() {
         </Button>
         <Grid container>
           <Grid item xs>
-            <Link href="#" variant="body2">
+            <Link href="/users/password/new" variant="body2">
               Forgot password?
             </Link>
           </Grid>

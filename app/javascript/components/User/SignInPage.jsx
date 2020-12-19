@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import SignIn from "./SignIn";
+import SignIn from "./SignInForm";
 import Link from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function SignInPage() {
   const classes = useStyles();
   return (
     <Grid container component="main" className={classes.root}>
