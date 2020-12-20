@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -32,9 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInForm() {
+export default function ResetPasswordForm() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const classes = useStyles();
 
   const handleSubmit = async function (event) {
@@ -42,13 +41,12 @@ export default function SignInForm() {
     try {
       // console.log(token);
       await Axios.post(
-        "/users/sign_in",
+        "/users/password",
         {
-          user: { email, password },
+          user: { email },
         },
         { headers: getHeaders() }
       );
-      window.location.href = "/";
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +58,7 @@ export default function SignInForm() {
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h2" variant="h5">
-        Sign in
+        Reset Password
       </Typography>
       <form className={classes.form} onSubmit={handleSubmit} noValidate>
         <TextField
@@ -78,21 +76,6 @@ export default function SignInForm() {
           autoComplete="email"
           autoFocus
         />
-        <TextField
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-        />
         <Button
           type="submit"
           fullWidth
@@ -100,13 +83,11 @@ export default function SignInForm() {
           color="primary"
           className={classes.submit}
         >
-          Sign In
+          Send Password Reset Instructions
         </Button>
         <Grid container>
           <Grid item xs>
-            <Link href="/users/password/new" variant="body2">
-              Forgot password?
-            </Link>
+            <Link to="/">Back</Link>
           </Grid>
         </Grid>
       </form>

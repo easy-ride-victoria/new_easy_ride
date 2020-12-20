@@ -1,10 +1,12 @@
 import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import SignIn from "./SignInForm";
+import SignInForm from "./SignInForm";
+import ResetPasswordForm from "./ResetPasswordForm";
 import Link from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 
@@ -39,7 +41,14 @@ export default function SignInPage() {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <SignIn />
+          <Router basename="/sign_in">
+            <Route path="/" exact>
+              <SignInForm />
+            </Route>
+            <Route path="/reset-password">
+              <ResetPasswordForm />
+            </Route>
+          </Router>
           <Box mt={5}>
             <Typography color="textSecondary" align="center">
               This Website is for the exclusive use of VTRA member. For more

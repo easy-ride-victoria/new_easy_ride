@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
-import SignInPage from "../components/User/SignInPage";
+import SignInPage from "../components/SignIn/SignInPage";
 import theme from "../theme";
 
 document.addEventListener("DOMContentLoaded", () => {
