@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 Rails.application.routes.draw do
-  devise_for :users
+  mount_devise_token_auth_for 'User', at: 'auth'
   # get 'pages/calendar'
   # get '/calendar', to: "pages#calendar"
   root to: 'pages#app'

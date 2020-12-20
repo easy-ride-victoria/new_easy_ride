@@ -27,7 +27,7 @@ gem 'jsonapi-serializer'
 # gem 'image_processing', '~> 1.2'
 gem 'http'
 # User login
-gem 'devise'
+gem 'devise_token_auth'
 # loads environment files from .env
 gem 'dotenv-rails'
 
