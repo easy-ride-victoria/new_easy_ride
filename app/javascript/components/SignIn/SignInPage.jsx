@@ -31,6 +31,19 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+    width: "70px",
+    height: "70px",
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 export default function SignInPage() {
@@ -43,10 +56,10 @@ export default function SignInPage() {
         <div className={classes.paper}>
           <Router basename="/sign_in">
             <Route path="/" exact>
-              <SignInForm />
+              <SignInForm classes={classes} />
             </Route>
             <Route path="/reset-password">
-              <ResetPasswordForm />
+              <ResetPasswordForm classes={classes} />
             </Route>
           </Router>
           <Box mt={5}>
