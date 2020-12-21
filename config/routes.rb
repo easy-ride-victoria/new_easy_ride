@@ -3,7 +3,7 @@
 # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'auth'
+  devise_for :users
   # get 'pages/calendar'
   # get '/calendar', to: "pages#calendar"
   root to: 'pages#app'
@@ -26,5 +26,4 @@ Rails.application.routes.draw do
   # get path needs to be below the api to only render the index page
   # when the route is not part of the api
   get '*path', to: 'pages#app', via: :all
-
 end
