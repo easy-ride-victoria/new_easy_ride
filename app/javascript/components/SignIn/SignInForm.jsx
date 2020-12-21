@@ -29,7 +29,7 @@ export default function SignInForm({ classes }) {
       window.location.href = "/";
     } catch (error) {
       if (error.response) {
-        setError(error.response.data.message);
+        setError(error.response.data.error);
       } else {
         console.log(error);
       }

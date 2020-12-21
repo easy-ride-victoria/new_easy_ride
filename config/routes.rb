@@ -4,6 +4,7 @@
 
 Rails.application.routes.draw do
   devise_for :users
+
   # get 'pages/calendar'
   # get '/calendar', to: "pages#calendar"
   root to: 'pages#app'
