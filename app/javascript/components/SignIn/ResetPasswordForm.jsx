@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -11,6 +12,8 @@ import { getHeaders } from "../Utils/requests";
 
 export default function ResetPasswordForm({ classes }) {
   const [email, setEmail] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async function (event) {
     event.preventDefault();
@@ -23,8 +26,14 @@ export default function ResetPasswordForm({ classes }) {
         },
         { headers: getHeaders() }
       );
+      setSuccess(true);
+      setError("");
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        setError("Email not found");
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -52,6 +61,12 @@ export default function ResetPasswordForm({ classes }) {
           autoComplete="email"
           autoFocus
         />
+        {success && (
+          <FormHelperText>
+            An email has been sent with reset instructions
+          </FormHelperText>
+        )}
+        {error && <FormHelperText error>{error} </FormHelperText>}
         <Button
           type="submit"
           fullWidth
